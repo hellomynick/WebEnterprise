@@ -30,7 +30,11 @@
         "frameworks": {
           "netstandard2.0": {
             "targetAlias": "netstandard2.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\DELL\\WebEnterprise\\WebEnterprise.Data\\WebEnterprise.Data.csproj": {
+                "projectPath": "C:\\Users\\DELL\\WebEnterprise\\WebEnterprise.Data\\WebEnterprise.Data.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

@@ -17,9 +17,7 @@ namespace WebEnterprise.Data.Configurations
             builder.Property(x => x.DateOfBirth).IsRequired(true);
             builder.Property(x => x.Sex).IsRequired(true);
             builder.Property(x => x.UserName).IsRequired(true);
-            builder.Property(x => x.ContactID);
             builder.Property(x => x.CreateOn);
-            builder.Property(x => x.DepartmentCatelogoryID);
         }
     }
 }

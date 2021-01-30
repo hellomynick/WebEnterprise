@@ -11,6 +11,7 @@ namespace WebEnterprise.Data.Entities
         public string ApartmentNumber { set; get; }
         public string NameStreet { set; get; }
         public byte[] Image { set; get; }
+        public Guid UserID { set; get; }
 
         public User Users { get; set; }
 

@@ -11,8 +11,6 @@ namespace WebEnterprise.Data.Entities
         public string LastName { set; get; }
         public DateTime DateOfBirth { set; get; }
         public bool Sex { set; get; }
-        public long ContactID { set; get; }
-        public int DepartmentCatelogoryID { set; get; }
         public DateTime CreateOn { set; get; }
         public List<Comment> Comments { get; set; }
         public List<Document> Documents { get; set; }

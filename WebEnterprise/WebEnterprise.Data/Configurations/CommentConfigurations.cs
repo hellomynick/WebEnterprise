@@ -13,7 +13,6 @@ namespace WebEnterprise.Data.Configurations
         {
             builder.ToTable("Comments");
             builder.HasKey(x => new { x.ID });
-            builder.Property(x => x.DocumentID);
             builder.Property(x => x.UserID);
             builder.Property(x => x.CreateOn);
             builder.HasOne(x => x.Users).WithMany(x => x.Comments).HasForeignKey(x => x.UserID);

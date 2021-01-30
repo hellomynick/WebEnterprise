@@ -14,7 +14,8 @@ namespace WebEnterprise.Data.Configurations
             builder.ToTable("DepartmentCatelogorys");
             builder.HasKey(x => x.ID);
             builder.Property(x => x.Name);
-            builder.HasOne(x => x.Users).WithOne(x => x.DepartmentCatelogorys).HasForeignKey<User>(x => x.DepartmentCatelogoryID);
+            builder.Property(x => x.UserID);
+            builder.HasOne(x => x.Users).WithOne(x => x.DepartmentCatelogorys).HasForeignKey<DepartmentCatelogory>(x => x.UserID);
 
         }
     }

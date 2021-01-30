@@ -12,8 +12,10 @@ namespace WebEnterprise.Data.Entities
         public string FileType { set; get; }
         public string DateFile { set; get; }
         public DateTime CreateOn { set; get; }
+        public int DepartmentCatelogoryID { get; set; }
         public User User { get; set; }
         public Megazine Megazines { get; set; }
+        public DepartmentCatelogory DepartmentCatelogorys { get; set; }
 
     }
 }

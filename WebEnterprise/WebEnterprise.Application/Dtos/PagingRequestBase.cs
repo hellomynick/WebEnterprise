@@ -4,9 +4,10 @@ using System.Text;
 
 namespace WebEnterprise.Application.Dtos
 {
-    public class PageViewModels<T>
+    public class PagingRequestBase
     {
-        public List<T> Items { set; get; }
-        public int TotalRecord { set; get; }
+        public int PageIndex { get; set; }
+        public int PageSize { get; set; }
+
     }
 }
