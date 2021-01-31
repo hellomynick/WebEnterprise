@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WebEnterprise.Data.Entities
 {
-    public class Megazine
+    public class Selected
     {
         public long ID { set; get; }
         public string Name { set; get; }

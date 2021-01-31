@@ -7,14 +7,15 @@ using WebEnterprise.Data.Entities;
 
 namespace WebEnterprise.Data.Configurations
 {
-    public class MegazineConfigurations : IEntityTypeConfiguration<Megazine>
+    public class DocumentInDepartementConfiguration : IEntityTypeConfiguration<DocumentInDepartment>
     {
-        public void Configure(EntityTypeBuilder<Megazine> builder)
+        public void Configure(EntityTypeBuilder<DocumentInDepartment> builder)
         {
-            builder.ToTable("Megazines");
+            builder.ToTable("DocumentInDepartments");
             builder.HasKey(x => x.ID);
-            builder.Property(x => x.Name);
+            builder.Property(x => x.DepartmentCategoloryID);
             builder.Property(x => x.DocumentID);
+
         }
     }
 }

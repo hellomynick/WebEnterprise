@@ -11,13 +11,10 @@ namespace WebEnterprise.Data.Extensions
     {
         public static void Seed(this ModelBuilder modelBuilder)
         {
-            var roleId = new Guid("9936B153-37A9-41D8-9781-F0532C25E732");
-            var userId = new Guid("A0626E5F-0945-425C-9135-421CE9FFD4A1");
             modelBuilder.Entity<Contact>().HasData(
                new Contact
                {
                    ID = 1,
-                   UserID = userId,
                    ApartmentNumber = "04",
                    NameStreet = "Doan Uan",
                }
@@ -26,7 +23,6 @@ namespace WebEnterprise.Data.Extensions
                 new DepartmentCatelogory
                 {
                     ID = 1,
-                    UserID = userId,
                     Name = "IT",
                 },
                 new DepartmentCatelogory
@@ -45,34 +41,35 @@ namespace WebEnterprise.Data.Extensions
                     Name = "Tourism",
                 }
                 );
-            modelBuilder.Entity<Megazine>().HasData(
-                new Megazine
+            modelBuilder.Entity<Selected>().HasData(
+                new Selected
                 {
                     ID = 1,
                     Name = "Magazine Information Technology"
                 },
-                new Megazine
+                new Selected
                 {
                     ID = 2,
                     Name = "Magazine Design"
                 },
-                new Megazine
+                new Selected
                 {
                     ID = 3,
                     Name = "Magazine Business"
                 },
-                new Megazine
+                new Selected
                 {
                     ID = 4,
                     Name = "Magazine Tourism"
                 },
-                new Megazine
+                new Selected
                 {
                     ID = 5,
                     Name = "Magazine Information Technology"
                 }
                 );
-
+            var roleId = new Guid("9936B153-37A9-41D8-9781-F0532C25E732");
+            var userId = new Guid("A0626E5F-0945-425C-9135-421CE9FFD4A1");
             // any guid
             modelBuilder.Entity<GroupUser>().HasData(new GroupUser
             {
@@ -95,6 +92,8 @@ namespace WebEnterprise.Data.Extensions
                 PasswordHash = hasher.HashPassword(null, "123"),
                 SecurityStamp = string.Empty,
                 DateOfBirth = new DateTime(2000, 03, 09),
+                ContactID = 1,
+                DepartmentCatelogoryID = 1
             });
 
             modelBuilder.Entity<IdentityUserRole<Guid>>().HasData(new IdentityUserRole<Guid>

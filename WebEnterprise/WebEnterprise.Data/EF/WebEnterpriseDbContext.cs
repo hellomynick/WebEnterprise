@@ -21,7 +21,7 @@ namespace WebEnterprise.Data.EF
             modelBuilder.ApplyConfiguration(new CommentConfigurations());
             modelBuilder.ApplyConfiguration(new DepartmentCatelogoryConfigurations());
             modelBuilder.ApplyConfiguration(new DocumentConfigurations());
-            modelBuilder.ApplyConfiguration(new MegazineConfigurations());
+            modelBuilder.ApplyConfiguration(new SelectedConfigurations());
             modelBuilder.ApplyConfiguration(new SchoolYearConfigurations());
 
             modelBuilder.ApplyConfiguration(new GroupUserConfigurations());
@@ -43,6 +43,6 @@ namespace WebEnterprise.Data.EF
         public DbSet<Comment> Comments { get; set; }
         public DbSet<DepartmentCatelogory> DepartmentCatelogories { get; set; }
         public DbSet<SchoolYear> SchoolYears { get; set; }
-        public DbSet<Megazine> Megazines { get; set; }
+        public DbSet<Selected> Megazines { get; set; }
     }
 }

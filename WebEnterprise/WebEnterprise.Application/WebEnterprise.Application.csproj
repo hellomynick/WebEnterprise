@@ -18,4 +18,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WebEnterprise.Data\WebEnterprise.Data.csproj" />
+  </ItemGroup>
+
 </Project>

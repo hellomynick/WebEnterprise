@@ -7,3 +7,15 @@ C:\Users\DELL\source\repos\WebEnterprise\WebEnterprise.Application\obj\Debug\net
 C:\Users\DELL\source\repos\WebEnterprise\WebEnterprise.Application\obj\Debug\netstandard2.0\WebEnterprise.Application.csproj.CoreCompileInputs.cache
 C:\Users\DELL\source\repos\WebEnterprise\WebEnterprise.Application\obj\Debug\netstandard2.0\WebEnterprise.Application.dll
 C:\Users\DELL\source\repos\WebEnterprise\WebEnterprise.Application\obj\Debug\netstandard2.0\WebEnterprise.Application.pdb
+C:\Users\DELL\WebEnterprise\WebEnterprise.Application\bin\Debug\netstandard2.0\WebEnterprise.Application.deps.json
+C:\Users\DELL\WebEnterprise\WebEnterprise.Application\bin\Debug\netstandard2.0\WebEnterprise.Application.dll
+C:\Users\DELL\WebEnterprise\WebEnterprise.Application\bin\Debug\netstandard2.0\WebEnterprise.Application.pdb
+C:\Users\DELL\WebEnterprise\WebEnterprise.Application\bin\Debug\netstandard2.0\WebEnterprise.Data.dll
+C:\Users\DELL\WebEnterprise\WebEnterprise.Application\bin\Debug\netstandard2.0\WebEnterprise.Data.pdb
+C:\Users\DELL\WebEnterprise\WebEnterprise.Application\obj\Debug\netstandard2.0\WebEnterprise.Application.csprojAssemblyReference.cache
+C:\Users\DELL\WebEnterprise\WebEnterprise.Application\obj\Debug\netstandard2.0\WebEnterprise.Application.AssemblyInfoInputs.cache
+C:\Users\DELL\WebEnterprise\WebEnterprise.Application\obj\Debug\netstandard2.0\WebEnterprise.Application.AssemblyInfo.cs
+C:\Users\DELL\WebEnterprise\WebEnterprise.Application\obj\Debug\netstandard2.0\WebEnterprise.Application.csproj.CoreCompileInputs.cache
+C:\Users\DELL\WebEnterprise\WebEnterprise.Application\obj\Debug\netstandard2.0\WebEnterprise.Application.csproj.CopyComplete
+C:\Users\DELL\WebEnterprise\WebEnterprise.Application\obj\Debug\netstandard2.0\WebEnterprise.Application.dll
+C:\Users\DELL\WebEnterprise\WebEnterprise.Application\obj\Debug\netstandard2.0\WebEnterprise.Application.pdb

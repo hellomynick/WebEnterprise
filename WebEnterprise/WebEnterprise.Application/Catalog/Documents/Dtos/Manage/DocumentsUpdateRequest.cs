@@ -8,5 +8,8 @@ namespace WebEnterprise.Application.Catalog.Documents.Dtos
     {
         public int ID { get; set; }
         public string Name { get; set; }
+        public string FileType { set; get; }
+        public string DateFile { set; get; }
+        public DateTime CreateOn { set; get; }
     }
 }
