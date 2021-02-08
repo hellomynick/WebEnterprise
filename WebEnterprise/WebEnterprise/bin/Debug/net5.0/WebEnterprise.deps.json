@@ -1684,7 +1684,9 @@
           "Microsoft.AspNetCore.Mvc.Razor.Extensions": "5.0.2",
           "Microsoft.CodeAnalysis.Razor": "5.0.2",
           "Microsoft.EntityFrameworkCore.SqlServer": "3.1.11",
-          "WebEnterprise.Data": "1.0.0"
+          "WebEnterprise.Data": "1.0.0",
+          "WebEnterprise.Untilities": "1.0.0",
+          "WebEnterprise.ViewModels": "1.0.0"
         },
         "runtime": {
           "WebEnterprise.Application.dll": {}
@@ -1707,6 +1709,22 @@
         },
         "compile": {
           "WebEnterprise.Data.dll": {}
+        }
+      },
+      "WebEnterprise.Untilities/1.0.0": {
+        "runtime": {
+          "WebEnterprise.Untilities.dll": {}
+        },
+        "compile": {
+          "WebEnterprise.Untilities.dll": {}
+        }
+      },
+      "WebEnterprise.ViewModels/1.0.0": {
+        "runtime": {
+          "WebEnterprise.ViewModels.dll": {}
+        },
+        "compile": {
+          "WebEnterprise.ViewModels.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery/5.0.0.0": {
@@ -4429,6 +4447,16 @@
       "sha512": ""
     },
     "WebEnterprise.Data/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "WebEnterprise.Untilities/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "WebEnterprise.ViewModels/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

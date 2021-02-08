@@ -1,0 +1,12 @@
+C:\Users\DELL\WebEnterprise\WebEnterprise.Data\bin\Debug\netcoreapp3.1\WebEnterprise.Data.deps.json
+C:\Users\DELL\WebEnterprise\WebEnterprise.Data\bin\Debug\netcoreapp3.1\WebEnterprise.Data.runtimeconfig.json
+C:\Users\DELL\WebEnterprise\WebEnterprise.Data\bin\Debug\netcoreapp3.1\WebEnterprise.Data.runtimeconfig.dev.json
+C:\Users\DELL\WebEnterprise\WebEnterprise.Data\bin\Debug\netcoreapp3.1\WebEnterprise.Data.dll
+C:\Users\DELL\WebEnterprise\WebEnterprise.Data\bin\Debug\netcoreapp3.1\WebEnterprise.Data.pdb
+C:\Users\DELL\WebEnterprise\WebEnterprise.Data\obj\Debug\netcoreapp3.1\WebEnterprise.Data.csprojAssemblyReference.cache
+C:\Users\DELL\WebEnterprise\WebEnterprise.Data\obj\Debug\netcoreapp3.1\WebEnterprise.Data.AssemblyInfoInputs.cache
+C:\Users\DELL\WebEnterprise\WebEnterprise.Data\obj\Debug\netcoreapp3.1\WebEnterprise.Data.AssemblyInfo.cs
+C:\Users\DELL\WebEnterprise\WebEnterprise.Data\obj\Debug\netcoreapp3.1\WebEnterprise.Data.csproj.CoreCompileInputs.cache
+C:\Users\DELL\WebEnterprise\WebEnterprise.Data\obj\Debug\netcoreapp3.1\WebEnterprise.Data.dll
+C:\Users\DELL\WebEnterprise\WebEnterprise.Data\obj\Debug\netcoreapp3.1\WebEnterprise.Data.pdb
+C:\Users\DELL\WebEnterprise\WebEnterprise.Data\obj\Debug\netcoreapp3.1\WebEnterprise.Data.genruntimeconfig.cache

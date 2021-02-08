@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using WebEnterprise.Application.Catalog.Documents.Dtos;
-using WebEnterprise.Application.Dtos;
+using WebEnterprise.ViewModels.Catalog.Document;
+using WebEnterprise.ViewModels.Catalog.Document.Manage;
+using WebEnterprise.ViewModels.Common;
 
 namespace WebEnterprise.Application.Catalog.Documents
 {
@@ -11,8 +10,7 @@ namespace WebEnterprise.Application.Catalog.Documents
     {
         Task<int> Create(DocumentsCreateRequest request);
         Task<int> Update(DocumentsUpdateRequest request);
-        Task<int> Delete(int departmentId);
-        Task<List<DocumentsViewModel>> GetAll();
+        Task<int> Delete(int documentId);
         Task<PageResult<DocumentsViewModel>> GetAllPaging(DocumentsPagingRequest request);
 
     }

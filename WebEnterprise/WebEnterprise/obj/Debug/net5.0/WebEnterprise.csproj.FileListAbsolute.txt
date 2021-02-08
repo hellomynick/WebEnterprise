@@ -776,3 +776,7 @@ C:\Users\DELL\WebEnterprise\WebEnterprise\obj\Debug\net5.0\WebEnterprise.dll
 C:\Users\DELL\WebEnterprise\WebEnterprise\obj\Debug\net5.0\ref\WebEnterprise.dll
 C:\Users\DELL\WebEnterprise\WebEnterprise\obj\Debug\net5.0\WebEnterprise.pdb
 C:\Users\DELL\WebEnterprise\WebEnterprise\obj\Debug\net5.0\WebEnterprise.genruntimeconfig.cache
+C:\Users\DELL\WebEnterprise\WebEnterprise\bin\Debug\net5.0\WebEnterprise.Untilities.dll
+C:\Users\DELL\WebEnterprise\WebEnterprise\bin\Debug\net5.0\WebEnterprise.Untilities.pdb
+C:\Users\DELL\WebEnterprise\WebEnterprise\bin\Debug\net5.0\WebEnterprise.ViewModels.dll
+C:\Users\DELL\WebEnterprise\WebEnterprise\bin\Debug\net5.0\WebEnterprise.ViewModels.pdb

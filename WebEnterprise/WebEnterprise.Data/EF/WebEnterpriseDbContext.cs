@@ -18,15 +18,15 @@ namespace WebEnterprise.Data.EF
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ContactConfigurations());
-            modelBuilder.ApplyConfiguration(new CommentConfigurations());
-            modelBuilder.ApplyConfiguration(new DepartmentCatelogoryConfigurations());
+            modelBuilder.ApplyConfiguration(new FacultyConfigurations());
             modelBuilder.ApplyConfiguration(new DocumentConfigurations());
-            modelBuilder.ApplyConfiguration(new SelectedConfigurations());
+            modelBuilder.ApplyConfiguration(new MagazineConfigurations());
             modelBuilder.ApplyConfiguration(new SchoolYearConfigurations());
+            modelBuilder.ApplyConfiguration(new UserImageConfiguration());
 
             modelBuilder.ApplyConfiguration(new GroupUserConfigurations());
             modelBuilder.ApplyConfiguration(new UserConfigurations());
-
+            modelBuilder.ApplyConfiguration(new FacultyOfDocumentConfigurations());
             modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims");
             modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("AppUserRoles").HasKey(x => new { x.UserId, x.RoleId });
             modelBuilder.Entity<IdentityUserLogin<Guid>>().ToTable("AppUserLogins").HasKey(x => x.UserId);
@@ -38,11 +38,12 @@ namespace WebEnterprise.Data.EF
             modelBuilder.Seed();
             //base.OnModelCreating(modelBuilder);
         }
+        public DbSet<UserImage> UserImages { get; set; }
         public DbSet<Document> Documents { get; set; }
-        public DbSet<Contact> Addresses { get; set; }
-        public DbSet<Comment> Comments { get; set; }
-        public DbSet<DepartmentCatelogory> DepartmentCatelogories { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
+        public DbSet<Faculty> Faculties { get; set; }
         public DbSet<SchoolYear> SchoolYears { get; set; }
-        public DbSet<Selected> Megazines { get; set; }
+        public DbSet<Magazine> Magazines { get; set; }
+        public DbSet<FacultyOfDocument> FacultyOfDocument { get; set; }
     }
 }

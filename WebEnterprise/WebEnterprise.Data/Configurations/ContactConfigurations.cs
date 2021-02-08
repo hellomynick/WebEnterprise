@@ -15,7 +15,7 @@ namespace WebEnterprise.Data.Configurations
             builder.HasKey(x => x.ID);
             builder.Property(x => x.ApartmentNumber);
             builder.Property(x => x.NameStreet);
-            builder.Property(x => x.Image);
+            builder.Property(x => x.TotalofDocument);
             builder.HasOne(x => x.Users).WithOne(x => x.Contacts).HasForeignKey<User>(x => x.ContactID);
         }
     }

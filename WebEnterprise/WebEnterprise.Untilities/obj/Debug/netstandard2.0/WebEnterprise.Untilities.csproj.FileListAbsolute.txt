@@ -1,0 +1,9 @@
+C:\Users\DELL\WebEnterprise\WebEnterprise.Untilities\bin\Debug\netstandard2.0\WebEnterprise.Untilities.deps.json
+C:\Users\DELL\WebEnterprise\WebEnterprise.Untilities\bin\Debug\netstandard2.0\WebEnterprise.Untilities.dll
+C:\Users\DELL\WebEnterprise\WebEnterprise.Untilities\bin\Debug\netstandard2.0\WebEnterprise.Untilities.pdb
+C:\Users\DELL\WebEnterprise\WebEnterprise.Untilities\obj\Debug\netstandard2.0\WebEnterprise.Untilities.csprojAssemblyReference.cache
+C:\Users\DELL\WebEnterprise\WebEnterprise.Untilities\obj\Debug\netstandard2.0\WebEnterprise.Untilities.AssemblyInfoInputs.cache
+C:\Users\DELL\WebEnterprise\WebEnterprise.Untilities\obj\Debug\netstandard2.0\WebEnterprise.Untilities.AssemblyInfo.cs
+C:\Users\DELL\WebEnterprise\WebEnterprise.Untilities\obj\Debug\netstandard2.0\WebEnterprise.Untilities.csproj.CoreCompileInputs.cache
+C:\Users\DELL\WebEnterprise\WebEnterprise.Untilities\obj\Debug\netstandard2.0\WebEnterprise.Untilities.dll
+C:\Users\DELL\WebEnterprise\WebEnterprise.Untilities\obj\Debug\netstandard2.0\WebEnterprise.Untilities.pdb

@@ -13,10 +13,11 @@ namespace WebEnterprise.Data.Configurations
         {
             builder.ToTable("SchoolYears");
             builder.HasKey(x => x.ID);
+            builder.Property(x => x.ID).UseIdentityColumn();
             builder.Property(x => x.UserID);
             builder.Property(x => x.StartDayYear);
             builder.Property(x => x.EndDayYear);
-            builder.HasOne(x => x.User).WithMany(x => x.SchoolYears).HasForeignKey(x => x.UserID);
+            builder.HasOne(x => x.Users).WithMany(x => x.SchoolYears).HasForeignKey(x => x.UserID);
         }
     }
 }

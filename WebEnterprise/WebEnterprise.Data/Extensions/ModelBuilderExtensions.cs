@@ -19,50 +19,50 @@ namespace WebEnterprise.Data.Extensions
                    NameStreet = "Doan Uan",
                }
                );
-            modelBuilder.Entity<DepartmentCatelogory>().HasData(
-                new DepartmentCatelogory
+            modelBuilder.Entity<Faculty>().HasData(
+                new Faculty
                 {
                     ID = 1,
                     Name = "IT",
                 },
-                new DepartmentCatelogory
+                new Faculty
                 {
                     ID = 2,
                     Name = "Design",
                 },
-                new DepartmentCatelogory
+                new Faculty
                 {
                     ID = 3,
                     Name = "Business",
                 },
-                new DepartmentCatelogory
+                new Faculty
                 {
                     ID = 4,
                     Name = "Tourism",
                 }
                 );
-            modelBuilder.Entity<Selected>().HasData(
-                new Selected
+            modelBuilder.Entity<Magazine>().HasData(
+                new Magazine
                 {
                     ID = 1,
                     Name = "Magazine Information Technology"
                 },
-                new Selected
+                new Magazine
                 {
                     ID = 2,
                     Name = "Magazine Design"
                 },
-                new Selected
+                new Magazine
                 {
                     ID = 3,
                     Name = "Magazine Business"
                 },
-                new Selected
+                new Magazine
                 {
                     ID = 4,
                     Name = "Magazine Tourism"
                 },
-                new Selected
+                new Magazine
                 {
                     ID = 5,
                     Name = "Magazine Information Technology"
@@ -93,7 +93,7 @@ namespace WebEnterprise.Data.Extensions
                 SecurityStamp = string.Empty,
                 DateOfBirth = new DateTime(2000, 03, 09),
                 ContactID = 1,
-                DepartmentCatelogoryID = 1
+                FacultyID = 1
             });
 
             modelBuilder.Entity<IdentityUserRole<Guid>>().HasData(new IdentityUserRole<Guid>

@@ -19,3 +19,5 @@ C:\Users\DELL\WebEnterprise\WebEnterprise.Application\obj\Debug\netstandard2.0\W
 C:\Users\DELL\WebEnterprise\WebEnterprise.Application\obj\Debug\netstandard2.0\WebEnterprise.Application.csproj.CopyComplete
 C:\Users\DELL\WebEnterprise\WebEnterprise.Application\obj\Debug\netstandard2.0\WebEnterprise.Application.dll
 C:\Users\DELL\WebEnterprise\WebEnterprise.Application\obj\Debug\netstandard2.0\WebEnterprise.Application.pdb
+C:\Users\DELL\WebEnterprise\WebEnterprise.Application\bin\Debug\netstandard2.0\WebEnterprise.Untilities.dll
+C:\Users\DELL\WebEnterprise\WebEnterprise.Application\bin\Debug\netstandard2.0\WebEnterprise.Untilities.pdb

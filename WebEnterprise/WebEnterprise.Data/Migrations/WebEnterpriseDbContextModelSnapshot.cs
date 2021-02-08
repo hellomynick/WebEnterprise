@@ -121,26 +121,6 @@ namespace WebEnterprise.Data.Migrations
                     b.ToTable("AppUserToken");
                 });
 
-            modelBuilder.Entity("WebEnterprise.Data.Entities.Comment", b =>
-                {
-                    b.Property<long>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long>("CreateOn")
-                        .HasColumnType("bigint");
-
-                    b.Property<Guid>("UserID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("UserID");
-
-                    b.ToTable("Comments");
-                });
-
             modelBuilder.Entity("WebEnterprise.Data.Entities.Contact", b =>
                 {
                     b.Property<long>("ID")
@@ -151,11 +131,11 @@ namespace WebEnterprise.Data.Migrations
                     b.Property<string>("ApartmentNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("Image")
-                        .HasColumnType("varbinary(max)");
-
                     b.Property<string>("NameStreet")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TotalofDocument")
+                        .HasColumnType("int");
 
                     b.HasKey("ID");
 
@@ -166,15 +146,63 @@ namespace WebEnterprise.Data.Migrations
                         {
                             ID = 1L,
                             ApartmentNumber = "04",
-                            NameStreet = "Doan Uan"
+                            NameStreet = "Doan Uan",
+                            TotalofDocument = 0
                         });
                 });
 
-            modelBuilder.Entity("WebEnterprise.Data.Entities.DepartmentCatelogory", b =>
+            modelBuilder.Entity("WebEnterprise.Data.Entities.Document", b =>
+                {
+                    b.Property<long>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreateOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<byte[]>("DataFile")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<int>("FacultyOfDocumentID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FileType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MagazineID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("ViewCount")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("FacultyOfDocumentID")
+                        .IsUnique();
+
+                    b.HasIndex("MagazineID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("Documents");
+                });
+
+            modelBuilder.Entity("WebEnterprise.Data.Entities.Faculty", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
@@ -182,7 +210,7 @@ namespace WebEnterprise.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("DepartmentCatelogorys");
+                    b.ToTable("Faculty");
 
                     b.HasData(
                         new
@@ -207,37 +235,26 @@ namespace WebEnterprise.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("WebEnterprise.Data.Entities.Document", b =>
+            modelBuilder.Entity("WebEnterprise.Data.Entities.FacultyOfDocument", b =>
                 {
-                    b.Property<long>("ID")
-                        .HasColumnType("bigint");
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("CreateOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DateFile")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("DepartmentCatelogorysID")
+                    b.Property<int?>("FacultyID")
                         .HasColumnType("int");
-
-                    b.Property<string>("FileType")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("UserID")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("ID");
 
-                    b.HasIndex("DepartmentCatelogorysID");
+                    b.HasIndex("FacultyID");
 
-                    b.HasIndex("UserID")
-                        .IsUnique();
-
-                    b.ToTable("Documents");
+                    b.ToTable("FacultyOfDocument");
                 });
 
             modelBuilder.Entity("WebEnterprise.Data.Entities.GroupUser", b =>
@@ -263,9 +280,53 @@ namespace WebEnterprise.Data.Migrations
                         new
                         {
                             Id = new Guid("9936b153-37a9-41d8-9781-f0532c25e732"),
-                            ConcurrencyStamp = "22088324-c1e5-489e-a471-959b4e7423c7",
+                            ConcurrencyStamp = "1016ab92-315a-459e-92f0-6780af90c71f",
                             Name = "admin",
                             NormalizedName = "admin"
+                        });
+                });
+
+            modelBuilder.Entity("WebEnterprise.Data.Entities.Magazine", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Magazines");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            Name = "Magazine Information Technology"
+                        },
+                        new
+                        {
+                            ID = 2,
+                            Name = "Magazine Design"
+                        },
+                        new
+                        {
+                            ID = 3,
+                            Name = "Magazine Business"
+                        },
+                        new
+                        {
+                            ID = 4,
+                            Name = "Magazine Tourism"
+                        },
+                        new
+                        {
+                            ID = 5,
+                            Name = "Magazine Information Technology"
                         });
                 });
 
@@ -274,6 +335,8 @@ namespace WebEnterprise.Data.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("EndDayYear")
@@ -290,56 +353,6 @@ namespace WebEnterprise.Data.Migrations
                     b.HasIndex("UserID");
 
                     b.ToTable("SchoolYears");
-                });
-
-            modelBuilder.Entity("WebEnterprise.Data.Entities.Selected", b =>
-                {
-                    b.Property<long>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long>("DocumentID")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Selecteds");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1L,
-                            DocumentID = 0L,
-                            Name = "Magazine Information Technology"
-                        },
-                        new
-                        {
-                            ID = 2L,
-                            DocumentID = 0L,
-                            Name = "Magazine Design"
-                        },
-                        new
-                        {
-                            ID = 3L,
-                            DocumentID = 0L,
-                            Name = "Magazine Business"
-                        },
-                        new
-                        {
-                            ID = 4L,
-                            DocumentID = 0L,
-                            Name = "Magazine Tourism"
-                        },
-                        new
-                        {
-                            ID = 5L,
-                            DocumentID = 0L,
-                            Name = "Magazine Information Technology"
-                        });
                 });
 
             modelBuilder.Entity("WebEnterprise.Data.Entities.User", b =>
@@ -363,14 +376,14 @@ namespace WebEnterprise.Data.Migrations
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DepartmentCatelogoryID")
-                        .HasColumnType("int");
-
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<int>("FacultyID")
+                        .HasColumnType("int");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -421,7 +434,7 @@ namespace WebEnterprise.Data.Migrations
                     b.HasIndex("ContactID")
                         .IsUnique();
 
-                    b.HasIndex("DepartmentCatelogoryID")
+                    b.HasIndex("FacultyID")
                         .IsUnique();
 
                     b.ToTable("Users");
@@ -431,19 +444,19 @@ namespace WebEnterprise.Data.Migrations
                         {
                             Id = new Guid("a0626e5f-0945-425c-9135-421ce9ffd4a1"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3d845352-9b2c-40ab-bfae-66b6cec15e5d",
+                            ConcurrencyStamp = "75f1bf52-0548-41bb-a874-9779dcb52589",
                             ContactID = 1L,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfBirth = new DateTime(2000, 3, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DepartmentCatelogoryID = 1,
                             Email = "minhvu09033@gmail.com",
                             EmailConfirmed = true,
+                            FacultyID = 1,
                             FirstName = "Tran Van",
                             LastName = "Minh Vu",
                             LockoutEnabled = false,
                             NormalizedEmail = "minhvu09033@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBCjTOcOBxjysdP1tM7Wd63ffTlTzFiFHV2lc5cBbF0umUxzk2JxkCLtiV4Rip1vYA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKgLPEGZl0ZRSB87/+wHFuHHW54+3NDG5bJExIdJO3LGfWcE4SgCwALKA3P78pa0jA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             Sex = false,
@@ -452,37 +465,69 @@ namespace WebEnterprise.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("WebEnterprise.Data.Entities.Comment", b =>
+            modelBuilder.Entity("WebEnterprise.Data.Entities.UserImage", b =>
                 {
-                    b.HasOne("WebEnterprise.Data.Entities.User", "Users")
-                        .WithMany("Comments")
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Caption")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("ContactID")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("DayCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("FileSize")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("bit");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ContactID");
+
+                    b.ToTable("UserImage");
+                });
+
+            modelBuilder.Entity("WebEnterprise.Data.Entities.Document", b =>
+                {
+                    b.HasOne("WebEnterprise.Data.Entities.FacultyOfDocument", "FacultyOfDocuments")
+                        .WithOne("Documents")
+                        .HasForeignKey("WebEnterprise.Data.Entities.Document", "FacultyOfDocumentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebEnterprise.Data.Entities.Magazine", "Magazines")
+                        .WithMany("Documents")
+                        .HasForeignKey("MagazineID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebEnterprise.Data.Entities.User", "User")
+                        .WithMany("Documents")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WebEnterprise.Data.Entities.Document", b =>
+            modelBuilder.Entity("WebEnterprise.Data.Entities.FacultyOfDocument", b =>
                 {
-                    b.HasOne("WebEnterprise.Data.Entities.DepartmentCatelogory", "DepartmentCatelogorys")
-                        .WithMany()
-                        .HasForeignKey("DepartmentCatelogorysID");
-
-                    b.HasOne("WebEnterprise.Data.Entities.Selected", "Megazines")
-                        .WithMany("Documents")
-                        .HasForeignKey("ID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebEnterprise.Data.Entities.User", "User")
-                        .WithOne("Documents")
-                        .HasForeignKey("WebEnterprise.Data.Entities.Document", "UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("WebEnterprise.Data.Entities.Faculty", null)
+                        .WithMany("DocumentInFaculties")
+                        .HasForeignKey("FacultyID");
                 });
 
             modelBuilder.Entity("WebEnterprise.Data.Entities.SchoolYear", b =>
                 {
-                    b.HasOne("WebEnterprise.Data.Entities.User", "User")
+                    b.HasOne("WebEnterprise.Data.Entities.User", "Users")
                         .WithMany("SchoolYears")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -497,9 +542,18 @@ namespace WebEnterprise.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebEnterprise.Data.Entities.DepartmentCatelogory", "DepartmentCatelogorys")
+                    b.HasOne("WebEnterprise.Data.Entities.Faculty", "Faculties")
                         .WithOne("Users")
-                        .HasForeignKey("WebEnterprise.Data.Entities.User", "DepartmentCatelogoryID")
+                        .HasForeignKey("WebEnterprise.Data.Entities.User", "FacultyID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("WebEnterprise.Data.Entities.UserImage", b =>
+                {
+                    b.HasOne("WebEnterprise.Data.Entities.Contact", "Contacts")
+                        .WithMany("UserImages")
+                        .HasForeignKey("ContactID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -1,0 +1,16 @@
+C:\Users\DELL\WebEnterprise\WebEnterprise.Application\bin\Debug\netcoreapp3.1\WebEnterprise.Application.deps.json
+C:\Users\DELL\WebEnterprise\WebEnterprise.Application\bin\Debug\netcoreapp3.1\WebEnterprise.Application.dll
+C:\Users\DELL\WebEnterprise\WebEnterprise.Application\bin\Debug\netcoreapp3.1\WebEnterprise.Application.pdb
+C:\Users\DELL\WebEnterprise\WebEnterprise.Application\bin\Debug\netcoreapp3.1\WebEnterprise.Data.dll
+C:\Users\DELL\WebEnterprise\WebEnterprise.Application\bin\Debug\netcoreapp3.1\WebEnterprise.Untilities.dll
+C:\Users\DELL\WebEnterprise\WebEnterprise.Application\bin\Debug\netcoreapp3.1\WebEnterprise.ViewModels.dll
+C:\Users\DELL\WebEnterprise\WebEnterprise.Application\bin\Debug\netcoreapp3.1\WebEnterprise.Data.pdb
+C:\Users\DELL\WebEnterprise\WebEnterprise.Application\bin\Debug\netcoreapp3.1\WebEnterprise.ViewModels.pdb
+C:\Users\DELL\WebEnterprise\WebEnterprise.Application\bin\Debug\netcoreapp3.1\WebEnterprise.Untilities.pdb
+C:\Users\DELL\WebEnterprise\WebEnterprise.Application\obj\Debug\netcoreapp3.1\WebEnterprise.Application.csprojAssemblyReference.cache
+C:\Users\DELL\WebEnterprise\WebEnterprise.Application\obj\Debug\netcoreapp3.1\WebEnterprise.Application.AssemblyInfoInputs.cache
+C:\Users\DELL\WebEnterprise\WebEnterprise.Application\obj\Debug\netcoreapp3.1\WebEnterprise.Application.AssemblyInfo.cs
+C:\Users\DELL\WebEnterprise\WebEnterprise.Application\obj\Debug\netcoreapp3.1\WebEnterprise.Application.csproj.CoreCompileInputs.cache
+C:\Users\DELL\WebEnterprise\WebEnterprise.Application\obj\Debug\netcoreapp3.1\WebEnterprise.Application.csproj.CopyComplete
+C:\Users\DELL\WebEnterprise\WebEnterprise.Application\obj\Debug\netcoreapp3.1\WebEnterprise.Application.dll
+C:\Users\DELL\WebEnterprise\WebEnterprise.Application\obj\Debug\netcoreapp3.1\WebEnterprise.Application.pdb

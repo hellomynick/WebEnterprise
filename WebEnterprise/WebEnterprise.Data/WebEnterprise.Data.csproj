@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,6 +19,8 @@
     <Compile Remove="Migrations\20210129143610_AspNetCoreDatabase.Designer.cs" />
     <Compile Remove="Migrations\20210129143958_AspNetCoreDatabase.cs" />
     <Compile Remove="Migrations\20210129143958_AspNetCoreDatabase.Designer.cs" />
+    <Compile Remove="Migrations\20210129145315_AspNetCoreDatabase.cs" />
+    <Compile Remove="Migrations\20210129145315_AspNetCoreDatabase.Designer.cs" />
     <Compile Remove="Migrations\20210129151403_SeedIdentityUser.cs" />
     <Compile Remove="Migrations\20210129151403_SeedIdentityUser.Designer.cs" />
     <Compile Remove="Migrations\20210129151915_SeedIdentityUser.cs" />
@@ -33,6 +35,24 @@
     <Compile Remove="Migrations\20210129155821_SeedIdentityUser.Designer.cs" />
     <Compile Remove="Migrations\20210129160936_SeedIdentityUser.cs" />
     <Compile Remove="Migrations\20210129160936_SeedIdentityUser.Designer.cs" />
+    <Compile Remove="Migrations\20210129162318_SeedIdentityUser.cs" />
+    <Compile Remove="Migrations\20210129162318_SeedIdentityUser.Designer.cs" />
+    <Compile Remove="Migrations\20210131151807_RenameTable.cs" />
+    <Compile Remove="Migrations\20210131151807_RenameTable.Designer.cs" />
+    <Compile Remove="Migrations\20210202031744_DeleteTableComment.cs" />
+    <Compile Remove="Migrations\20210202031744_DeleteTableComment.Designer.cs" />
+    <Compile Remove="Migrations\20210202043146_ChangeNameTableDepartment.cs" />
+    <Compile Remove="Migrations\20210202043146_ChangeNameTableDepartment.Designer.cs" />
+    <Compile Remove="Migrations\20210204040500_AddNewForeignKey.cs" />
+    <Compile Remove="Migrations\20210204040500_AddNewForeignKey.Designer.cs" />
+    <Compile Remove="Migrations\20210204041148_AspNetCoreDatabase.cs" />
+    <Compile Remove="Migrations\20210204041148_AspNetCoreDatabase.Designer.cs" />
+    <Compile Remove="Migrations\20210204041822_AspNetCoreDatabase.cs" />
+    <Compile Remove="Migrations\20210204041822_AspNetCoreDatabase.Designer.cs" />
+    <Compile Remove="Migrations\20210204044341_AspNetCoreDatabase.cs" />
+    <Compile Remove="Migrations\20210204044341_AspNetCoreDatabase.Designer.cs" />
+    <Compile Remove="Migrations\20210204051729_AspNetCoreDatabase.cs" />
+    <Compile Remove="Migrations\20210204051729_AspNetCoreDatabase.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

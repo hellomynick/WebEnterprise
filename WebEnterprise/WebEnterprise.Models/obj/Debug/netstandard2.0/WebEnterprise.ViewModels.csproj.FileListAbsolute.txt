@@ -1,0 +1,9 @@
+C:\Users\DELL\WebEnterprise\WebEnterprise.Models\bin\Debug\netstandard2.0\WebEnterprise.ViewModels.deps.json
+C:\Users\DELL\WebEnterprise\WebEnterprise.Models\bin\Debug\netstandard2.0\WebEnterprise.ViewModels.dll
+C:\Users\DELL\WebEnterprise\WebEnterprise.Models\bin\Debug\netstandard2.0\WebEnterprise.ViewModels.pdb
+C:\Users\DELL\WebEnterprise\WebEnterprise.Models\obj\Debug\netstandard2.0\WebEnterprise.ViewModels.csprojAssemblyReference.cache
+C:\Users\DELL\WebEnterprise\WebEnterprise.Models\obj\Debug\netstandard2.0\WebEnterprise.ViewModels.AssemblyInfoInputs.cache
+C:\Users\DELL\WebEnterprise\WebEnterprise.Models\obj\Debug\netstandard2.0\WebEnterprise.ViewModels.AssemblyInfo.cs
+C:\Users\DELL\WebEnterprise\WebEnterprise.Models\obj\Debug\netstandard2.0\WebEnterprise.ViewModels.csproj.CoreCompileInputs.cache
+C:\Users\DELL\WebEnterprise\WebEnterprise.Models\obj\Debug\netstandard2.0\WebEnterprise.ViewModels.dll
+C:\Users\DELL\WebEnterprise\WebEnterprise.Models\obj\Debug\netstandard2.0\WebEnterprise.ViewModels.pdb

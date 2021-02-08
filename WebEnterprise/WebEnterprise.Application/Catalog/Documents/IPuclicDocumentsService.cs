@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using WebEnterprise.Application.Catalog.Documents.Dtos;
-using WebEnterprise.Application.Dtos;
+﻿using WebEnterprise.ViewModels.Catalog.Document;
+using WebEnterprise.ViewModels.Common;
 
 namespace WebEnterprise.Application.Catalog.Documents
 {
     public interface IPuclicDocumentsService
     {
-        PageResult<DocumentsViewModel> GetAllByCategoryId(int categoryId, int pageIndex, int pageSize);
+        PageResult<DocumentsViewModel> GetAllByCategoryId(int documentId, int pageIndex, int pageSize);
     }
 }

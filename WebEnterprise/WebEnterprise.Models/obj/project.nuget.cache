@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "/PN2eGXG20ZGqvRFJ/LwRmGXndBP/2I7EvxjJc/HafLbNe8enDblb7HYqc8hBvoLpz/o6KWJjvBa2UzUKR4y+w==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\DELL\\WebEnterprise\\WebEnterprise.Models\\WebEnterprise.ViewModels.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\DELL\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.2\\microsoft.aspnetcore.http.features.5.0.2.nupkg.sha512",
+    "C:\\Users\\DELL\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.0\\microsoft.extensions.primitives.5.0.0.nupkg.sha512",
+    "C:\\Users\\DELL\\.nuget\\packages\\system.io.pipelines\\5.0.1\\system.io.pipelines.5.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
