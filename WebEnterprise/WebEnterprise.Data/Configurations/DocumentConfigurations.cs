@@ -25,7 +25,6 @@ namespace WebEnterprise.Data.Configurations
             builder.HasOne(x => x.User).WithMany(x => x.Documents).HasForeignKey(x => x.UserID);
             builder.HasOne(x => x.FacultyOfDocuments).WithOne(x => x.Documents).HasForeignKey<Document>(x => x.FacultyOfDocumentID);
             builder.HasOne(x => x.Magazines).WithMany(x => x.Documents).HasForeignKey(x => x.MagazineID);
-
         }
     }
 }

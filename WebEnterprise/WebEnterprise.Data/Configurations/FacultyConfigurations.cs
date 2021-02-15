@@ -15,7 +15,6 @@ namespace WebEnterprise.Data.Configurations
             builder.HasKey(x => x.ID);
             builder.Property(x => x.ID).UseIdentityColumn();
             builder.Property(x => x.Name);
-            builder.HasOne(x => x.Users).WithOne(x => x.Faculties).HasForeignKey<User>(x => x.FacultyID);
         }
     }
 }

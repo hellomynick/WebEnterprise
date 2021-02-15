@@ -8,5 +8,6 @@ namespace WebEnterprise.ViewModels.Catalog.Contacts
     public class GetPublicContactsPagingRequest : PagingRequestBase
     {
         public int? ContactId { get; set; }
+        public Guid UserID { get; set; }
     }
 }

@@ -46,7 +46,7 @@ namespace WebEnterprise.Application.Catalog.Documents
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<PageResult<DocumentsViewModel>> GetAllPaging(DocumentsPagingRequest request)
+        public async Task<PageResult<DocumentsViewModel>> GetAllPaging(GetManageDocumentsPagingRequest request)
         {
             var query = from d in _context.Documents
                         join u in _context.Users on d.UserID equals u.Id

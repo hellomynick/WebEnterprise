@@ -11,7 +11,7 @@ namespace WebEnterprise.Application.Catalog.Documents
         Task<int> Create(DocumentsCreateRequest request);
         Task<int> Update(DocumentsUpdateRequest request);
         Task<int> Delete(int documentId);
-        Task<PageResult<DocumentsViewModel>> GetAllPaging(DocumentsPagingRequest request);
+        Task<PageResult<DocumentsViewModel>> GetAllPaging(GetManageDocumentsPagingRequest request);
 
     }
 }

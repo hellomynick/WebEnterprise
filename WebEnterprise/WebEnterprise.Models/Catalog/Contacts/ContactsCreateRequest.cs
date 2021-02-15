@@ -7,11 +7,10 @@ namespace WebEnterprise.ViewModels.Catalog.Contacts
 {
     public class ContactsCreateRequest
     {
-
         public string ApartmentNumber { set; get; }
         public string NameStreet { set; get; }
         public int TotalOfDocument { set; get; }
+        public Guid UserID { get; set; }
         public IFormFile ThumbnailImage { get; set; }
-
     }
 }

@@ -53,6 +53,34 @@
     <Compile Remove="Migrations\20210204044341_AspNetCoreDatabase.Designer.cs" />
     <Compile Remove="Migrations\20210204051729_AspNetCoreDatabase.cs" />
     <Compile Remove="Migrations\20210204051729_AspNetCoreDatabase.Designer.cs" />
+    <Compile Remove="Migrations\20210204053201_AppNetCoreDatabase.cs" />
+    <Compile Remove="Migrations\20210204053201_AppNetCoreDatabase.Designer.cs" />
+    <Compile Remove="Migrations\20210204083248_AddTableUserImage.cs" />
+    <Compile Remove="Migrations\20210204083248_AddTableUserImage.Designer.cs" />
+    <Compile Remove="Migrations\20210211144506_deleteinseeddata.cs" />
+    <Compile Remove="Migrations\20210211144506_deleteinseeddata.Designer.cs" />
+    <Compile Remove="Migrations\20210213062528_changeconnectuserandcontact.cs" />
+    <Compile Remove="Migrations\20210213062528_changeconnectuserandcontact.Designer.cs" />
+    <Compile Remove="Migrations\20210213062950_changeconnectuserandcontact.cs" />
+    <Compile Remove="Migrations\20210213062950_changeconnectuserandcontact.Designer.cs" />
+    <Compile Remove="Migrations\20210213063152_changeconnectuserandcontact.cs" />
+    <Compile Remove="Migrations\20210213063152_changeconnectuserandcontact.Designer.cs" />
+    <Compile Remove="Migrations\20210213063634_AspNetCoreDbContext.cs" />
+    <Compile Remove="Migrations\20210213063634_AspNetCoreDbContext.Designer.cs" />
+    <Compile Remove="Migrations\20210213064312_AspNetCoreDbContext.cs" />
+    <Compile Remove="Migrations\20210213064312_AspNetCoreDbContext.Designer.cs" />
+    <Compile Remove="Migrations\20210213064618_AspNetCoreDbContext.cs" />
+    <Compile Remove="Migrations\20210213064618_AspNetCoreDbContext.Designer.cs" />
+    <Compile Remove="Migrations\20210213065033_AspNetCoreDbContext.cs" />
+    <Compile Remove="Migrations\20210213065033_AspNetCoreDbContext.Designer.cs" />
+    <Compile Remove="Migrations\20210213065601_AspNetCoreDbContext.cs" />
+    <Compile Remove="Migrations\20210213065601_AspNetCoreDbContext.Designer.cs" />
+    <Compile Remove="Migrations\20210213065751_AspNetCoreDbContext.cs" />
+    <Compile Remove="Migrations\20210213065751_AspNetCoreDbContext.Designer.cs" />
+    <Compile Remove="Migrations\20210213070841_AspNetCoreDbContext.cs" />
+    <Compile Remove="Migrations\20210213070841_AspNetCoreDbContext.Designer.cs" />
+    <Compile Remove="Migrations\20210214104654_newseeddata.cs" />
+    <Compile Remove="Migrations\20210214104654_newseeddata.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

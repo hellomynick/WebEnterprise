@@ -12,6 +12,7 @@ using System.Net.Http.Headers;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using WebEnterprise.Application.Common;
+using WebEnterprise.ViewModels.Catalog.UserImage;
 
 namespace WebEnterprise.Application.Catalog.Contacts
 {
@@ -19,18 +20,21 @@ namespace WebEnterprise.Application.Catalog.Contacts
     {
         private readonly WebEnterpriseDbContext _context;
         private readonly IStorageService _storageService;
+
         public ManagerContactsService(WebEnterpriseDbContext context, IStorageService storageService)
         {
             _context = context;
             _storageService = storageService;
         }
-        public async Task TotalOfDocument(int documentId)
+
+        public async Task TotalOfDocument(long documentId)
         {
             var document = await _context.Documents.FindAsync(documentId);
             document.ViewCount += 1;
             await _context.SaveChangesAsync();
         }
-        public async Task<int> Create(ContactsCreateRequest request)
+
+        public async Task<long> Create(ContactsCreateRequest request)
         {
             var contact = new Contact()
             {
@@ -53,10 +57,30 @@ namespace WebEnterprise.Application.Catalog.Contacts
                 };
             }
             _context.Contacts.Add(contact);
+            await _context.SaveChangesAsync();
+            return contact.ID;
+        }
+
+        public async Task<long> Update(ContactsUpdateRequest request)
+        {
+            var contact = await _context.Contacts.FindAsync(request.ID);
+            contact.ApartmentNumber = request.ApartmentNumber;
+            contact.NameStreet = request.NameStreet;
+            contact.TotalofDocument = request.TotalOfDocument;
+            if (request.ThumbnailImage != null)
+            {
+                var thumbnailImage = await _context.UserImages.FirstOrDefaultAsync(i => i.IsDefault == true && i.ContactID == request.ID);
+                if (thumbnailImage != null)
+                {
+                    thumbnailImage.FileSize = request.ThumbnailImage.Length;
+                    thumbnailImage.ImagePath = await this.SaveFile(request.ThumbnailImage);
+                    _context.UserImages.Update(thumbnailImage);
+                }
+            }
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<int> Delete(int contactId)
+        public async Task<long> Delete(long contactId)
         {
             var contact = await _context.Documents.FindAsync(contactId);
             if (contact == null) throw new WebEnterpriseException($"Cannot find a contact : {contactId}");
@@ -69,11 +93,10 @@ namespace WebEnterprise.Application.Catalog.Contacts
             return await _context.SaveChangesAsync();
         }
 
-
         public async Task<PageResult<ContactsViewModel>> GetAllPaging(GetManageContactsPagingRequest request)
         {
             var query = from c in _context.Contacts
-                        join u in _context.Users on c.ID equals u.ContactID
+                        join u in _context.Users on c.UserID equals u.Id
                         select new { c, u };
             if (request.UserIds.Count > 0)
             {
@@ -101,23 +124,16 @@ namespace WebEnterprise.Application.Catalog.Contacts
             return pagedResult;
         }
 
-        public async Task<int> Update(ContactsUpdateRequest request)
+        public async Task<ContactsViewModel> GetById(long contactId)
         {
-            var contact = await _context.Contacts.FindAsync(request.ID);
-            contact.ApartmentNumber = request.ApartmentNumber;
-            contact.NameStreet = request.NameStreet;
-            contact.TotalofDocument = request.TotalOfDocument;
-            if (request.ThumbnailImage != null)
+            var contact = await _context.Contacts.FindAsync(contactId);
+            var contactsViewModel = new ContactsViewModel()
             {
-                var thumbnailImage = await _context.UserImages.FirstOrDefaultAsync(i => i.IsDefault == true && i.ContactID == request.ID);
-                if (thumbnailImage != null)
-                {
-                    thumbnailImage.FileSize = request.ThumbnailImage.Length;
-                    thumbnailImage.ImagePath = await this.SaveFile(request.ThumbnailImage);
-                    _context.UserImages.Update(thumbnailImage);
-                }
-            }
-            return await _context.SaveChangesAsync();
+                ID = contact.ID,
+                ApartmentNumber = contact.ApartmentNumber,
+                NameStreet = contact.NameStreet
+            };
+            return contactsViewModel;
         }
 
         private async Task<string> SaveFile(IFormFile file)
@@ -128,24 +144,82 @@ namespace WebEnterprise.Application.Catalog.Contacts
             return fileName;
         }
 
-        public Task<int> AddImages(int contactId, List<IFormFile> files)
+        public async Task<int> AddImage(long contactId, UserImageCreateRequest request)
         {
-            throw new NotImplementedException();
+            var userImage = new UserImage()
+            {
+                Caption = request.Caption,
+                DayCreated = DateTime.Now,
+                IsDefault = request.IsDefault,
+                ContactID = contactId,
+            };
+
+            if (request.ImageFile != null)
+            {
+                userImage.ImagePath = await this.SaveFile(request.ImageFile);
+                userImage.FileSize = request.ImageFile.Length;
+            }
+            _context.UserImages.Add(userImage);
+            await _context.SaveChangesAsync();
+            return userImage.ID;
         }
 
-        public Task<int> RemoveImages(int contactId)
+        public async Task<int> UpdateImage(int imageId, UserImageUpdateRequest request)
         {
-            throw new NotImplementedException();
+            var userImage = await _context.UserImages.FindAsync(imageId);
+            if (userImage == null)
+                throw new WebEnterpriseException($"Cannot find an image with id {imageId}");
+
+            if (request.ImageFile != null)
+            {
+                userImage.ImagePath = await this.SaveFile(request.ImageFile);
+                userImage.FileSize = request.ImageFile.Length;
+            }
+            _context.UserImages.Update(userImage);
+            return await _context.SaveChangesAsync();
         }
 
-        public Task<int> UpdateImages(int contactId, bool isDefault)
+        public async Task<int> RemoveImage(int imageId)
         {
-            throw new NotImplementedException();
+            var userImage = await _context.UserImages.FindAsync(imageId);
+            if (userImage == null)
+                throw new WebEnterpriseException($"Cannot find an image with id {imageId}");
+            _context.UserImages.Remove(userImage);
+            return await _context.SaveChangesAsync();
         }
 
-        public Task<List<UserImageViewModel>> GetListImage(int contactId)
+        public async Task<List<UserImageViewModel>> GetListImages(long contactId)
         {
-            throw new NotImplementedException();
+            return await _context.UserImages.Where(x => x.ContactID == contactId)
+                .Select(i => new UserImageViewModel()
+                {
+                    Caption = i.Caption,
+                    DateCreated = i.DayCreated,
+                    FileSize = i.FileSize,
+                    ID = i.ID,
+                    ImagePath = i.ImagePath,
+                    IsDefault = i.IsDefault,
+                    ContactID = i.ContactID,
+                }).ToListAsync();
+        }
+
+        public async Task<UserImageViewModel> GetImageById(int imageId)
+        {
+            var image = await _context.UserImages.FindAsync(imageId);
+            if (image == null)
+                throw new WebEnterpriseException($"Cannot find an image with id {imageId}");
+
+            var viewModel = new UserImageViewModel()
+            {
+                Caption = image.Caption,
+                DateCreated = image.DayCreated,
+                FileSize = image.FileSize,
+                ID = image.ID,
+                ImagePath = image.ImagePath,
+                IsDefault = image.IsDefault,
+                ContactID = image.ContactID,
+            };
+            return viewModel;
         }
     }
 }

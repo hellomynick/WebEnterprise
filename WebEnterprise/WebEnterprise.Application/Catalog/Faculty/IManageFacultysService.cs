@@ -11,7 +11,7 @@ namespace WebEnterprise.Application.Catalog.Facultys
         Task<int> Create(FacultysCreateRequest request);
         Task<int> Update(FacultysUpdateRequest request);
         Task<int> Delete(int facultyId);
-        Task<PageResult<FacultysViewModel>> GetAllPaging(FacultysPagingRequest request);
+        Task<PageResult<FacultysViewModel>> GetAllPaging(GetManageFacultysPagingRequest request);
 
     }
 }

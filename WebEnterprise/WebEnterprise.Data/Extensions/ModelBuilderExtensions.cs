@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using WebEnterprise.Data.Entities;
 
 namespace WebEnterprise.Data.Extensions
@@ -11,65 +9,42 @@ namespace WebEnterprise.Data.Extensions
     {
         public static void Seed(this ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Contact>().HasData(
-               new Contact
-               {
-                   ID = 1,
-                   ApartmentNumber = "04",
-                   NameStreet = "Doan Uan",
-               }
-               );
-            modelBuilder.Entity<Faculty>().HasData(
-                new Faculty
-                {
-                    ID = 1,
-                    Name = "IT",
-                },
-                new Faculty
-                {
-                    ID = 2,
-                    Name = "Design",
-                },
-                new Faculty
-                {
-                    ID = 3,
-                    Name = "Business",
-                },
-                new Faculty
-                {
-                    ID = 4,
-                    Name = "Tourism",
-                }
-                );
-            modelBuilder.Entity<Magazine>().HasData(
-                new Magazine
-                {
-                    ID = 1,
-                    Name = "Magazine Information Technology"
-                },
-                new Magazine
-                {
-                    ID = 2,
-                    Name = "Magazine Design"
-                },
-                new Magazine
-                {
-                    ID = 3,
-                    Name = "Magazine Business"
-                },
-                new Magazine
-                {
-                    ID = 4,
-                    Name = "Magazine Tourism"
-                },
-                new Magazine
-                {
-                    ID = 5,
-                    Name = "Magazine Information Technology"
-                }
-                );
             var roleId = new Guid("9936B153-37A9-41D8-9781-F0532C25E732");
             var userId = new Guid("A0626E5F-0945-425C-9135-421CE9FFD4A1");
+            modelBuilder.Entity<Contact>().HasData(
+               new Contact()
+               {
+                   ID = 1,
+                   ApartmentNumber = "10",
+                   NameStreet = "My Da Dong",
+                   UserID = userId,
+               });
+            modelBuilder.Entity<Position>().HasData(
+               new Position()
+               {
+                   ID = 1,
+                   Name = "No Position",
+               });
+            modelBuilder.Entity<Faculty>().HasData(
+               new Faculty()
+               {
+                   ID = 1,
+                   Name = "IT",
+               });
+            modelBuilder.Entity<Magazine>().HasData(
+               new Magazine()
+               {
+                   ID = 1,
+                   Name = "Magazine Information Technology"
+               });
+            modelBuilder.Entity<SchoolYear>().HasData(
+               new SchoolYear()
+               {
+                   ID = 1,
+                   UserID = userId,
+                   EndDayYear = new DateTime(2020, 03, 09),
+                   StartDayYear = new DateTime(2020, 05, 10)
+               });
             // any guid
             modelBuilder.Entity<GroupUser>().HasData(new GroupUser
             {
@@ -77,7 +52,6 @@ namespace WebEnterprise.Data.Extensions
                 Name = "admin",
                 NormalizedName = "admin"
             });
-
             var hasher = new PasswordHasher<User>();
             modelBuilder.Entity<User>().HasData(new User
             {
@@ -92,8 +66,6 @@ namespace WebEnterprise.Data.Extensions
                 PasswordHash = hasher.HashPassword(null, "123"),
                 SecurityStamp = string.Empty,
                 DateOfBirth = new DateTime(2000, 03, 09),
-                ContactID = 1,
-                FacultyID = 1
             });
 
             modelBuilder.Entity<IdentityUserRole<Guid>>().HasData(new IdentityUserRole<Guid>

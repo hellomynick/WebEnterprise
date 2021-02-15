@@ -15,6 +15,7 @@ namespace WebEnterprise.Data.EF
         public WebEnterpriseDbContext(DbContextOptions options) : base(options)
         {
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ContactConfigurations());
@@ -23,6 +24,7 @@ namespace WebEnterprise.Data.EF
             modelBuilder.ApplyConfiguration(new MagazineConfigurations());
             modelBuilder.ApplyConfiguration(new SchoolYearConfigurations());
             modelBuilder.ApplyConfiguration(new UserImageConfiguration());
+            modelBuilder.ApplyConfiguration(new PositionConfigurations());
 
             modelBuilder.ApplyConfiguration(new GroupUserConfigurations());
             modelBuilder.ApplyConfiguration(new UserConfigurations());
@@ -33,17 +35,18 @@ namespace WebEnterprise.Data.EF
             modelBuilder.Entity<IdentityRoleClaim<Guid>>().ToTable("AppRoleClaim");
             modelBuilder.Entity<IdentityUserToken<Guid>>().ToTable("AppUserToken").HasKey(x => x.UserId);
 
-
             //Data seeding
             modelBuilder.Seed();
             //base.OnModelCreating(modelBuilder);
         }
+
         public DbSet<UserImage> UserImages { get; set; }
         public DbSet<Document> Documents { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Faculty> Faculties { get; set; }
         public DbSet<SchoolYear> SchoolYears { get; set; }
         public DbSet<Magazine> Magazines { get; set; }
+        public DbSet<Position> Positions { get; set; }
         public DbSet<FacultyOfDocument> FacultyOfDocument { get; set; }
     }
 }

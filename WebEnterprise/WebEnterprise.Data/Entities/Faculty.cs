@@ -8,7 +8,6 @@ namespace WebEnterprise.Data.Entities
     {
         public int ID { set; get; }
         public string Name { set; get; }
-        public User Users { get; set; }
-        public List<FacultyOfDocument> DocumentInFaculties { get; set; }
+        public List<Position> Positions { get; set; }
     }
 }

@@ -13,18 +13,20 @@ namespace WebEnterprise.Application.Catalog.Contacts
     public class PublicContactsService : IPuclicContactsService
     {
         private readonly WebEnterpriseDbContext _context;
+
         public PublicContactsService(WebEnterpriseDbContext context)
         {
             _context = context;
         }
-        public async Task<PageResult<ContactsViewModel>> GetAllByCategoryId(GetPublicContactsPagingRequest request)
+
+        public async Task<PageResult<ContactsViewModel>> GetAllByUserId(GetPublicContactsPagingRequest request)
         {
             var query = from c in _context.Contacts
-                        join u in _context.Users on c.ID equals u.ContactID
+                        join u in _context.Users on c.UserID equals u.Id
                         select new { c, u };
             if (request.ContactId.HasValue && request.ContactId.Value > 0)
             {
-                query = query.Where(c => c.u.ContactID == request.ContactId);
+                query = query.Where(c => c.u.Id == request.UserID);
             }
             int TotalRow = await query.CountAsync();
             var data = await query.Skip((request.PageIndex - 1) * request.PageSize)

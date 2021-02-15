@@ -39,7 +39,7 @@ namespace WebEnterprise.Application.Catalog.SchoolYears
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<PageResult<SchoolYearsViewModel>> GetAllPaging(SchoolYearsPagingRequest request)
+        public async Task<PageResult<SchoolYearsViewModel>> GetAllPaging(GetManageSchoolYearsPagingRequest request)
         {
             var query = from c in _context.SchoolYears
                         where c.Users.UserName.Contains(request.Keyword)

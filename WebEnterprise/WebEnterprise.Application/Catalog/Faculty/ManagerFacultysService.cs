@@ -37,7 +37,7 @@ namespace WebEnterprise.Application.Catalog.Facultys
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<PageResult<FacultysViewModel>> GetAllPaging(FacultysPagingRequest request)
+        public async Task<PageResult<FacultysViewModel>> GetAllPaging(GetManageFacultysPagingRequest request)
         {
             var query = from f in _context.Faculties
                         where f.Users.UserName.Contains(request.Keyword)

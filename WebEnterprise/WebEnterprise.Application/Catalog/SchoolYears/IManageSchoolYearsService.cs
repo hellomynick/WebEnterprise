@@ -11,7 +11,7 @@ namespace WebEnterprise.Application.Catalog.SchoolYears
         Task<int> Create(SchoolYearsCreateRequest request);
         Task<int> Update(SchoolYearsUpdateRequest request);
         Task<int> Delete(int schoolyearId);
-        Task<PageResult<SchoolYearsViewModel>> GetAllPaging(SchoolYearsPagingRequest request);
+        Task<PageResult<SchoolYearsViewModel>> GetAllPaging(GetManageSchoolYearsPagingRequest request);
 
     }
 }

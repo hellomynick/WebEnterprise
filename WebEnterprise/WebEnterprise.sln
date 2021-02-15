@@ -13,7 +13,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebEnterprise.Untilities", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebEnterprise.ViewModels", "WebEnterprise.Models\WebEnterprise.ViewModels.csproj", "{0E18EC37-BE05-45F9-8D60-773964557E14}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebEnterprise.BackendApi", "WebEnterprise.BackendApi\WebEnterprise.BackendApi.csproj", "{4F4BDF56-24B0-4C63-AF06-B0315C2570D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebEnterprise.BackendApi", "WebEnterprise.BackendApi\WebEnterprise.BackendApi.csproj", "{4F4BDF56-24B0-4C63-AF06-B0315C2570D8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.Infrastructure", "1.Infrastructure", "{2D5354BF-CB2F-480C-B5C5-8D95199AA166}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.Domain", "2.Domain", "{FDD3AC9D-37A3-4B27-AE99-AC84AFD7405E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.Host", "3.Host", "{D76C5778-DA79-4297-A642-B07B22CCC679}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +54,14 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{89781CF2-5502-4104-B3DB-3FCD5BCCBDB5} = {D76C5778-DA79-4297-A642-B07B22CCC679}
+		{C74830F8-AE14-452C-8282-2DEF3FAF3E28} = {FDD3AC9D-37A3-4B27-AE99-AC84AFD7405E}
+		{55C789F3-C53A-4BAD-BC2D-603AF3CBFFC4} = {FDD3AC9D-37A3-4B27-AE99-AC84AFD7405E}
+		{BC885BEC-2A78-4129-8E88-D76D2A85B792} = {2D5354BF-CB2F-480C-B5C5-8D95199AA166}
+		{0E18EC37-BE05-45F9-8D60-773964557E14} = {2D5354BF-CB2F-480C-B5C5-8D95199AA166}
+		{4F4BDF56-24B0-4C63-AF06-B0315C2570D8} = {D76C5778-DA79-4297-A642-B07B22CCC679}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {17AABCBF-3E8F-4F4E-AE75-E866211B9FAB}

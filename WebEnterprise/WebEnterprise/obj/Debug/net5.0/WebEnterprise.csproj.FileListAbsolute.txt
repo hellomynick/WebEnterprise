@@ -431,7 +431,6 @@ C:\Users\DELL\WebEnterprise\WebEnterprise\bin\Debug\net5.0\refs\Microsoft.AspNet
 C:\Users\DELL\WebEnterprise\WebEnterprise\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Http.Connections.dll
 C:\Users\DELL\WebEnterprise\WebEnterprise\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Http.dll
 C:\Users\DELL\WebEnterprise\WebEnterprise\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Http.Extensions.dll
-C:\Users\DELL\WebEnterprise\WebEnterprise\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Http.Features.dll
 C:\Users\DELL\WebEnterprise\WebEnterprise\bin\Debug\net5.0\refs\Microsoft.AspNetCore.HttpOverrides.dll
 C:\Users\DELL\WebEnterprise\WebEnterprise\bin\Debug\net5.0\refs\Microsoft.AspNetCore.HttpsPolicy.dll
 C:\Users\DELL\WebEnterprise\WebEnterprise\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Identity.dll
@@ -574,7 +573,6 @@ C:\Users\DELL\WebEnterprise\WebEnterprise\bin\Debug\net5.0\refs\System.IO.FileSy
 C:\Users\DELL\WebEnterprise\WebEnterprise\bin\Debug\net5.0\refs\System.IO.FileSystem.Watcher.dll
 C:\Users\DELL\WebEnterprise\WebEnterprise\bin\Debug\net5.0\refs\System.IO.IsolatedStorage.dll
 C:\Users\DELL\WebEnterprise\WebEnterprise\bin\Debug\net5.0\refs\System.IO.MemoryMappedFiles.dll
-C:\Users\DELL\WebEnterprise\WebEnterprise\bin\Debug\net5.0\refs\System.IO.Pipelines.dll
 C:\Users\DELL\WebEnterprise\WebEnterprise\bin\Debug\net5.0\refs\System.IO.Pipes.dll
 C:\Users\DELL\WebEnterprise\WebEnterprise\bin\Debug\net5.0\refs\System.IO.UnmanagedMemoryStream.dll
 C:\Users\DELL\WebEnterprise\WebEnterprise\bin\Debug\net5.0\refs\System.Linq.dll
@@ -780,3 +778,5 @@ C:\Users\DELL\WebEnterprise\WebEnterprise\bin\Debug\net5.0\WebEnterprise.Untilit
 C:\Users\DELL\WebEnterprise\WebEnterprise\bin\Debug\net5.0\WebEnterprise.Untilities.pdb
 C:\Users\DELL\WebEnterprise\WebEnterprise\bin\Debug\net5.0\WebEnterprise.ViewModels.dll
 C:\Users\DELL\WebEnterprise\WebEnterprise\bin\Debug\net5.0\WebEnterprise.ViewModels.pdb
+C:\Users\DELL\WebEnterprise\WebEnterprise\bin\Debug\net5.0\Microsoft.AspNetCore.Http.Features.dll
+C:\Users\DELL\WebEnterprise\WebEnterprise\bin\Debug\net5.0\System.IO.Pipelines.dll
