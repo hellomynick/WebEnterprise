@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Hosting;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
 
 namespace WebEnterprise.Application.Common
 {

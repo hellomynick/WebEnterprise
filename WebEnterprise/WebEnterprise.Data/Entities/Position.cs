@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace WebEnterprise.Data.Entities
 {
@@ -11,6 +9,6 @@ namespace WebEnterprise.Data.Entities
         public int FacultyID { get; set; }
         public Guid UserID { get; set; }
         public User Users { get; set; }
-        public Faculty Faculties;
+        public Faculty Faculties { get; set; }
     }
 }

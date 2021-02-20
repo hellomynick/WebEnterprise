@@ -1,5 +1,3 @@
-using System;
-
 namespace WebEnterprise.BackendApi.Models
 {
     public class ErrorViewModel

@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading.Tasks;
 using WebEnterprise.Data.EF;
 using WebEnterprise.Data.Entities;
 using WebEnterprise.Untilities.Exceptions;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using WebEnterprise.ViewModels.Catalog.SchoolYears.Manage;
 using WebEnterprise.ViewModels.Catalog.SchoolYears;
+using WebEnterprise.ViewModels.Catalog.SchoolYears.Manage;
 using WebEnterprise.ViewModels.Common;
 
 namespace WebEnterprise.Application.Catalog.SchoolYears
@@ -39,7 +37,7 @@ namespace WebEnterprise.Application.Catalog.SchoolYears
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<PageResult<SchoolYearsViewModel>> GetAllPaging(GetManageSchoolYearsPagingRequest request)
+        public async Task<PagedResult<SchoolYearsViewModel>> GetAllPaging(GetManageSchoolYearsPagingRequest request)
         {
             var query = from c in _context.SchoolYears
                         where c.Users.UserName.Contains(request.Keyword)
@@ -61,7 +59,7 @@ namespace WebEnterprise.Application.Catalog.SchoolYears
                     StartDayYear = x.c.StartDayYear,
                     EndDayYear = x.c.EndDayYear,
                 }).ToListAsync();
-            var pagedResult = new PageResult<SchoolYearsViewModel>()
+            var pagedResult = new PagedResult<SchoolYearsViewModel>()
             {
                 TotalRecord = TotalRow,
                 Items = data

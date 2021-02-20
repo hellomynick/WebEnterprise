@@ -24,6 +24,8 @@ namespace WebEnterprise.Data.Extensions
                {
                    ID = 1,
                    Name = "No Position",
+                   FacultyID = 1,
+                   UserID = userId
                });
             modelBuilder.Entity<Faculty>().HasData(
                new Faculty()
@@ -63,7 +65,7 @@ namespace WebEnterprise.Data.Extensions
                 EmailConfirmed = true,
                 FirstName = "Tran Van",
                 LastName = "Minh Vu",
-                PasswordHash = hasher.HashPassword(null, "123"),
+                PasswordHash = hasher.HashPassword(null, "Admin@123"),
                 SecurityStamp = string.Empty,
                 DateOfBirth = new DateTime(2000, 03, 09),
             });
@@ -73,6 +75,9 @@ namespace WebEnterprise.Data.Extensions
                 RoleId = roleId,
                 UserId = userId
             });
+            modelBuilder.Entity<Language>().HasData(
+               new Language() { Id = "vi", Name = "Tiếng Việt", IsDefault = true },
+               new Language() { Id = "en", Name = "English", IsDefault = false });
         }
     }
 }

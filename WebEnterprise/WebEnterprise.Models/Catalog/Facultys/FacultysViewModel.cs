@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WebEnterprise.ViewModels.Catalog.Facultys
+﻿namespace WebEnterprise.ViewModels.Catalog.Facultys
 {
     public class FacultysViewModel
     {

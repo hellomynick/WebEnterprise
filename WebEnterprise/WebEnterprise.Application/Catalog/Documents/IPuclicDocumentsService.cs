@@ -5,6 +5,6 @@ namespace WebEnterprise.Application.Catalog.Documents
 {
     public interface IPuclicDocumentsService
     {
-        PageResult<DocumentsViewModel> GetAllByCategoryId(int documentId, int pageIndex, int pageSize);
+        PagedResult<DocumentsViewModel> GetAllByCategoryId(int documentId, int pageIndex, int pageSize);
     }
 }

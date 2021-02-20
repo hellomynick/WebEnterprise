@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace WebEnterprise.ViewModels.Catalog.Document
 {
     public class DocumentsViewModel
     {
         public long ID { get; set; }
-        public string Name { get; set; }
         public Guid UserID { set; get; }
-        public string FileType { set; get; }
+        public string DocumentPath { get; set; }
+        public string Caption { get; set; }
         public int ViewCount { get; set; }
+        public long FileSize { get; set; }
         public DateTime CreateOn { set; get; }
-
-
     }
 }

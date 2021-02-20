@@ -1,0 +1,14 @@
+C:\Users\DELL\WebEnterprise\WebEnterprise.ApiIntegration\bin\Debug\netcoreapp3.1\WebEnterprise.ApiIntegration.deps.json
+C:\Users\DELL\WebEnterprise\WebEnterprise.ApiIntegration\bin\Debug\netcoreapp3.1\WebEnterprise.ApiIntegration.dll
+C:\Users\DELL\WebEnterprise\WebEnterprise.ApiIntegration\bin\Debug\netcoreapp3.1\WebEnterprise.ApiIntegration.pdb
+C:\Users\DELL\WebEnterprise\WebEnterprise.ApiIntegration\bin\Debug\netcoreapp3.1\WebEnterprise.Untilities.dll
+C:\Users\DELL\WebEnterprise\WebEnterprise.ApiIntegration\bin\Debug\netcoreapp3.1\WebEnterprise.ViewModels.dll
+C:\Users\DELL\WebEnterprise\WebEnterprise.ApiIntegration\bin\Debug\netcoreapp3.1\WebEnterprise.ViewModels.pdb
+C:\Users\DELL\WebEnterprise\WebEnterprise.ApiIntegration\bin\Debug\netcoreapp3.1\WebEnterprise.Untilities.pdb
+C:\Users\DELL\WebEnterprise\WebEnterprise.ApiIntegration\obj\Debug\netcoreapp3.1\WebEnterprise.ApiIntegration.csprojAssemblyReference.cache
+C:\Users\DELL\WebEnterprise\WebEnterprise.ApiIntegration\obj\Debug\netcoreapp3.1\WebEnterprise.ApiIntegration.AssemblyInfoInputs.cache
+C:\Users\DELL\WebEnterprise\WebEnterprise.ApiIntegration\obj\Debug\netcoreapp3.1\WebEnterprise.ApiIntegration.AssemblyInfo.cs
+C:\Users\DELL\WebEnterprise\WebEnterprise.ApiIntegration\obj\Debug\netcoreapp3.1\WebEnterprise.ApiIntegration.csproj.CoreCompileInputs.cache
+C:\Users\DELL\WebEnterprise\WebEnterprise.ApiIntegration\obj\Debug\netcoreapp3.1\WebEnterprise.ApiIntegration.csproj.CopyComplete
+C:\Users\DELL\WebEnterprise\WebEnterprise.ApiIntegration\obj\Debug\netcoreapp3.1\WebEnterprise.ApiIntegration.dll
+C:\Users\DELL\WebEnterprise\WebEnterprise.ApiIntegration\obj\Debug\netcoreapp3.1\WebEnterprise.ApiIntegration.pdb

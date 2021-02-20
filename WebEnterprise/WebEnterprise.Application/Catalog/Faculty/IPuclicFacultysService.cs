@@ -5,6 +5,6 @@ namespace WebEnterprise.Application.Catalog.Facultys
 {
     public interface IPuclicFacultysService
     {
-        PageResult<FacultysViewModel> GetAllByCategoryId(int FacultyId, int pageIndex, int pageSize);
+        PagedResult<FacultysViewModel> GetAllByCategoryId(int FacultyId, int pageIndex, int pageSize);
     }
 }

@@ -1,44 +1,66 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using WebEnterprise.Application.Common;
 using WebEnterprise.Data.EF;
 using WebEnterprise.Data.Entities;
 using WebEnterprise.Untilities.Exceptions;
 using WebEnterprise.ViewModels.Catalog.Document;
 using WebEnterprise.ViewModels.Catalog.Document.Manage;
-using WebEnterprise.ViewModels.Common;
 
 namespace WebEnterprise.Application.Catalog.Documents
 {
     public class ManagerDocumentsService : IManageDocumentsService
     {
         private readonly WebEnterpriseDbContext _context;
+        private readonly IStorageService _storageService;
+        private const string USER_CONTENT_FOLDER_NAME = "user-document";
+
         public ManagerDocumentsService(WebEnterpriseDbContext context)
         {
             _context = context;
         }
-        public async Task<int> Create(DocumentsCreateRequest request)
+
+        private async Task<string> SaveFile(IFormFile file)
+        {
+            var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
+            await _storageService.SaveFileAsync(file.OpenReadStream(), fileName);
+            return fileName;
+        }
+
+        public async Task<long> Create(Guid userId, DocumentsCreateRequest request)
         {
             var document = new Document()
             {
-                UserID = request.UserID,
-                Name = request.Name,
+                Caption = request.Caption,
                 CreateOn = DateTime.Now,
-                FileType = request.FileType,
-                ViewCount = 0,
+                UserID = userId,
             };
+
+            if (request.DocumentFile != null)
+            {
+                document.DocumentPath = await this.SaveFile(request.DocumentFile);
+                document.FileSize = request.DocumentFile.Length;
+            }
             _context.Documents.Add(document);
-            return await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
+            return document.ID;
         }
+
         public async Task AddViewCount(int documentId)
         {
             var document = await _context.Documents.FindAsync(documentId);
             document.ViewCount += 1;
             await _context.SaveChangesAsync();
         }
-        public async Task<int> Delete(int documentId)
+
+        public async Task<long> Delete(long documentId)
         {
             var document = await _context.Documents.FindAsync(documentId);
             if (document == null) throw new WebEnterpriseException($"Cannot find a document : {documentId}");
@@ -46,43 +68,36 @@ namespace WebEnterprise.Application.Catalog.Documents
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<PageResult<DocumentsViewModel>> GetAllPaging(GetManageDocumentsPagingRequest request)
+        public async Task<List<DocumentsViewModel>> GetListDocument(Guid userId)
         {
-            var query = from d in _context.Documents
-                        join u in _context.Users on d.UserID equals u.Id
-                        where d.Name.Contains(request.Keyword)
-                        select new { d, u };
-            if (request.UserIds.Count > 0)
-            {
-                query = query.Where(d => request.UserIds.Contains(d.u.Id));
-            }
-            if (!string.IsNullOrEmpty(request.Keyword))
-            {
-                query = query.Where(x => x.u.UserName.Contains(request.Keyword));
-            }
-            int TotalRow = await query.CountAsync();
-            var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
-                .Take(request.PageSize)
-                .Select(x => new DocumentsViewModel()
+            return await _context.Documents.Where(x => x.UserID == userId)
+                .Select(i => new DocumentsViewModel()
                 {
-                    ID = x.d.ID,
-                    Name = x.d.Name,
-                    CreateOn = x.d.CreateOn,
-                    UserID = x.d.UserID,
-                    FileType = x.d.FileType,
-                    ViewCount = x.d.ViewCount
+                    Caption = i.Caption,
+                    CreateOn = i.CreateOn,
+                    FileSize = i.FileSize,
+                    ID = i.ID,
+                    DocumentPath = i.DocumentPath,
+                    UserID = i.UserID,
                 }).ToListAsync();
-            var pagedResult = new PageResult<DocumentsViewModel>()
-            {
-                TotalRecord = TotalRow,
-                Items = data
-            };
-            return pagedResult;
         }
 
-        public async Task<int> Update(DocumentsUpdateRequest request)
+        public async Task<DocumentsViewModel> GetDocumentById(long documentId)
         {
-            throw new NotImplementedException();
+            var document = await _context.Documents.FindAsync(documentId);
+            if (document == null)
+                throw new WebEnterpriseException($"Cannot find an document with id {document}");
+
+            var viewModel = new DocumentsViewModel()
+            {
+                Caption = document.Caption,
+                CreateOn = document.CreateOn,
+                FileSize = document.FileSize,
+                ID = document.ID,
+                DocumentPath = document.DocumentPath,
+                UserID = document.UserID,
+            };
+            return viewModel;
         }
     }
 }

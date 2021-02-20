@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using WebEnterprise.Data.Entities;
 
 namespace WebEnterprise.Data.Configurations
@@ -14,11 +11,11 @@ namespace WebEnterprise.Data.Configurations
             builder.ToTable("Documents");
             builder.HasKey(x => new { x.ID });
             builder.Property(x => x.ID).UseIdentityColumn();
-            builder.Property(x => x.Name);
             builder.Property(x => x.UserID);
-            builder.Property(x => x.DataFile);
-            builder.Property(x => x.FileType);
+            builder.Property(x => x.FileSize);
+            builder.Property(x => x.DocumentPath);
             builder.Property(x => x.CreateOn);
+            builder.Property(x => x.Caption);
             builder.Property(x => x.ViewCount);
             builder.Property(x => x.FacultyOfDocumentID);
             builder.Property(x => x.MagazineID);

@@ -9,14 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
-    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Hosting.Server.Abstractions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\WebEnterprise.Data\WebEnterprise.Data.csproj" />
     <ProjectReference Include="..\WebEnterprise.Models\WebEnterprise.ViewModels.csproj" />
     <ProjectReference Include="..\WebEnterprise.Untilities\WebEnterprise.Untilities.csproj" />

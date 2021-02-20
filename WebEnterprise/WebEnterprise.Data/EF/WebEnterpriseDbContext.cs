@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using WebEnterprise.Data.Configurations;
 using WebEnterprise.Data.Entities;
 using WebEnterprise.Data.Extensions;
@@ -25,6 +23,7 @@ namespace WebEnterprise.Data.EF
             modelBuilder.ApplyConfiguration(new SchoolYearConfigurations());
             modelBuilder.ApplyConfiguration(new UserImageConfiguration());
             modelBuilder.ApplyConfiguration(new PositionConfigurations());
+            modelBuilder.ApplyConfiguration(new LanguageConfiguration());
 
             modelBuilder.ApplyConfiguration(new GroupUserConfigurations());
             modelBuilder.ApplyConfiguration(new UserConfigurations());
@@ -48,5 +47,6 @@ namespace WebEnterprise.Data.EF
         public DbSet<Magazine> Magazines { get; set; }
         public DbSet<Position> Positions { get; set; }
         public DbSet<FacultyOfDocument> FacultyOfDocument { get; set; }
+        public DbSet<Language> Languages { get; set; }
     }
 }

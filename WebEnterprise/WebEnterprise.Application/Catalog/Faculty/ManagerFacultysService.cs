@@ -1,13 +1,12 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using WebEnterprise.Data.EF;
 using WebEnterprise.Data.Entities;
 using WebEnterprise.Untilities.Exceptions;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using WebEnterprise.ViewModels.Catalog.Facultys.Manage;
 using WebEnterprise.ViewModels.Catalog.Facultys;
+using WebEnterprise.ViewModels.Catalog.Facultys.Manage;
 using WebEnterprise.ViewModels.Common;
 
 namespace WebEnterprise.Application.Catalog.Facultys
@@ -15,10 +14,12 @@ namespace WebEnterprise.Application.Catalog.Facultys
     public class ManagerFacultysService : IManageFacultysService
     {
         private readonly WebEnterpriseDbContext _context;
+
         public ManagerFacultysService(WebEnterpriseDbContext context)
         {
             _context = context;
         }
+
         public async Task<int> Create(FacultysCreateRequest request)
         {
             var faculty = new Faculty()
@@ -37,18 +38,19 @@ namespace WebEnterprise.Application.Catalog.Facultys
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<PageResult<FacultysViewModel>> GetAllPaging(GetManageFacultysPagingRequest request)
+        public async Task<PagedResult<FacultysViewModel>> GetAllPaging(GetManageFacultysPagingRequest request)
         {
             var query = from f in _context.Faculties
-                        where f.Users.UserName.Contains(request.Keyword)
-                        select new { f, };
+                        join p in _context.Positions on f.ID equals p.FacultyID
+                        join u in _context.Users on p.UserID equals u.Id
+                        select new { f, p, u };
             if (request.FacultiesID.Count > 0)
             {
                 query = query.Where(f => request.FacultiesID.Contains(f.f.ID));
             }
             if (!string.IsNullOrEmpty(request.Keyword))
             {
-                query = query.Where(x => x.f.Users.UserName.Contains(request.Keyword));
+                query = query.Where(x => x.u.UserName.Contains(request.Keyword));
             }
             int TotalRow = await query.CountAsync();
             var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
@@ -58,7 +60,7 @@ namespace WebEnterprise.Application.Catalog.Facultys
                     ID = x.f.ID,
                     Name = x.f.Name
                 }).ToListAsync();
-            var pagedResult = new PageResult<FacultysViewModel>()
+            var pagedResult = new PagedResult<FacultysViewModel>()
             {
                 TotalRecord = TotalRow,
                 Items = data

@@ -1,24 +1,24 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WebEnterprise.Application.Catalog.Contacts;
-using WebEnterprise.Data.EF;
-using WebEnterprise.Untilities.Constants;
-using WebEnterprise.Application.Common;
-using WebEnterprise.Data.Entities;
-using WebEnterprise.Application.System.Users;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using System.Collections.Generic;
+using WebEnterprise.Application.Catalog.Contacts;
+using WebEnterprise.Application.Common;
+using WebEnterprise.Application.System.Roles;
+using WebEnterprise.Application.System.Users;
+using WebEnterprise.Data.EF;
+using WebEnterprise.Data.Entities;
+using WebEnterprise.Untilities.Constants;
+using WebEnterprise.ViewModels.System.Users;
 
 namespace WebEnterprise.BackendApi
 {
@@ -35,22 +35,31 @@ namespace WebEnterprise.BackendApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<WebEnterpriseDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString(SystemConstants.MainConnectionString)));
+                options.UseSqlServer(Configuration.GetConnectionString(SystemConstants.MainConnectionString)));
+
             services.AddIdentity<User, GroupUser>()
                 .AddEntityFrameworkStores<WebEnterpriseDbContext>()
                 .AddDefaultTokenProviders();
+
             // Declace DI
-            services.AddTransient<IManageContactsService, ManagerContactsService>();
-            services.AddTransient<IPuclicContactsService, PublicContactsService>();
             services.AddTransient<IStorageService, FileStorageService>();
+
+            services.AddTransient<IContactsService, ContactsService>();
+
             services.AddTransient<UserManager<User>, UserManager<User>>();
             services.AddTransient<SignInManager<User>, SignInManager<User>>();
             services.AddTransient<RoleManager<GroupUser>, RoleManager<GroupUser>>();
+
             services.AddTransient<IUserService, UserService>();
-            services.AddControllersWithViews();
+            services.AddTransient<IRoleService, RoleService>();
+            services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
+            services.AddTransient<IValidator<RegisterRequest>, RegisterRequestValidator>();
+            services.AddControllers()
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Swagger WebEnterprise", Version = "v1" });
+
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = @"JWT Authorization header using the Bearer scheme. \r\n\r\n
@@ -122,14 +131,18 @@ namespace WebEnterprise.BackendApi
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseRouting();
             app.UseAuthentication();
+            app.UseRouting();
+
             app.UseAuthorization();
+
             app.UseSwagger();
+
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger WebEnterprise V1");
             });
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

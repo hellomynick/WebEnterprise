@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using WebEnterprise.ViewModels.Common;
 
 namespace WebEnterprise.ViewModels.Catalog.Facultys.Manage

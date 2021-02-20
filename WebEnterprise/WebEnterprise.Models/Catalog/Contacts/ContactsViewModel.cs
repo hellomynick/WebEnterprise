@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WebEnterprise.ViewModels.Catalog.Contacts
+﻿namespace WebEnterprise.ViewModels.Catalog.Contacts
 {
     public class ContactsViewModel
     {

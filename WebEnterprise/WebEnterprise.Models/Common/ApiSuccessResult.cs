@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WebEnterprise.ViewModels.Common
+﻿namespace WebEnterprise.ViewModels.Common
 {
     public class ApiSuccessResult<T> : ApiResult<T>
     {

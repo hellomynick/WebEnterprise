@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace WebEnterprise.Data.Entities
 {
     public class Document
     {
         public long ID { set; get; }
-        public string Name { set; get; }
         public Guid UserID { set; get; }
-        public string FileType { set; get; }
-        public byte[] DataFile { set; get; }
+        public string DocumentPath { get; set; }
+        public string Caption { get; set; }
+        public long FileSize { get; set; }
         public int ViewCount { get; set; }
         public int MagazineID { get; set; }
         public DateTime CreateOn { set; get; }

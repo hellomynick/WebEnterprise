@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using WebEnterprise.ViewModels.Catalog.SchoolYears;
 using WebEnterprise.ViewModels.Catalog.SchoolYears.Manage;
 using WebEnterprise.ViewModels.Common;
@@ -11,7 +10,7 @@ namespace WebEnterprise.Application.Catalog.SchoolYears
         Task<int> Create(SchoolYearsCreateRequest request);
         Task<int> Update(SchoolYearsUpdateRequest request);
         Task<int> Delete(int schoolyearId);
-        Task<PageResult<SchoolYearsViewModel>> GetAllPaging(GetManageSchoolYearsPagingRequest request);
+        Task<PagedResult<SchoolYearsViewModel>> GetAllPaging(GetManageSchoolYearsPagingRequest request);
 
     }
 }
