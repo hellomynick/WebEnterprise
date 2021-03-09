@@ -24,7 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WebEnterprise.Admin\WebEnterprise.Admin.csproj" />
-    <ProjectReference Include="..\WebEnterprise.BackendApi\WebEnterprise.BackendApi.csproj" />
+    <ProjectReference Include="..\WebEnterprise.ApiIntegration\WebEnterprise.ApiIntegration.csproj" />
+    <ProjectReference Include="..\WebEnterprise.Application\WebEnterprise.Application.csproj" />
+    <ProjectReference Include="..\WebEnterprise.Models\WebEnterprise.ViewModels.csproj" />
   </ItemGroup>
 </Project>

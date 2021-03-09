@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using WebEnterprise.Application.Common;
+using WebEnterprise.Application.System.Users;
 using WebEnterprise.Data.EF;
 using WebEnterprise.Data.Entities;
 using WebEnterprise.Untilities.Exceptions;
@@ -28,6 +30,14 @@ namespace WebEnterprise.Application.Catalog.Contacts
             _storageService = storageService;
         }
 
+        private async Task<string> SaveFile(IFormFile file)
+        {
+            var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
+            await _storageService.SaveFileAsync(file.OpenReadStream(), fileName);
+            return "/" + USER_CONTENT_FOLDER_NAME + "/" + fileName;
+        }
+
         public async Task TotalOfDocument(long documentId)
         {
             var document = await _context.Documents.FindAsync(documentId);
@@ -40,7 +50,6 @@ namespace WebEnterprise.Application.Catalog.Contacts
             var contact = new Contact()
             {
                 ApartmentNumber = request.ApartmentNumber,
-                TotalofDocument = request.TotalOfDocument,
                 NameStreet = request.NameStreet,
                 UserID = request.UserID
             };
@@ -84,66 +93,28 @@ namespace WebEnterprise.Application.Catalog.Contacts
 
         public async Task<long> Delete(long contactId)
         {
-            var contact = await _context.Documents.FindAsync(contactId);
+            var contact = await _context.Contacts.FindAsync(contactId);
             if (contact == null) throw new WebEnterpriseException($"Cannot find a contact : {contactId}");
             var images = _context.UserImages.Where(i => i.ContactID == contactId);
             foreach (var image in images)
             {
                 await _storageService.DeleteFileAsync(image.ImagePath);
             }
-            _context.Documents.Remove(contact);
+            _context.Contacts.Remove(contact);
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<PagedResult<ContactsViewModel>> GetAllPaging(GetManageContactsPagingRequest request)
-        {
-            var query = from c in _context.Contacts
-                        join u in _context.Users on c.UserID equals u.Id
-                        select new { c, u };
-            if (request.UserIds.Count > 0)
-            {
-                query = query.Where(c => request.UserName.Contains(c.c.Users.UserName));
-            }
-            if (!string.IsNullOrEmpty(request.Keyword))
-            {
-                query = query.Where(x => x.c.Users.UserName.Contains(request.Keyword));
-            }
-            int TotalRow = await query.CountAsync();
-            var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
-                .Take(request.PageSize)
-                .Select(x => new ContactsViewModel()
-                {
-                    ID = x.c.ID,
-                    ApartmentNumber = x.c.ApartmentNumber,
-                    NameStreet = x.c.NameStreet,
-                    TotalOfDocument = x.c.TotalofDocument
-                }).ToListAsync();
-            var pagedResult = new PagedResult<ContactsViewModel>()
-            {
-                TotalRecord = TotalRow,
-                Items = data
-            };
-            return pagedResult;
-        }
-
-        public async Task<ContactsViewModel> GetById(long contactId)
+        public async Task<ContactsVm> GetById(long contactId)
         {
             var contact = await _context.Contacts.FindAsync(contactId);
-            var contactsViewModel = new ContactsViewModel()
+            var contactsViewModel = new ContactsVm()
             {
                 ID = contact.ID,
                 ApartmentNumber = contact.ApartmentNumber,
-                NameStreet = contact.NameStreet
+                NameStreet = contact.NameStreet,
+                UserIds = contact.UserID
             };
             return contactsViewModel;
-        }
-
-        private async Task<string> SaveFile(IFormFile file)
-        {
-            var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
-            await _storageService.SaveFileAsync(file.OpenReadStream(), fileName);
-            return "/" + USER_CONTENT_FOLDER_NAME + "/" + fileName;
         }
 
         public async Task<int> AddImage(long contactId, UserImageCreateRequest request)
@@ -224,7 +195,7 @@ namespace WebEnterprise.Application.Catalog.Contacts
             return viewModel;
         }
 
-        public async Task<PagedResult<ContactsViewModel>> GetAllByUserId(GetManageContactsPagingRequest request)
+        public async Task<PagedResult<ContactsVm>> GetAllByUserId(GetContactsPagingRequest request)
         {
             var query = from c in _context.Contacts
                         join u in _context.Users on c.UserID equals u.Id
@@ -236,14 +207,47 @@ namespace WebEnterprise.Application.Catalog.Contacts
             int TotalRow = await query.CountAsync();
             var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
                 .Take(request.PageSize)
-                .Select(x => new ContactsViewModel()
+                .Select(x => new ContactsVm()
                 {
                     ID = x.c.ID,
                     ApartmentNumber = x.c.ApartmentNumber,
                     NameStreet = x.c.NameStreet,
                     TotalOfDocument = x.c.TotalofDocument
                 }).ToListAsync();
-            var pagedResult = new PagedResult<ContactsViewModel>()
+            var pagedResult = new PagedResult<ContactsVm>()
+            {
+                TotalRecord = TotalRow,
+                Items = data
+            };
+            return pagedResult;
+        }
+
+        public async Task<PagedResult<ContactsVm>> GetAllPaging(GetContactsPagingRequest request)
+        {
+            var query = from c in _context.Contacts
+                        join u in _context.Users on c.UserID equals u.Id
+                        select new { c, u };
+            if (request.UserIds != null && request.UserIds.Count > 0)
+            {
+                query = query.Where(c => request.UserName.Contains(c.c.Users.UserName));
+            }
+            if (!string.IsNullOrEmpty(request.Keyword))
+            {
+                query = query.Where(x => x.c.Users.UserName.Contains(request.Keyword));
+            }
+            int TotalRow = await query.CountAsync();
+            var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
+                .Take(request.PageSize)
+                .Select(x => new ContactsVm()
+                {
+                    ID = x.c.ID,
+                    ApartmentNumber = x.c.ApartmentNumber,
+                    NameStreet = x.c.NameStreet,
+                    TotalOfDocument = x.c.TotalofDocument,
+                    UserIds = x.c.UserID,
+                    UserName = x.u.UserName
+                }).ToListAsync();
+            var pagedResult = new PagedResult<ContactsVm>()
             {
                 TotalRecord = TotalRow,
                 Items = data

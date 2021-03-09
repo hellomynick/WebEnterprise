@@ -194,8 +194,7 @@ namespace WebEnterprise.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("FacultyOfDocumentID")
-                        .IsUnique();
+                    b.HasIndex("FacultyOfDocumentID");
 
                     b.HasIndex("MagazineID");
 
@@ -268,7 +267,7 @@ namespace WebEnterprise.Data.Migrations
                         new
                         {
                             Id = new Guid("9936b153-37a9-41d8-9781-f0532c25e732"),
-                            ConcurrencyStamp = "6d157f2c-717f-4b65-bd3d-6860847c9308",
+                            ConcurrencyStamp = "83e8b8ce-57ae-41e0-8bc9-c2b5ba5e4b48",
                             Name = "admin",
                             NormalizedName = "admin"
                         });
@@ -479,7 +478,7 @@ namespace WebEnterprise.Data.Migrations
                         {
                             Id = new Guid("a0626e5f-0945-425c-9135-421ce9ffd4a1"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5bcce0f3-522d-4bb4-a396-cf943384b066",
+                            ConcurrencyStamp = "73e0f1fb-817f-4aa4-b983-492ff7d42020",
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfBirth = new DateTime(2000, 3, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "minhvu09033@gmail.com",
@@ -489,7 +488,7 @@ namespace WebEnterprise.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "minhvu09033@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFeT7Ht7mp1yIZn9DyStX2UPMCgEAOr9uz31PAQ4exUE3Pe169VpEc6n5dxXBU+Y1g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENkOvV39z6YoF+NFuKlHK93cl2BKwYcd6INbXlL71MWTCXH4HrXsvFn+pZZHUyzU0A==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             Sex = false,
@@ -544,8 +543,8 @@ namespace WebEnterprise.Data.Migrations
             modelBuilder.Entity("WebEnterprise.Data.Entities.Document", b =>
                 {
                     b.HasOne("WebEnterprise.Data.Entities.FacultyOfDocument", "FacultyOfDocuments")
-                        .WithOne("Documents")
-                        .HasForeignKey("WebEnterprise.Data.Entities.Document", "FacultyOfDocumentID")
+                        .WithMany("Documents")
+                        .HasForeignKey("FacultyOfDocumentID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

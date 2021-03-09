@@ -41,7 +41,6 @@ namespace WebEnterprise.Admin
                 handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
                 return handler;
             });
-
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
@@ -55,8 +54,10 @@ namespace WebEnterprise.Admin
                 options.IdleTimeout = TimeSpan.FromMinutes(300);
             });
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<IDocumentApiClient, DocumentApiClient>();
             services.AddTransient<IUserApiClient, UserApiClient>();
             services.AddTransient<IRoleApiClient, RoleApiClient>();
+            services.AddTransient<IContactApiClient, ContactApiClient>();
             IMvcBuilder builder = services.AddRazorPages();
             var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 #if DEBUG

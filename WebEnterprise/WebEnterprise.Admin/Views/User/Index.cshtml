@@ -95,6 +95,7 @@
                                     @Html.ActionLink("Xem", "Details", new { id = item.Id }) |
                                     @Html.ActionLink("Xóa", "Delete", new { id = item.Id }) |
                                     @Html.ActionLink("Gán quyền", "RoleAssign", new { id = item.Id })
+                                    @Html.ActionLink("Add Contact", "Create", "Contact", new { id = item.Id })
                                 </td>
                             </tr>
                         }

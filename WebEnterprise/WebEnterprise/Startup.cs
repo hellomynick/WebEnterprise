@@ -1,8 +1,15 @@
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.Net.Http;
+using WebEnterprise.ApiIntegration;
+using WebEnterprise.ViewModels.System.Users;
 
 namespace WebEnterprise
 {
@@ -18,7 +25,41 @@ namespace WebEnterprise
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddHttpClient("BackendApi").ConfigurePrimaryHttpMessageHandler(() =>
+            {
+                var handler = new HttpClientHandler();
+                var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
+                //if (environment == Environments.Development)
+                //{
+                //    handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
+                //}
+                handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
+                return handler;
+            });
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/Account/Index";
+                    options.AccessDeniedPath = "/User/Forbidden/";
+                });
+            services.AddControllersWithViews()
+                     .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(300);
+            });
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<IDocumentApiClient, DocumentApiClient>();
+            services.AddTransient<IUserApiClient, UserApiClient>();
+            IMvcBuilder builder = services.AddRazorPages();
+            var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+#if DEBUG
+            if (environment == Environments.Development)
+            {
+                builder.AddRazorRuntimeCompilation();
+            }
+#endif
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,18 +75,21 @@ namespace WebEnterprise
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
+            //app.UseHttpsRedirection();
+
+            app.UseAuthentication();
 
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    name: "WebEnterprise",
+                    pattern: "{controller=Account}/{action=Index}/{id?}");
             });
         }
     }

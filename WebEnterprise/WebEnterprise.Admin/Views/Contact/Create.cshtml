@@ -1,0 +1,46 @@
+﻿@model WebEnterprise.ViewModels.Catalog.Contacts.ContactsCreateRequest
+
+@{
+    ViewData["Title"] = "Tạo mới người dùng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <h1 class="mt-4">Create new contact</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+        <li class="breadcrumb-item active">Create new contact</li>
+    </ol>
+    <div class="card mb-4">
+        <div class="card-header">
+            <a class="btn btn-success" asp-action="Index" asp-controller="Contact">Về danh sách</a>
+        </div>
+
+        <div class="card-body">
+            <div class="col-md-4">
+                <form asp-action="Create" enctype="multipart/form-data" method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="ApartmentNumber" class="control-label"></label>
+                        <input asp-for="ApartmentNumber" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NameStreet" class="control-label"></label>
+                        <input asp-for="NameStreet" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UserID" class="control-label"></label>
+                        <input asp-for="UserID" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ThumbnailImage" class="control-label"></label>
+                        <input asp-for="ThumbnailImage" type="file" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Tạo mới" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

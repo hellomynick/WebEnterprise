@@ -14,11 +14,11 @@ namespace WebEnterprise.Application.Catalog.Contacts
 
         Task<long> Delete(long contactId);
 
-        Task<ContactsViewModel> GetById(long contactId);
+        Task<ContactsVm> GetById(long contactId);
 
         Task TotalOfDocument(long documentId);
 
-        Task<PagedResult<ContactsViewModel>> GetAllPaging(GetManageContactsPagingRequest request);
+        Task<PagedResult<ContactsVm>> GetAllPaging(GetContactsPagingRequest request);
 
         Task<int> AddImage(long contactId, UserImageCreateRequest request);
 
@@ -30,6 +30,6 @@ namespace WebEnterprise.Application.Catalog.Contacts
 
         Task<UserImageViewModel> GetImageById(int imageId);
 
-        Task<PagedResult<ContactsViewModel>> GetAllByUserId(GetManageContactsPagingRequest request);
+        Task<PagedResult<ContactsVm>> GetAllByUserId(GetContactsPagingRequest request);
     }
 }

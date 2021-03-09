@@ -1,10 +1,12 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebEnterprise.Data.Entities
 {
     public class Document
     {
         public long ID { set; get; }
+
         public Guid UserID { set; get; }
         public string DocumentPath { get; set; }
         public string Caption { get; set; }

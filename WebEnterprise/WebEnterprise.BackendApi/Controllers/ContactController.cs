@@ -10,7 +10,7 @@ namespace WebEnterprise.BackendApi.Controllers
     [Route("api/[Controller]")]
     [ApiController]
     [Authorize]
-    public class ContactController : Controller
+    public class ContactController : ControllerBase
     {
         private readonly IContactsService _contactsService;
 
@@ -20,10 +20,10 @@ namespace WebEnterprise.BackendApi.Controllers
         }
 
         //http://localhost:port/contact?pageIndex=1&pageSize=10&CategoryId=
-        [HttpGet("request")]
-        public async Task<IActionResult> GetAllPaging([FromQuery] GetManageContactsPagingRequest request)
+        [HttpGet("paging")]
+        public async Task<IActionResult> GetAllPaging([FromQuery] GetContactsPagingRequest request)
         {
-            var contacts = await _contactsService.GetAllByUserId(request);
+            var contacts = await _contactsService.GetAllPaging(request);
             return Ok(contacts);
         }
 
@@ -38,6 +38,8 @@ namespace WebEnterprise.BackendApi.Controllers
         }
 
         [HttpPost]
+        [Consumes("multipart/form-data")]
+        [Authorize]
         public async Task<IActionResult> Create([FromForm] ContactsCreateRequest request)
         {
             if (!ModelState.IsValid)
@@ -52,7 +54,7 @@ namespace WebEnterprise.BackendApi.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] ContactsUpdateRequest request)
+        public async Task<IActionResult> Update([FromForm] ContactsUpdateRequest request)
         {
             if (!ModelState.IsValid)
             {

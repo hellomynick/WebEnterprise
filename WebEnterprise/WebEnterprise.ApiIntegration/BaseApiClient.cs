@@ -32,7 +32,7 @@ namespace WebEnterprise.ApiIntegration
                 .Session
                 .GetString(SystemConstants.AppSettings.Token);
 
-            var client = _httpClientFactory.CreateClient();
+            var client = _httpClientFactory.CreateClient("BackendApi");
             client.BaseAddress = new Uri(_configuration[SystemConstants.AppSettings.BaseAddress]);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
             var response = await client.GetAsync(url);
