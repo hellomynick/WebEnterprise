@@ -26,6 +26,9 @@ namespace WebEnterprise.ViewModels.System.Users
         [Display(Name = "Date of birth")]
         public DateTime Dob { get; set; }
 
+        [Display(Name = "Position")]
+        public int Position { get; set; }
+
         public IList<string> Roles { get; set; }
     }
 }

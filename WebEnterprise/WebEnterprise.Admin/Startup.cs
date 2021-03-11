@@ -53,6 +53,7 @@ namespace WebEnterprise.Admin
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(300);
             });
+            services.AddSingleton<IPositionApiClient, PositionApiClient>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IDocumentApiClient, DocumentApiClient>();
             services.AddTransient<IUserApiClient, UserApiClient>();

@@ -4,7 +4,7 @@ using WebEnterprise.ViewModels.Common;
 
 namespace WebEnterprise.Controllers.Components
 {
-    public class PagerUserViewComponent : ViewComponent
+    public class PagerViewComponent : ViewComponent
     {
         public Task<IViewComponentResult> InvokeAsync(PagedResultBase result)
         {

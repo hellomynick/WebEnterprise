@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 using WebEnterprise.ApiIntegration;
 using WebEnterprise.Models;
 using WebEnterprise.ViewModels.Catalog.Document;
-using WebEnterprise.ViewModels.Catalog.Document.Manage;
 
 namespace WebEnterprise.Controllers
 {
-    public class DocumentController : Controller
+    public class DocumentController : BaseController
     {
         private readonly IUserApiClient _userApiClient;
         private readonly IConfiguration _configuration;
@@ -60,10 +59,36 @@ namespace WebEnterprise.Controllers
             if (result)
             {
                 TempData["result"] = "Thêm mới sản phẩm thành công";
-                return RedirectToAction("Index", "DocumentUser");
+                return RedirectToAction("Index", "Document");
             }
 
             ModelState.AddModelError("", "Thêm sản phẩm thất bại");
+            return View(request);
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            return View(new DocumentsDeleteRequest()
+            {
+                ID = id
+            });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(DocumentsDeleteRequest request)
+        {
+            if (!ModelState.IsValid)
+                return View();
+
+            var result = await _documentApiClient.DeleteDocument(request.ID);
+            if (result)
+            {
+                TempData["result"] = "Delete acccess";
+                return RedirectToAction("Index");
+            }
+
+            ModelState.AddModelError("", "Cannot delete document");
             return View(request);
         }
     }

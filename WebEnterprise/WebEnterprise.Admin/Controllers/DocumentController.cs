@@ -6,7 +6,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebEnterprise.ApiIntegration;
 using WebEnterprise.ViewModels.Catalog.Document;
-using WebEnterprise.ViewModels.Catalog.Document.Manage;
 
 namespace WebEnterprise.Admin.Controllers
 {
@@ -58,7 +57,7 @@ namespace WebEnterprise.Admin.Controllers
             var result = await _documentApiClient.CreateDocument(request);
             if (result)
             {
-                TempData["result"] = "Thêm mới sản phẩm thành công";
+                TempData["result"] = "Create Document access";
                 return RedirectToAction("Index", "Document");
             }
 

@@ -12,7 +12,6 @@ using System.Text;
 using System.Threading.Tasks;
 using WebEnterprise.Untilities.Constants;
 using WebEnterprise.ViewModels.Catalog.Document;
-using WebEnterprise.ViewModels.Catalog.Document.Manage;
 using WebEnterprise.ViewModels.Common;
 
 namespace WebEnterprise.ApiIntegration
@@ -74,6 +73,20 @@ namespace WebEnterprise.ApiIntegration
                 $"&keyword={request.Keyword}&userName={request.UserName}");
 
             return data;
+        }
+
+        public async Task<bool> DeleteDocument(long id)
+        {
+            var sessions = _httpContextAccessor
+                           .HttpContext
+                           .Session
+                           .GetString(SystemConstants.AppSettings.Token);
+
+            var client = _httpClientFactory.CreateClient("BackendApi");
+            client.BaseAddress = new Uri(_configuration[SystemConstants.AppSettings.BaseAddress]);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
+            var response = await client.DeleteAsync($"/api/documents/{id}");
+            return response.IsSuccessStatusCode;
         }
 
         public async Task<PagedResult<DocumentsVm>> GetPagings(GetDocumentsPagingRequest request)

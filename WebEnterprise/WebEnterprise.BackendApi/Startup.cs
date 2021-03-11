@@ -13,6 +13,7 @@ using Microsoft.OpenApi.Models;
 using System.Collections.Generic;
 using WebEnterprise.Application.Catalog.Contacts;
 using WebEnterprise.Application.Catalog.Documents;
+using WebEnterprise.Application.Catalog.Positions;
 using WebEnterprise.Application.Common;
 using WebEnterprise.Application.System.Roles;
 using WebEnterprise.Application.System.Users;
@@ -43,6 +44,7 @@ namespace WebEnterprise.BackendApi
                 .AddDefaultTokenProviders();
 
             // Declace DI
+            services.AddTransient<IPositionsService, PositionsService>();
             services.AddTransient<IStorageService, FileStorageService>();
             services.AddTransient<IDocumentsService, DocumentsService>();
             services.AddTransient<IContactsService, ContactsService>();

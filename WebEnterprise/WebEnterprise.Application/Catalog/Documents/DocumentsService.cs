@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using WebEnterprise.Application.Common;
 using WebEnterprise.Data.EF;
 using WebEnterprise.Data.Entities;
+using WebEnterprise.Untilities.Constants;
 using WebEnterprise.Untilities.Exceptions;
 using WebEnterprise.ViewModels.Catalog.Document;
 using WebEnterprise.ViewModels.Common;
@@ -47,10 +48,10 @@ namespace WebEnterprise.Application.Catalog.Documents
             var document = new Document()
             {
                 UserID = request.UserID,
-                Caption = "File User",
-                CreateOn = DateTime.Now,
                 FacultyOfDocumentID = request.FalcultyOfDocumentID,
-                MagazineID = request.MagazineID
+                MagazineID = request.MagazineID,
+                Caption = "Document file",
+                CreateOn = DateTime.Now.Date,
             };
             if (request.DocumentFile != null)
             {
@@ -59,42 +60,19 @@ namespace WebEnterprise.Application.Catalog.Documents
                     new Document()
                     {
                         Caption = "Document file",
-                        CreateOn = DateTime.Now,
+                        CreateOn = DateTime.Now.Date,
                         FileSize = request.DocumentFile.Length,
                         DocumentPath = await this.SaveFile(request.DocumentFile),
                     }
                 };
             }
-
-            _context.Documents.Add(document);
-            await _context.SaveChangesAsync();
-            return document.ID;
-        }
-
-        public async Task<long> AddDocument(Guid userId, DocumentsCreateRequest request)
-        {
-            var document = new Document()
+            if (request.FalcultyOfDocumentID == 1)
             {
-                Caption = request.Caption,
-                CreateOn = DateTime.Now,
-                UserID = userId,
-            };
-
-            if (request.DocumentFile != null)
-            {
-                document.DocumentPath = await this.SaveFile(request.DocumentFile);
-                document.FileSize = request.DocumentFile.Length;
+                SystemConstants.SendMail("minhvu09033@gmail.com");
             }
             _context.Documents.Add(document);
             await _context.SaveChangesAsync();
             return document.ID;
-        }
-
-        public async Task AddViewCount(long documentId)
-        {
-            var document = await _context.Documents.FindAsync(documentId);
-            document.ViewCount += 1;
-            await _context.SaveChangesAsync();
         }
 
         public async Task<long> Delete(long documentId)
@@ -103,20 +81,6 @@ namespace WebEnterprise.Application.Catalog.Documents
             if (document == null) throw new WebEnterpriseException($"Cannot find a document : {documentId}");
             _context.Documents.Remove(document);
             return await _context.SaveChangesAsync();
-        }
-
-        public async Task<List<DocumentsVm>> GetListDocument(Guid userId)
-        {
-            return await _context.Documents.Where(x => x.UserID == userId)
-                .Select(i => new DocumentsVm()
-                {
-                    Caption = i.Caption,
-                    CreateOn = i.CreateOn,
-                    FileSize = i.FileSize,
-                    ID = i.ID,
-                    DocumentPath = i.DocumentPath,
-                    UserID = i.UserID,
-                }).ToListAsync();
         }
 
         public async Task<DocumentsVm> GetById(long documentId)
@@ -189,7 +153,11 @@ namespace WebEnterprise.Application.Catalog.Documents
                 {
                     ID = x.c.ID,
                     UserID = x.u.Id,
-                    UserName = x.u.UserName
+                    UserName = x.u.UserName,
+                    Caption = x.c.Caption,
+                    FacultyID = x.c.FacultyOfDocumentID,
+                    MagazineID = x.c.MagazineID,
+                    CreateOn = x.c.CreateOn
                 }).ToListAsync();
             var pagedResult = new PagedResult<DocumentsVm>()
             {

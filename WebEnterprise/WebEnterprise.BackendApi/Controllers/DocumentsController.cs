@@ -4,10 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebEnterprise.Application.Catalog.Contacts;
 using WebEnterprise.Application.Catalog.Documents;
 using WebEnterprise.ViewModels.Catalog.Document;
-using WebEnterprise.ViewModels.Catalog.Document.Manage;
 
 namespace WebEnterprise.BackendApi.Controllers
 {
@@ -77,10 +75,10 @@ namespace WebEnterprise.BackendApi.Controllers
         //    return Ok();
         //}
 
-        [HttpDelete("{documentId}")]
-        public async Task<IActionResult> Delete(int documentId)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
         {
-            var affectedResult = await _documentsService.Delete(documentId);
+            var affectedResult = await _documentsService.Delete(id);
             if (affectedResult == 0)
                 return BadRequest();
             return Ok();

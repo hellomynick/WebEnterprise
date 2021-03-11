@@ -25,7 +25,5 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WebEnterprise.ApiIntegration\WebEnterprise.ApiIntegration.csproj" />
-    <ProjectReference Include="..\WebEnterprise.Application\WebEnterprise.Application.csproj" />
-    <ProjectReference Include="..\WebEnterprise.Models\WebEnterprise.ViewModels.csproj" />
   </ItemGroup>
 </Project>
