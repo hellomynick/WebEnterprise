@@ -124,7 +124,8 @@ namespace WebEnterprise.Application.Catalog.Documents
                     UserName = x.u.UserName,
                     Caption = x.c.Caption,
                     FacultyID = x.c.FacultyOfDocumentID,
-                    MagazineID = x.c.MagazineID
+                    MagazineID = x.c.MagazineID,
+                    CreateOn = x.c.CreateOn.Date
                 }).ToListAsync();
             var pagedResult = new PagedResult<DocumentsVm>()
             {
@@ -157,7 +158,7 @@ namespace WebEnterprise.Application.Catalog.Documents
                     Caption = x.c.Caption,
                     FacultyID = x.c.FacultyOfDocumentID,
                     MagazineID = x.c.MagazineID,
-                    CreateOn = x.c.CreateOn
+                    CreateOn = x.c.CreateOn.Date
                 }).ToListAsync();
             var pagedResult = new PagedResult<DocumentsVm>()
             {

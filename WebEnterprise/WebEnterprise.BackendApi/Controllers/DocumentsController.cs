@@ -42,7 +42,7 @@ namespace WebEnterprise.BackendApi.Controllers
         {
             var contacts = await _documentsService.GetById(documentId);
             if (contacts == null)
-                return BadRequest("Can not find contact");
+                return BadRequest("Can not find document");
             return Ok(contacts);
         }
 

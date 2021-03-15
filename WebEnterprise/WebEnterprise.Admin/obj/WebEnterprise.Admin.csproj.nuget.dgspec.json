@@ -57,6 +57,10 @@
               "target": "Package",
               "version": "[9.5.1, )"
             },
+            "GroupDocs.Viewer": {
+              "target": "Package",
+              "version": "[21.2.0, )"
+            },
             "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
               "target": "Package",
               "version": "[3.1.12, )"
@@ -76,10 +80,6 @@
             "Microsoft.IdentityModel.Logging": {
               "target": "Package",
               "version": "[6.8.0, )"
-            },
-            "Microsoft.Office.Interop.Word": {
-              "target": "Package",
-              "version": "[15.0.4797.1003, )"
             },
             "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
               "target": "Package",

@@ -785,3 +785,4 @@ C:\Users\DELL\WebEnterprise\WebEnterprise\obj\Debug\net5.0\Razor\Views\Document\
 C:\Users\DELL\WebEnterprise\WebEnterprise\obj\Debug\net5.0\Razor\Views\Document\Index.cshtml.g.cs
 C:\Users\DELL\WebEnterprise\WebEnterprise\obj\Debug\net5.0\Razor\Views\Shared\Components\Pager\Default.cshtml.g.cs
 C:\Users\DELL\WebEnterprise\WebEnterprise\obj\Debug\net5.0\Razor\Views\Document\Delete.cshtml.g.cs
+C:\Users\DELL\WebEnterprise\WebEnterprise\bin\Debug\net5.0\Microsoft.Office.Interop.Word.dll
