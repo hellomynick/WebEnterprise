@@ -780,9 +780,8 @@ C:\Users\DELL\WebEnterprise\WebEnterprise\obj\Debug\net5.0\WebEnterprise.pdb
 C:\Users\DELL\WebEnterprise\WebEnterprise\obj\Debug\net5.0\WebEnterprise.genruntimeconfig.cache
 C:\Users\DELL\WebEnterprise\WebEnterprise\obj\Debug\net5.0\Razor\Views\Account\Index.cshtml.g.cs
 C:\Users\DELL\WebEnterprise\WebEnterprise\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
-C:\Users\DELL\WebEnterprise\WebEnterprise\obj\Debug\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
 C:\Users\DELL\WebEnterprise\WebEnterprise\obj\Debug\net5.0\Razor\Views\Document\Create.cshtml.g.cs
-C:\Users\DELL\WebEnterprise\WebEnterprise\obj\Debug\net5.0\Razor\Views\Document\Index.cshtml.g.cs
 C:\Users\DELL\WebEnterprise\WebEnterprise\obj\Debug\net5.0\Razor\Views\Shared\Components\Pager\Default.cshtml.g.cs
 C:\Users\DELL\WebEnterprise\WebEnterprise\obj\Debug\net5.0\Razor\Views\Document\Delete.cshtml.g.cs
-C:\Users\DELL\WebEnterprise\WebEnterprise\bin\Debug\net5.0\Microsoft.Office.Interop.Word.dll
+C:\Users\DELL\WebEnterprise\WebEnterprise\obj\Debug\net5.0\Razor\Views\Document\IndexForCoordinator.cshtml.g.cs
+C:\Users\DELL\WebEnterprise\WebEnterprise\obj\Debug\net5.0\Razor\Views\Document\IndexForStudent.cshtml.g.cs

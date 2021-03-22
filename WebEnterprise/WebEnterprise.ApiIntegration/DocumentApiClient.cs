@@ -58,9 +58,7 @@ namespace WebEnterprise.ApiIntegration
             }
             var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier)?.Value.ToString();
             requestContent.Add(new StringContent(userId), "userId");
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.FalcultyOfDocumentID.ToString()) ? "" : request.FalcultyOfDocumentID.ToString()), "FalcultyOfDocumentID");
-            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.MagazineID.ToString()) ? "" : request.MagazineID.ToString()), "MagazineID");
-
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.Caption.ToString()) ? "" : request.Caption.ToString()), "Caption");
             var response = await client.PostAsync($"/api/documents/", requestContent);
             return response.IsSuccessStatusCode;
         }
@@ -71,6 +69,40 @@ namespace WebEnterprise.ApiIntegration
                 $"/api/documents/getbyuser?pageIndex={request.PageIndex}" +
                 $"&pageSize={request.PageSize}" +
                 $"&keyword={request.Keyword}&userName={request.UserName}");
+
+            return data;
+        }
+
+        public async Task<bool> UpdateDocument(DocumentsUpdateRequest request)
+        {
+            var sessions = _httpContextAccessor
+                .HttpContext
+                .Session
+                .GetString(SystemConstants.AppSettings.Token);
+            var client = _httpClientFactory.CreateClient("BackendApi");
+            client.BaseAddress = new Uri(_configuration[SystemConstants.AppSettings.BaseAddress]);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
+
+            var requestContent = new MultipartFormDataContent();
+
+            if (request.DocumentFile != null)
+            {
+                byte[] data;
+                using (var br = new BinaryReader(request.DocumentFile.OpenReadStream()))
+                {
+                    data = br.ReadBytes((int)request.DocumentFile.OpenReadStream().Length);
+                }
+                ByteArrayContent bytes = new ByteArrayContent(data);
+                requestContent.Add(bytes, "documentFile", request.DocumentFile.FileName);
+            }
+
+            var response = await client.PutAsync($"/api/documents/" + request.Id, requestContent);
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<DocumentsVm> GetById(long id)
+        {
+            var data = await GetAsync<DocumentsVm>($"/api/documents/{id}");
 
             return data;
         }
@@ -93,6 +125,16 @@ namespace WebEnterprise.ApiIntegration
         {
             var data = await GetAsync<PagedResult<DocumentsVm>>(
                 $"/api/documents/paging?pageIndex={request.PageIndex}" +
+                $"&pageSize={request.PageSize}" +
+                $"&keyword={request.Keyword}&userName={request.UserName}");
+
+            return data;
+        }
+
+        public async Task<PagedResult<DocumentsVm>> GetByFaculty(GetDocumentsPagingRequest request)
+        {
+            var data = await GetAsync<PagedResult<DocumentsVm>>(
+                $"/api/documents/getbyfaculty?pageIndex={request.PageIndex}" +
                 $"&pageSize={request.PageSize}" +
                 $"&keyword={request.Keyword}&userName={request.UserName}");
 

@@ -36,11 +36,18 @@ namespace WebEnterprise.BackendApi.Controllers
             return Ok(documents);
         }
 
-        //http://localhost:port/contact/1
-        [HttpGet("{documentId}")]
-        public async Task<IActionResult> GetById(long documentId)
+        [HttpGet("getbyfaculty")]
+        public async Task<IActionResult> GetByFaculty([FromQuery] GetDocumentsPagingRequest request)
         {
-            var contacts = await _documentsService.GetById(documentId);
+            var documents = await _documentsService.GetAllByFaculty(request);
+            return Ok(documents);
+        }
+
+        //http://localhost:port/contact/1
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(long id)
+        {
+            var contacts = await _documentsService.GetById(id);
             if (contacts == null)
                 return BadRequest("Can not find document");
             return Ok(contacts);
@@ -62,18 +69,21 @@ namespace WebEnterprise.BackendApi.Controllers
             return CreatedAtAction(nameof(GetById), new { id = documentId }, document);
         }
 
-        //[HttpPut]
-        //public async Task<IActionResult> Update([FromForm] ContactsUpdateRequest request)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-        //    var affectedResult = await _contactsService.Update(request);
-        //    if (affectedResult == 0)
-        //        return BadRequest();
-        //    return Ok();
-        //}
+        [HttpPut("{id}")]
+        [Consumes("multipart/form-data")]
+        [Authorize]
+        public async Task<IActionResult> Update([FromRoute] int id, [FromForm] DocumentsUpdateRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            request.Id = id;
+            var affectedResult = await _documentsService.Update(request);
+            if (affectedResult == 0)
+                return BadRequest();
+            return Ok();
+        }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)

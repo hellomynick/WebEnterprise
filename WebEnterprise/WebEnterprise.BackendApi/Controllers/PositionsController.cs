@@ -74,14 +74,5 @@ namespace WebEnterprise.BackendApi.Controllers
                 return BadRequest();
             return Ok();
         }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var affectedResult = await _positionsService.Delete(id);
-            if (affectedResult == 0)
-                return BadRequest();
-            return Ok();
-        }
     }
 }

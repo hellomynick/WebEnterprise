@@ -5,7 +5,7 @@ using WebEnterprise.Models;
 
 namespace WebEnterprise.Controllers
 {
-    public class HomeController : BaseController
+    public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
 

@@ -57,11 +57,11 @@ namespace WebEnterprise.Admin.Controllers
             var result = await _positionApiClient.CreatePosition(request);
             if (result)
             {
-                TempData["result"] = "Create Document access";
+                TempData["result"] = "Create position success";
                 return RedirectToAction("Index");
             }
 
-            ModelState.AddModelError("", "Thêm sản phẩm thất bại");
+            ModelState.AddModelError("", "Create position unsuccess");
             return View(request);
         }
 
@@ -69,7 +69,7 @@ namespace WebEnterprise.Admin.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var positions = await _positionApiClient.GetById(id);
-            var editVm = new PositionsVm()
+            var editVm = new PositionsUpdateRequest()
             {
                 ID = positions.ID,
                 Name = positions.Name,
@@ -83,7 +83,7 @@ namespace WebEnterprise.Admin.Controllers
         public async Task<IActionResult> Edit([FromForm] PositionsUpdateRequest request)
         {
             if (!ModelState.IsValid)
-                return View(request);
+                return View();
 
             var result = await _positionApiClient.UpdatePosition(request);
             if (result)

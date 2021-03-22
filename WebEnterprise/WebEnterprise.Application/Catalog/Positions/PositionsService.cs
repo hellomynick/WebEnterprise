@@ -38,14 +38,6 @@ namespace WebEnterprise.Application.Catalog.Positions
             return position.ID;
         }
 
-        public async Task<int> Delete(int positionId)
-        {
-            var position = await _context.Positions.FindAsync(positionId);
-            if (position == null) throw new WebEnterpriseException($"Cannot find a position : {positionId}");
-            _context.Positions.Remove(position);
-            return await _context.SaveChangesAsync();
-        }
-
         public async Task<int> Update(PositionsUpdateRequest request)
         {
             var position = await _context.Positions.FindAsync(request.ID);

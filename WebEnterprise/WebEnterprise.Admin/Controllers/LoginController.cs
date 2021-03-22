@@ -58,7 +58,7 @@ namespace WebEnterprise.Admin.Controllers
                         CookieAuthenticationDefaults.AuthenticationScheme,
                         userPrincipal,
                         authProperties);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "User");
         }
 
         private ClaimsPrincipal ValidateToken(string jwtToken)

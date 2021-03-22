@@ -1,0 +1,64 @@
+﻿@using WebEnterprise.ViewModels.Common;
+@model PagedResult<WebEnterprise.ViewModels.Catalog.Document.DocumentsVm>
+
+@{
+    ViewData["Title"] = "List User Document";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    @if (ViewBag.SuccessMsg != null)
+    {
+        <div id="msgAlert" class="alert alert-success" role="alert">
+            @ViewBag.SuccessMsg
+        </div>
+    }
+</div>
+<div class="grid wide">
+    <div class="row">
+        <!-- user information box -->
+        <div class="col l-3 m-4 c-12" style="margin: 0;">
+            <div class="user-info">
+                <div class="user-info-header">
+                    <img src="../assets/img/user-avatar.jpg" alt="" class="user-avatar">
+                    <h4>User Information</h4>
+                </div>
+                <ul class="list-user-info">
+                    <li>Full Name:</li>
+                    <li>Faculty:</li>
+                    <li>Email: abc@gmail.com</li>
+                    <li>Number of document: 10</li>
+                </ul>
+            </div>
+        </div>
+        <!-- user documents -->
+        <div class="col l-9 m-8 c-12">
+            <div class="row">
+                <form asp-action="IndexForStudent" method="get">
+                    <input type="text" value="@ViewBag.Keyword" name="keyword" class="form-control" />
+
+                    <button type="submit" class="btn btn-primary">Tìm</button>
+                    <button type="button" onclick="window.location.href='/Document/IndexForStudent'" class="btn btn-dark">Reset</button>
+                </form>
+            </div>
+            <div class="row">
+                @foreach (var item in Model.Items)
+                {
+                    <div class="col l-4 c-12 m-6">
+
+                        <div class="documentBox">
+                            <div class="cimbox">
+                                <div class="document-info">
+                                    <h3>Author: @Html.DisplayFor(modelItem => item.UserName)</h3>
+                                    <h3>Date-time: @Html.DisplayFor(modelItem => item.CreateOn)</h3>
+                                    <h3>Faculty: @Html.DisplayFor(modelItem => item.FacultyName)</h3>
+                                </div>
+                            </div>
+                            <h2><a href="#">@Html.DisplayFor(modelItem => item.Caption)</a></h2>
+                        </div>
+                    </div>
+                }
+            </div>
+            @await Component.InvokeAsync("Pager", Model)
+        </div>
+    </div>
+</div>

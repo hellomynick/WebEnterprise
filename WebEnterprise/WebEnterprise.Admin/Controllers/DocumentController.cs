@@ -54,11 +54,40 @@ namespace WebEnterprise.Admin.Controllers
             var result = await _documentApiClient.CreateDocument(request);
             if (result)
             {
-                TempData["result"] = "Create Document access";
+                TempData["result"] = "Create Document success";
                 return RedirectToAction("Index", "Document");
             }
 
-            ModelState.AddModelError("", "Thêm sản phẩm thất bại");
+            ModelState.AddModelError("", "Create Document unsuccess");
+            return View(request);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var document = await _documentApiClient.GetById(id);
+            var editVm = new DocumentsUpdateRequest()
+            {
+                Id = document.ID,
+            };
+            return View(editVm);
+        }
+
+        [HttpPost]
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> Edit([FromForm] DocumentsUpdateRequest request)
+        {
+            if (!ModelState.IsValid)
+                return View(request);
+
+            var result = await _documentApiClient.UpdateDocument(request);
+            if (result)
+            {
+                TempData["result"] = "Update document succsess";
+                return RedirectToAction("Index");
+            }
+
+            ModelState.AddModelError("", "Fail update document");
             return View(request);
         }
     }

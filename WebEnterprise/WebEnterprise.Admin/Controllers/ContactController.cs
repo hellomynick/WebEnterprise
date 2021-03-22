@@ -57,11 +57,11 @@ namespace WebEnterprise.Admin.Controllers
             var result = await _contactApiClient.CreateContact(request);
             if (result)
             {
-                TempData["result"] = "Thêm mới sản phẩm thành công";
+                TempData["result"] = "Create contact succsess";
                 return RedirectToAction("Index", "Contact");
             }
 
-            ModelState.AddModelError("", "Thêm sản phẩm thất bại");
+            ModelState.AddModelError("", "Create contact unsuccsess");
             return View(request);
         }
     }

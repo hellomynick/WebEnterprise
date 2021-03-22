@@ -50,7 +50,7 @@ namespace WebEnterprise.Controllers
             var userPrincipal = this.ValidateToken(result.ResultObj);
             var authProperties = new AuthenticationProperties
             {
-                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
+                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(100),
                 IsPersistent = false
             };
             HttpContext.Session.SetString(SystemConstants.AppSettings.Token, result.ResultObj);
@@ -58,7 +58,7 @@ namespace WebEnterprise.Controllers
                         CookieAuthenticationDefaults.AuthenticationScheme,
                         userPrincipal,
                         authProperties);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("IndexForStudent", "Document");
         }
 
         private ClaimsPrincipal ValidateToken(string jwtToken)

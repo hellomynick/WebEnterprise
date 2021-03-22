@@ -42,37 +42,40 @@ namespace WebEnterprise.Application.Catalog.Documents
 
         public async Task<long> Create(DocumentsCreateRequest request)
         {
-            var user = new User()
-            {
-            };
+            var claimsIdentity = _httpContextAccessor.HttpContext.User.Identity as ClaimsIdentity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier)?.Value.ToString();
+            var data = _context.Positions.Where(p => p.UserID.ToString() == userId).Select(x => x.FacultyID).FirstOrDefault();
             var document = new Document()
             {
                 UserID = request.UserID,
-                FacultyOfDocumentID = request.FalcultyOfDocumentID,
-                MagazineID = request.MagazineID,
-                Caption = "Document file",
+                FacultyOfDocumentID = data,
+                Caption = request.Caption,
                 CreateOn = DateTime.Now.Date,
+                FileSize = request.DocumentFile.Length,
+                DocumentPath = await this.SaveFile(request.DocumentFile),
             };
-            if (request.DocumentFile != null)
-            {
-                user.Documents = new List<Document>()
-                {
-                    new Document()
-                    {
-                        Caption = "Document file",
-                        CreateOn = DateTime.Now.Date,
-                        FileSize = request.DocumentFile.Length,
-                        DocumentPath = await this.SaveFile(request.DocumentFile),
-                    }
-                };
-            }
-            if (request.FalcultyOfDocumentID == 1)
+            _context.Documents.Add(document);
+            await _context.SaveChangesAsync();
+            if (data == 1)
             {
                 SystemConstants.SendMail("minhvu09033@gmail.com");
             }
-            _context.Documents.Add(document);
-            await _context.SaveChangesAsync();
             return document.ID;
+        }
+
+        public async Task<long> Update(DocumentsUpdateRequest request)
+        {
+            var userdocument = await _context.Documents.FindAsync(request.Id);
+            if (userdocument == null)
+                throw new WebEnterpriseException($"Cannot find an image with id {request.Id}");
+
+            if (request.DocumentFile != null)
+            {
+                userdocument.DocumentPath = await this.SaveFile(request.DocumentFile);
+                userdocument.FileSize = request.DocumentFile.Length;
+            }
+            _context.Documents.Update(userdocument);
+            return await _context.SaveChangesAsync();
         }
 
         public async Task<long> Delete(long documentId)
@@ -140,9 +143,10 @@ namespace WebEnterprise.Application.Catalog.Documents
             var claimsIdentity = _httpContextAccessor.HttpContext.User.Identity as ClaimsIdentity;
             var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier)?.Value.ToString();
             var query = from c in _context.Documents
+                        join fod in _context.FacultyOfDocument on c.FacultyOfDocumentID equals fod.ID
                         join u in _context.Users on c.UserID equals u.Id
                         where c.UserID.ToString() == userId
-                        select new { c, u };
+                        select new { c, u, fod };
             if (request.DocumentId.HasValue && request.DocumentId.Value > 0)
             {
                 query = query.Where(c => c.u.UserName == request.UserName);
@@ -156,9 +160,43 @@ namespace WebEnterprise.Application.Catalog.Documents
                     UserID = x.u.Id,
                     UserName = x.u.UserName,
                     Caption = x.c.Caption,
-                    FacultyID = x.c.FacultyOfDocumentID,
+                    FacultyName = x.fod.Name,
                     MagazineID = x.c.MagazineID,
                     CreateOn = x.c.CreateOn.Date
+                }).ToListAsync();
+            var pagedResult = new PagedResult<DocumentsVm>()
+            {
+                TotalRecord = TotalRow,
+                Items = data
+            };
+            return pagedResult;
+        }
+
+        public async Task<PagedResult<DocumentsVm>> GetAllByFaculty(GetDocumentsPagingRequest request)
+        {
+            var claimsIdentity = _httpContextAccessor.HttpContext.User.Identity as ClaimsIdentity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier)?.Value.ToString();
+            var query = from d in _context.Documents
+                        from p in _context.Positions
+                        join u in _context.Users on d.UserID equals u.Id
+                        where p.UserID.ToString() == userId && d.FacultyOfDocumentID == p.FacultyID
+                        select new { d, u, p };
+            if (request.DocumentId.HasValue && request.DocumentId.Value > 0)
+            {
+                query = query.Where(c => c.u.UserName == request.UserName);
+            }
+            int TotalRow = await query.CountAsync();
+            var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
+                .Take(request.PageSize)
+                .Select(x => new DocumentsVm()
+                {
+                    ID = x.d.ID,
+                    UserID = x.u.Id,
+                    UserName = x.u.UserName,
+                    Caption = x.d.Caption,
+                    FacultyID = x.d.FacultyOfDocumentID,
+                    MagazineID = x.d.MagazineID,
+                    CreateOn = x.d.CreateOn.Date
                 }).ToListAsync();
             var pagedResult = new PagedResult<DocumentsVm>()
             {

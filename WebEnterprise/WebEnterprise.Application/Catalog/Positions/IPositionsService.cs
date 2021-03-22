@@ -13,8 +13,6 @@ namespace WebEnterprise.Application.Catalog.Positions
 
         Task<int> Update(PositionsUpdateRequest request);
 
-        Task<int> Delete(int positionId);
-
         Task<PagedResult<PositionsVm>> GetAllPaging(GetPositionsPagingRequest request);
 
         Task<PagedResult<PositionsVm>> GetAllByUserId(GetPositionsPagingRequest request);

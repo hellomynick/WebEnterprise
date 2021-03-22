@@ -60,7 +60,7 @@ namespace WebEnterprise.Application.Catalog.Contacts
                     new UserImage()
                     {
                         Caption = "Thumbnail image",
-                        DayCreated = DateTime.Now,
+                        DayCreated = DateTime.Now.Date,
                         FileSize = request.ThumbnailImage.Length,
                         ImagePath = await this.SaveFile(request.ThumbnailImage),
                         IsDefault = true,

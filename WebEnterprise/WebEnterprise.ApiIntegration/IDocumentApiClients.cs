@@ -13,7 +13,13 @@ namespace WebEnterprise.ApiIntegration
 
         Task<bool> CreateDocument(DocumentsCreateRequest request);
 
-        public Task<PagedResult<DocumentsVm>> GetByUserID(GetDocumentsPagingRequest request);
+        Task<bool> UpdateDocument(DocumentsUpdateRequest request);
+
+        Task<PagedResult<DocumentsVm>> GetByUserID(GetDocumentsPagingRequest request);
+
+        Task<PagedResult<DocumentsVm>> GetByFaculty(GetDocumentsPagingRequest request);
+
+        Task<DocumentsVm> GetById(long id);
 
         Task<bool> DeleteDocument(long id);
     }

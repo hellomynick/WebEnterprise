@@ -440,7 +440,6 @@ C:\Users\DELL\WebEnterprise\WebEnterprise.Admin\bin\Debug\netcoreapp3.1\refs\Mic
 C:\Users\DELL\WebEnterprise\WebEnterprise.Admin\bin\Debug\netcoreapp3.1\refs\System.Diagnostics.EventLog.dll
 C:\Users\DELL\WebEnterprise\WebEnterprise.Admin\bin\Debug\netcoreapp3.1\refs\System.Security.AccessControl.dll
 C:\Users\DELL\WebEnterprise\WebEnterprise.Admin\bin\Debug\netcoreapp3.1\refs\System.Security.Principal.Windows.dll
-C:\Users\DELL\WebEnterprise\WebEnterprise.Admin\obj\Debug\netcoreapp3.1\Razor\Views\Login\adminLogin.cshtml.g.cs
 C:\Users\DELL\WebEnterprise\WebEnterprise.Admin\obj\Debug\netcoreapp3.1\Razor\Views\Contact\Index.cshtml.g.cs
 C:\Users\DELL\WebEnterprise\WebEnterprise.Admin\obj\Debug\netcoreapp3.1\Razor\Views\Contact\Create.cshtml.g.cs
 C:\Users\DELL\WebEnterprise\WebEnterprise.Admin\obj\Debug\netcoreapp3.1\Razor\Views\Document\Create.cshtml.g.cs
@@ -463,3 +462,4 @@ C:\Users\DELL\WebEnterprise\WebEnterprise.Admin\bin\Debug\netcoreapp3.1\runtimes
 C:\Users\DELL\WebEnterprise\WebEnterprise.Admin\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
 C:\Users\DELL\WebEnterprise\WebEnterprise.Admin\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
 C:\Users\DELL\WebEnterprise\WebEnterprise.Admin\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Text.Encoding.CodePages.dll
+C:\Users\DELL\WebEnterprise\WebEnterprise.Admin\obj\Debug\netcoreapp3.1\Razor\Views\Document\Edit.cshtml.g.cs

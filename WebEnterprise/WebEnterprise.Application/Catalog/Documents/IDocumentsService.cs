@@ -10,6 +10,8 @@ namespace WebEnterprise.Application.Catalog.Documents
     {
         Task<long> Create(DocumentsCreateRequest request);
 
+        Task<long> Update(DocumentsUpdateRequest request);
+
         Task<long> Delete(long documentId);
 
         Task<PagedResult<DocumentsVm>> GetAllPaging(GetDocumentsPagingRequest request);
@@ -19,5 +21,7 @@ namespace WebEnterprise.Application.Catalog.Documents
         Task<DocumentsVm> GetByUserId(long documentId);
 
         Task<PagedResult<DocumentsVm>> GetAllByUserId(GetDocumentsPagingRequest request);
+
+        Task<PagedResult<DocumentsVm>> GetAllByFaculty(GetDocumentsPagingRequest request);
     }
 }

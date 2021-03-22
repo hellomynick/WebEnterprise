@@ -25,7 +25,7 @@ namespace WebEnterprise.Controllers
             _documentApiClient = documentApiClient;
         }
 
-        public async Task<IActionResult> Index(string keyword, int pageIndex = 1, int pageSize = 10)
+        public async Task<IActionResult> IndexForStudent(string keyword, int pageIndex = 1, int pageSize = 10)
         {
             var request = new GetDocumentsPagingRequest()
             {
@@ -34,6 +34,23 @@ namespace WebEnterprise.Controllers
                 PageSize = pageSize,
             };
             var data = await _documentApiClient.GetByUserID(request);
+            ViewBag.Keyword = keyword;
+            if (TempData["result"] != null)
+            {
+                ViewBag.SuccessMsg = TempData["result"];
+            }
+            return View(data);
+        }
+
+        public async Task<IActionResult> IndexForCoordinator(string keyword, int pageIndex = 1, int pageSize = 10)
+        {
+            var request = new GetDocumentsPagingRequest()
+            {
+                Keyword = keyword,
+                PageIndex = pageIndex,
+                PageSize = pageSize,
+            };
+            var data = await _documentApiClient.GetByFaculty(request);
             ViewBag.Keyword = keyword;
             if (TempData["result"] != null)
             {
@@ -58,11 +75,11 @@ namespace WebEnterprise.Controllers
             var result = await _documentApiClient.CreateDocument(request);
             if (result)
             {
-                TempData["result"] = "Thêm mới sản phẩm thành công";
-                return RedirectToAction("Index", "Document");
+                TempData["result"] = "Create Document susscess";
+                return RedirectToAction("IndexForStudent", "Document");
             }
 
-            ModelState.AddModelError("", "Thêm sản phẩm thất bại");
+            ModelState.AddModelError("", "Create Document Fail");
             return View(request);
         }
 
