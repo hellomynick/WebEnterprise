@@ -16,13 +16,10 @@ namespace WebEnterprise.Data.EF
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new ContactConfigurations());
             modelBuilder.ApplyConfiguration(new FacultyConfigurations());
             modelBuilder.ApplyConfiguration(new DocumentConfigurations());
-            modelBuilder.ApplyConfiguration(new MagazineConfigurations());
             modelBuilder.ApplyConfiguration(new SchoolYearConfigurations());
             modelBuilder.ApplyConfiguration(new UserImageConfiguration());
-            modelBuilder.ApplyConfiguration(new PositionConfigurations());
             modelBuilder.ApplyConfiguration(new LanguageConfiguration());
 
             modelBuilder.ApplyConfiguration(new GroupUserConfigurations());
@@ -41,11 +38,8 @@ namespace WebEnterprise.Data.EF
 
         public DbSet<UserImage> UserImages { get; set; }
         public DbSet<Document> Documents { get; set; }
-        public DbSet<Contact> Contacts { get; set; }
         public DbSet<Faculty> Faculties { get; set; }
         public DbSet<SchoolYear> SchoolYears { get; set; }
-        public DbSet<Magazine> Magazines { get; set; }
-        public DbSet<Position> Positions { get; set; }
         public DbSet<FacultyOfDocument> FacultyOfDocument { get; set; }
         public DbSet<Language> Languages { get; set; }
     }

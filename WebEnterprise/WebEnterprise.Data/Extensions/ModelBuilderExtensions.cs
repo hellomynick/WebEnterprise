@@ -11,33 +11,11 @@ namespace WebEnterprise.Data.Extensions
         {
             var roleId = new Guid("9936B153-37A9-41D8-9781-F0532C25E732");
             var userId = new Guid("A0626E5F-0945-425C-9135-421CE9FFD4A1");
-            modelBuilder.Entity<Contact>().HasData(
-               new Contact()
-               {
-                   ID = 1,
-                   ApartmentNumber = "10",
-                   NameStreet = "My Da Dong",
-                   UserID = userId,
-               });
-            modelBuilder.Entity<Position>().HasData(
-               new Position()
-               {
-                   ID = 1,
-                   Name = "No Position",
-                   FacultyID = 1,
-                   UserID = userId
-               });
             modelBuilder.Entity<Faculty>().HasData(
                new Faculty()
                {
                    ID = 1,
                    Name = "IT",
-               });
-            modelBuilder.Entity<Magazine>().HasData(
-               new Magazine()
-               {
-                   ID = 1,
-                   Name = "Magazine Information Technology"
                });
             modelBuilder.Entity<SchoolYear>().HasData(
                new SchoolYear()
@@ -65,6 +43,7 @@ namespace WebEnterprise.Data.Extensions
                 EmailConfirmed = true,
                 FirstName = "Tran Van",
                 LastName = "Minh Vu",
+                FacultyID = 1,
                 PasswordHash = hasher.HashPassword(null, "Admin@123"),
                 SecurityStamp = string.Empty,
                 DateOfBirth = new DateTime(2000, 03, 09),

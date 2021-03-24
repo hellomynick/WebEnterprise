@@ -1,14 +1,22 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using WebEnterprise.Application.Common;
+using WebEnterprise.Data.EF;
 using WebEnterprise.Data.Entities;
+using WebEnterprise.Untilities.Exceptions;
+using WebEnterprise.ViewModels.Catalog.UserImage;
 using WebEnterprise.ViewModels.Common;
 using WebEnterprise.ViewModels.System.Users;
 
@@ -20,16 +28,23 @@ namespace WebEnterprise.Application.System.Users
         private readonly SignInManager<User> _signInManager;
         private readonly RoleManager<GroupUser> _roleManager;
         private readonly IConfiguration _config;
+        private readonly IStorageService _storageService;
+        private const string USER_CONTENT_FOLDER_NAME = "user-content";
+        private readonly WebEnterpriseDbContext _context;
 
         public UserService(UserManager<User> userManager,
             SignInManager<User> signInManager,
             RoleManager<GroupUser> roleManager,
-            IConfiguration config)
+            IConfiguration config,
+            IStorageService storageService,
+            WebEnterpriseDbContext context)
         {
+            _storageService = storageService;
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
             _config = config;
+            _context = context;
         }
 
         public async Task<ApiResult<string>> Authencate(LoginRequest request)
@@ -63,12 +78,48 @@ namespace WebEnterprise.Application.System.Users
             return new ApiSuccessResult<string>(new JwtSecurityTokenHandler().WriteToken(token));
         }
 
+        public async Task<ApiResult<bool>> Update(Guid id, UserUpdateRequest request)
+        {
+            if (await _userManager.Users.AnyAsync(x => x.Email == request.Email && x.Id != id))
+            {
+                return new ApiErrorResult<bool>("Emai đã tồn tại");
+            }
+            if (request.ThumbnailImage != null)
+            {
+                var thumbnailImage = await _context.UserImages.FirstOrDefaultAsync(i => i.IsDefault == true && i.UserID == request.Id);
+                if (thumbnailImage != null)
+                {
+                    thumbnailImage.FileSize = request.ThumbnailImage.Length;
+                    thumbnailImage.ImagePath = await this.SaveFile(request.ThumbnailImage);
+                    _context.UserImages.Update(thumbnailImage);
+                }
+            }
+            var user = await _userManager.FindByIdAsync(id.ToString());
+            user.DateOfBirth = request.Dob.Date;
+            user.Email = request.Email;
+            user.FirstName = request.FirstName;
+            user.LastName = request.LastName;
+            user.PhoneNumber = request.PhoneNumber;
+
+            var result = await _userManager.UpdateAsync(user);
+            if (result.Succeeded)
+            {
+                return new ApiSuccessResult<bool>();
+            }
+            return new ApiErrorResult<bool>("Cập nhật không thành công");
+        }
+
         public async Task<ApiResult<bool>> Delete(Guid id)
         {
             var user = await _userManager.FindByIdAsync(id.ToString());
             if (user == null)
             {
                 return new ApiErrorResult<bool>("User không tồn tại");
+            }
+            var images = _context.UserImages.Where(i => i.UserID == id);
+            foreach (var image in images)
+            {
+                await _storageService.DeleteFileAsync(image.ImagePath);
             }
             var reult = await _userManager.DeleteAsync(user);
             if (reult.Succeeded)
@@ -90,7 +141,7 @@ namespace WebEnterprise.Application.System.Users
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 FirstName = user.FirstName,
-                Dob = user.DateOfBirth,
+                Dob = user.DateOfBirth.Date,
                 Id = user.Id,
                 LastName = user.LastName,
                 UserName = user.UserName,
@@ -101,11 +152,13 @@ namespace WebEnterprise.Application.System.Users
 
         public async Task<ApiResult<PagedResult<UserVm>>> GetUsersPaging(GetUserPagingRequest request)
         {
-            var query = _userManager.Users;
+            var query = from u in _userManager.Users
+                        join f in _context.Faculties on u.FacultyID equals f.ID
+                        select new { u, f };
             if (!string.IsNullOrEmpty(request.Keyword))
             {
-                query = query.Where(x => x.UserName.Contains(request.Keyword)
-                 || x.PhoneNumber.Contains(request.Keyword));
+                query = query.Where(x => x.u.UserName.Contains(request.Keyword)
+                 || x.u.PhoneNumber.Contains(request.Keyword));
             }
 
             //3. Paging
@@ -115,12 +168,13 @@ namespace WebEnterprise.Application.System.Users
                 .Take(request.PageSize)
                 .Select(x => new UserVm()
                 {
-                    Email = x.Email,
-                    PhoneNumber = x.PhoneNumber,
-                    UserName = x.UserName,
-                    FirstName = x.FirstName,
-                    Id = x.Id,
-                    LastName = x.LastName
+                    Email = x.u.Email,
+                    PhoneNumber = x.u.PhoneNumber,
+                    UserName = x.u.UserName,
+                    FirstName = x.u.FirstName,
+                    Id = x.u.Id,
+                    Faculty = x.f.Name,
+                    LastName = x.u.LastName
                 }).ToListAsync();
 
             //4. Select and projection
@@ -148,13 +202,28 @@ namespace WebEnterprise.Application.System.Users
 
             user = new User()
             {
-                DateOfBirth = request.DateOfBirth,
+                DateOfBirth = request.DateOfBirth.Date,
                 Email = request.Email,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 UserName = request.UserName,
-                PhoneNumber = request.PhoneNumber
+                PhoneNumber = request.PhoneNumber,
+                FacultyID = request.FacultyID
             };
+            if (request.ThumbnailImage != null)
+            {
+                user.UserImages = new List<UserImage>()
+                {
+                    new UserImage()
+                    {
+                        Caption = "Thumbnail image",
+                        DayCreated = DateTime.Now.Date,
+                        FileSize = request.ThumbnailImage.Length,
+                        ImagePath = await this.SaveFile(request.ThumbnailImage),
+                        IsDefault = true,
+                    }
+                };
+            }
             var result = await _userManager.CreateAsync(user, request.Password);
             if (result.Succeeded)
             {
@@ -192,24 +261,71 @@ namespace WebEnterprise.Application.System.Users
             return new ApiSuccessResult<bool>();
         }
 
-        public async Task<ApiResult<bool>> Update(Guid id, UserUpdateRequest request)
+        public async Task<int> AddImage(Guid userID, UserImageCreateRequest request)
         {
-            if (await _userManager.Users.AnyAsync(x => x.Email == request.Email && x.Id != id))
+            var userImage = new UserImage()
             {
-                return new ApiErrorResult<bool>("Emai đã tồn tại");
-            }
-            var user = await _userManager.FindByIdAsync(id.ToString());
-            user.DateOfBirth = request.Dob;
-            user.Email = request.Email;
-            user.FirstName = request.FirstName;
-            user.LastName = request.LastName;
-            user.PhoneNumber = request.PhoneNumber;
-            var result = await _userManager.UpdateAsync(user);
-            if (result.Succeeded)
+                Caption = request.Caption,
+                DayCreated = DateTime.Now,
+                IsDefault = request.IsDefault,
+                UserID = userID,
+            };
+
+            if (request.ImageFile != null)
             {
-                return new ApiSuccessResult<bool>();
+                userImage.ImagePath = await this.SaveFile(request.ImageFile);
+                userImage.FileSize = request.ImageFile.Length;
             }
-            return new ApiErrorResult<bool>("Cập nhật không thành công");
+            _context.UserImages.Add(userImage);
+            await _context.SaveChangesAsync();
+            return userImage.ID;
+        }
+
+        public async Task<int> UpdateImage(int imageId, UserImageUpdateRequest request)
+        {
+            var userImage = await _context.UserImages.FindAsync(imageId);
+            if (userImage == null)
+                throw new WebEnterpriseException($"Cannot find an image with id {imageId}");
+
+            if (request.ImageFile != null)
+            {
+                userImage.ImagePath = await this.SaveFile(request.ImageFile);
+                userImage.FileSize = request.ImageFile.Length;
+            }
+            _context.UserImages.Update(userImage);
+            return await _context.SaveChangesAsync();
+        }
+
+        public async Task<int> RemoveImage(int imageId)
+        {
+            var userImage = await _context.UserImages.FindAsync(imageId);
+            if (userImage == null)
+                throw new WebEnterpriseException($"Cannot find an image with id {imageId}");
+            _context.UserImages.Remove(userImage);
+            return await _context.SaveChangesAsync();
+        }
+
+        private async Task<string> SaveFile(IFormFile file)
+        {
+            var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
+            await _storageService.SaveFileAsync(file.OpenReadStream(), fileName);
+            return "/" + USER_CONTENT_FOLDER_NAME + "/" + fileName;
+        }
+
+        public async Task<List<UserImageViewModel>> GetListImages(Guid id)
+        {
+            return await _context.UserImages.Where(x => x.UserID == id)
+                .Select(i => new UserImageViewModel()
+                {
+                    Caption = i.Caption,
+                    DateCreated = i.DayCreated,
+                    FileSize = i.FileSize,
+                    ID = i.ID,
+                    ImagePath = i.ImagePath,
+                    IsDefault = i.IsDefault,
+                    UserID = i.UserID,
+                }).ToListAsync();
         }
     }
 }

@@ -11,13 +11,13 @@ namespace WebEnterprise.Data.Configurations
             builder.ToTable("UserImages");
             builder.HasKey(x => x.ID);
             builder.Property(x => x.ID).UseIdentityColumn();
-            builder.Property(x => x.ContactID);
+            builder.Property(x => x.UserID);
             builder.Property(x => x.DayCreated);
             builder.Property(x => x.Caption);
             builder.Property(x => x.FileSize);
             builder.Property(x => x.ImagePath);
             builder.Property(x => x.IsDefault);
-            builder.HasOne(x => x.Contacts).WithMany(x => x.UserImages).HasForeignKey(x => x.ContactID);
+            builder.HasOne(x => x.Users).WithMany(x => x.UserImages).HasForeignKey(x => x.UserID);
         }
     }
 }

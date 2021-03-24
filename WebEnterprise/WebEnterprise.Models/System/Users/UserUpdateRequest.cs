@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebEnterprise.ViewModels.System.Users
@@ -22,5 +23,10 @@ namespace WebEnterprise.ViewModels.System.Users
 
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
+
+        public IFormFile ThumbnailImage { get; set; }
+
+        [Display(Name = "Faculty ID")]
+        public string FacultyID { get; set; }
     }
 }

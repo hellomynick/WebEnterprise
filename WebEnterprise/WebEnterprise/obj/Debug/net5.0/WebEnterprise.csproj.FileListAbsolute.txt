@@ -785,3 +785,4 @@ C:\Users\DELL\WebEnterprise\WebEnterprise\obj\Debug\net5.0\Razor\Views\Shared\Co
 C:\Users\DELL\WebEnterprise\WebEnterprise\obj\Debug\net5.0\Razor\Views\Document\Delete.cshtml.g.cs
 C:\Users\DELL\WebEnterprise\WebEnterprise\obj\Debug\net5.0\Razor\Views\Document\IndexForCoordinator.cshtml.g.cs
 C:\Users\DELL\WebEnterprise\WebEnterprise\obj\Debug\net5.0\Razor\Views\Document\IndexForStudent.cshtml.g.cs
+C:\Users\DELL\WebEnterprise\WebEnterprise\obj\Debug\net5.0\Razor\Views\Document\IndexForManager.cshtml.g.cs

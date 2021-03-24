@@ -59,6 +59,23 @@ namespace WebEnterprise.Controllers
             return View(data);
         }
 
+        public async Task<IActionResult> IndexForManager(string keyword, int pageIndex = 1, int pageSize = 10)
+        {
+            var request = new GetDocumentsPagingRequest()
+            {
+                Keyword = keyword,
+                PageIndex = pageIndex,
+                PageSize = pageSize,
+            };
+            var data = await _documentApiClient.GetTotal(request);
+            ViewBag.Keyword = keyword;
+            if (TempData["result"] != null)
+            {
+                ViewBag.SuccessMsg = TempData["result"];
+            }
+            return View(data);
+        }
+
         [HttpGet]
         public IActionResult Create()
         {

@@ -20,6 +20,8 @@ namespace WebEnterprise.Application.Catalog.Documents
 
         Task<DocumentsVm> GetByUserId(long documentId);
 
+        Task<PagedResult<DocumentsVm>> GetTotal(GetDocumentsPagingRequest request);
+
         Task<PagedResult<DocumentsVm>> GetAllByUserId(GetDocumentsPagingRequest request);
 
         Task<PagedResult<DocumentsVm>> GetAllByFaculty(GetDocumentsPagingRequest request);

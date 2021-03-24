@@ -19,6 +19,8 @@ namespace WebEnterprise.ApiIntegration
 
         Task<PagedResult<DocumentsVm>> GetByFaculty(GetDocumentsPagingRequest request);
 
+        Task<PagedResult<DocumentsVm>> GetTotal(GetDocumentsPagingRequest request);
+
         Task<DocumentsVm> GetById(long id);
 
         Task<bool> DeleteDocument(long id);

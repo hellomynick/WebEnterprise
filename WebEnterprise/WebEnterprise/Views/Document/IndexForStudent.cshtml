@@ -1,6 +1,9 @@
 ﻿@using WebEnterprise.ViewModels.Common;
+@using System.Security.Claims;
 @model PagedResult<WebEnterprise.ViewModels.Catalog.Document.DocumentsVm>
-
+@{
+    var claimsIdentity = User.Identity as ClaimsIdentity;
+}
 @{
     ViewData["Title"] = "List User Document";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -23,9 +26,14 @@
                     <h4>User Information</h4>
                 </div>
                 <ul class="list-user-info">
-                    <li>Full Name:</li>
-                    <li>Faculty:</li>
-                    <li>Email: abc@gmail.com</li>
+                    <li>User Name:@Context.User.Identity.Name</li>
+                    @foreach (var item in Model.Items)
+                     {
+                        <li>
+                            Faculty:@Html.DisplayFor(modelItem => item.FacultyName)
+                        </li>
+                     }
+                    <li>Email: @claimsIdentity.FindFirst(ClaimTypes.Email)?.Value.ToString()</li>
                     <li>Number of document: 10</li>
                 </ul>
             </div>
@@ -49,7 +57,7 @@
                             <div class="cimbox">
                                 <div class="document-info">
                                     <h3>Author: @Html.DisplayFor(modelItem => item.UserName)</h3>
-                                    <h3>Date-time: @Html.DisplayFor(modelItem => item.CreateOn)</h3>
+                                    <h3>Date-time: @Html.DisplayFor(modelItem => item.CreateOn.Date)</h3>
                                     <h3>Faculty: @Html.DisplayFor(modelItem => item.FacultyName)</h3>
                                 </div>
                             </div>

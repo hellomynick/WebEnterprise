@@ -15,6 +15,7 @@ namespace WebEnterprise.Data.Configurations
             builder.Property(x => x.Sex).IsRequired(true);
             builder.Property(x => x.UserName).IsRequired(true);
             builder.Property(x => x.CreateOn);
+            builder.HasOne(x => x.Faculties).WithMany(x => x.Users).HasForeignKey(x => x.FacultyID);
         }
     }
 }

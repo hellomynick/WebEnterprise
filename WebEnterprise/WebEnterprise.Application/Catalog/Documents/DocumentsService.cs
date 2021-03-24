@@ -44,11 +44,12 @@ namespace WebEnterprise.Application.Catalog.Documents
         {
             var claimsIdentity = _httpContextAccessor.HttpContext.User.Identity as ClaimsIdentity;
             var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier)?.Value.ToString();
-            var data = _context.Positions.Where(p => p.UserID.ToString() == userId).Select(x => x.FacultyID).FirstOrDefault();
+            var data = _context.Users.Where(p => p.Id.ToString() == userId).Select(x => x.FacultyID).FirstOrDefault();
             var document = new Document()
             {
                 UserID = request.UserID,
                 FacultyOfDocumentID = data,
+                Status = false,
                 Caption = request.Caption,
                 CreateOn = DateTime.Now.Date,
                 FileSize = request.DocumentFile.Length,
@@ -125,9 +126,9 @@ namespace WebEnterprise.Application.Catalog.Documents
                     ID = x.c.ID,
                     UserID = x.c.UserID,
                     UserName = x.u.UserName,
+                    Status = x.c.Status,
                     Caption = x.c.Caption,
                     FacultyID = x.c.FacultyOfDocumentID,
-                    MagazineID = x.c.MagazineID,
                     CreateOn = x.c.CreateOn.Date
                 }).ToListAsync();
             var pagedResult = new PagedResult<DocumentsVm>()
@@ -161,7 +162,7 @@ namespace WebEnterprise.Application.Catalog.Documents
                     UserName = x.u.UserName,
                     Caption = x.c.Caption,
                     FacultyName = x.fod.Name,
-                    MagazineID = x.c.MagazineID,
+                    Status = x.c.Status,
                     CreateOn = x.c.CreateOn.Date
                 }).ToListAsync();
             var pagedResult = new PagedResult<DocumentsVm>()
@@ -177,10 +178,9 @@ namespace WebEnterprise.Application.Catalog.Documents
             var claimsIdentity = _httpContextAccessor.HttpContext.User.Identity as ClaimsIdentity;
             var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier)?.Value.ToString();
             var query = from d in _context.Documents
-                        from p in _context.Positions
-                        join u in _context.Users on d.UserID equals u.Id
-                        where p.UserID.ToString() == userId && d.FacultyOfDocumentID == p.FacultyID
-                        select new { d, u, p };
+                        from u in _context.Users
+                        where u.Id.ToString() == userId && d.FacultyOfDocumentID == u.FacultyID
+                        select new { d, u, };
             if (request.DocumentId.HasValue && request.DocumentId.Value > 0)
             {
                 query = query.Where(c => c.u.UserName == request.UserName);
@@ -195,7 +195,7 @@ namespace WebEnterprise.Application.Catalog.Documents
                     UserName = x.u.UserName,
                     Caption = x.d.Caption,
                     FacultyID = x.d.FacultyOfDocumentID,
-                    MagazineID = x.d.MagazineID,
+                    Status = x.d.Status,
                     CreateOn = x.d.CreateOn.Date
                 }).ToListAsync();
             var pagedResult = new PagedResult<DocumentsVm>()
@@ -229,6 +229,32 @@ namespace WebEnterprise.Application.Catalog.Documents
                 Caption = document.Caption,
             };
             return documentvm;
+        }
+
+        public async Task<PagedResult<DocumentsVm>> GetTotal(GetDocumentsPagingRequest request)
+        {
+            var query = from d in _context.Documents
+                        join fod in _context.FacultyOfDocument on d.FacultyOfDocumentID equals fod.ID
+                        select new { d.ID, d };
+            int TotalRow = await query.CountAsync();
+            int Total = await query.CountAsync();
+            int TotalTrue = await query.Where(x => x.d.Status == true).CountAsync();
+            int TotalFalse = await query.Where(x => x.d.Status == false).CountAsync();
+            int TotalIT = await query.Where(x => x.d.FacultyOfDocumentID == 1).CountAsync();
+            var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
+                .Take(request.PageSize)
+                .Select(x => new DocumentsVm()
+                {
+                    ViewCount = Total,
+                    TotalTrue = TotalTrue,
+                    TotalFalse = TotalFalse
+                }).ToListAsync();
+            var pagedResult = new PagedResult<DocumentsVm>()
+            {
+                TotalRecord = TotalRow,
+                Items = data
+            };
+            return pagedResult;
         }
     }
 }

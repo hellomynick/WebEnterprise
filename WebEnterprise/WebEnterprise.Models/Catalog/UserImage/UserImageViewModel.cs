@@ -6,7 +6,7 @@ namespace WebEnterprise.ViewModels.Catalog.UserImage
     {
         public int ID { get; set; }
 
-        public long ContactID { get; set; }
+        public Guid UserID { get; set; }
 
         public string ImagePath { get; set; }
 

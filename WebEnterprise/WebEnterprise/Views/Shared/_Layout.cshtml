@@ -14,7 +14,6 @@
     <script src="../assets/javascript/main.js"></script>
     <link rel="stylesheet" href="../assets/css/grid.css">
     <link rel="stylesheet" href="../assets/css/reponsive.css">
-
 </head>
 <body>
     <div id="pc">
@@ -26,24 +25,37 @@
                     <div class="navbar stroke">
                         <ul class="nav-list">
                             <li class="nav-item"><a href="#">Home</a></li>
-                            <li class="nav-item"><a href="/COMP1640/pages/maketingManagerPage.html">Statistical</a></li>
-                            <li class="nav-item">
-                                <a>Faculties</a>
-                                <ul class="list-faculty">
-                                    <li class="faculty-item"><a href="/">Design</a></li>
-                                    <li class="faculty-item"><a href="/">Business</a></li>
-                                    <li class="faculty-item"><a href="/">Tourism</a></li>
-                                    <li class="faculty-item"><a href="/">Information Technology</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item"><a id="login" href="/">Login</a></li>
-                            <li id="nav-user-box" class="nav-item">
+                            @if (Context.User.Identity.IsAuthenticated == true && Context.User.IsInRole("coordinator"))
+                            {
+                                <li class="nav-item">
+                                    <a href="/COMP1640/pages/maketingManagerPage.html">Statistical</a>
+                                </li>
+                            }
+                            @if (Context.User.Identity.IsAuthenticated == true && Context.User.IsInRole("marketingmanager"))
+                            {
+                                <li class="nav-item">
+
+                                    <a>Faculties</a>
+                                    <ul class="list-faculty">
+                                        <li class="faculty-item"><a href="/">Design</a></li>
+                                        <li class="faculty-item"><a href="/">Business</a></li>
+                                        <li class="faculty-item"><a href="/">Tourism</a></li>
+                                        <li class="faculty-item"><a href="/">Information Technology</a></li>
+                                    </ul>
+                                </li>
+                            }
+                            <li id="nav-user-box" class="nav-item user-list-action">
                                 <img src="../assets/img/user-avatar.jpg" alt="" class="navbar-img">
-                                <span class="navbar-username">User Name</span>
+                                <span class="navbar-username">@Context.User.Identity.Name</span>
                                 <ul class="user-menu">
                                     <li class="user-item"><a href="/COMP1640/pages/userPage.html">My profile</a></li>
-                                    <li class="user-item"><a href="/COMP1640/pages/userUpload.html">Post document</a></li>
-                                    <li class="user-item"><a href="#">Log Out</a></li>
+                                    @if (Context.User.Identity.IsAuthenticated == true && Context.User.IsInRole("student"))
+                                    {
+                                        <li class="user-item">
+                                            <a> @Html.ActionLink("Post document", "Create", "Document")</a>
+                                        </li>
+                                    }
+                                    <li class="user-item"><a>@Html.ActionLink("Logout", "Index", "Account")</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item">
@@ -93,6 +105,6 @@
             </div>
         </section>
     </div>
-    @RenderSection("Scripts",required:false)
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

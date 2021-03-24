@@ -43,6 +43,13 @@ namespace WebEnterprise.BackendApi.Controllers
             return Ok(documents);
         }
 
+        [HttpGet("getbytotal")]
+        public async Task<IActionResult> GetByTotal([FromQuery] GetDocumentsPagingRequest request)
+        {
+            var documents = await _documentsService.GetTotal(request);
+            return Ok(documents);
+        }
+
         //http://localhost:port/contact/1
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(long id)

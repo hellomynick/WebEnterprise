@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 
 namespace WebEnterprise.ViewModels.System.Users
 {
@@ -13,5 +14,8 @@ namespace WebEnterprise.ViewModels.System.Users
         public bool Sex { set; get; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
+        public int FacultyID { get; set; }
+
+        public IFormFile ThumbnailImage { get; set; }
     }
 }

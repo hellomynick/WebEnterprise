@@ -17,11 +17,10 @@ namespace WebEnterprise.Data.Configurations
             builder.Property(x => x.CreateOn);
             builder.Property(x => x.Caption);
             builder.Property(x => x.ViewCount);
+            builder.Property(x => x.Status);
             builder.Property(x => x.FacultyOfDocumentID);
-            builder.Property(x => x.MagazineID);
             builder.HasOne(x => x.User).WithMany(x => x.Documents).HasForeignKey(x => x.UserID);
             builder.HasOne(x => x.FacultyOfDocuments).WithMany(x => x.Documents).HasForeignKey(x => x.FacultyOfDocumentID);
-            builder.HasOne(x => x.Magazines).WithMany(x => x.Documents).HasForeignKey(x => x.MagazineID);
         }
     }
 }

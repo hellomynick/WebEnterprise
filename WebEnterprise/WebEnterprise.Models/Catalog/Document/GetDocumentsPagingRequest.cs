@@ -13,7 +13,9 @@ namespace WebEnterprise.ViewModels.Catalog.Document
         public string UserName { get; set; }
         public int? FacultyId { get; set; }
         public IFormFile DocumentFile { get; set; }
-
+        public int ViewCount { get; set; }
+        public int TotalTrue { get; set; }
+        public int TotalFalse { get; set; }
         public long? DocumentId { get; set; }
     }
 }

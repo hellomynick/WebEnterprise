@@ -15,10 +15,8 @@ namespace WebEnterprise.Data.Entities
         public int ViewCount { get; set; }
         public DateTime CreateOn { set; get; }
         public User User { get; set; }
+        public bool Status { get; set; }
         public int FacultyOfDocumentID { get; set; }
-        public int MagazineID { get; set; }
-
         public FacultyOfDocument FacultyOfDocuments { get; set; }
-        public Magazine Magazines { get; set; }
     }
 }

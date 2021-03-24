@@ -9,11 +9,14 @@ namespace WebEnterprise.ViewModels.Catalog.Document
         public Guid UserID { get; set; }
         public string DocumentPath { get; set; }
         public string FileName { get; set; }
-        public int MagazineID { get; set; }
+        public bool Status { get; set; }
         public int FacultyID { get; set; }
         public string FacultyName { get; set; }
         public string Caption { get; set; }
         public int ViewCount { get; set; }
+        public int TotalTrue { get; set; }
+        public int TotalFalse { get; set; }
+
         public long FileSize { get; set; }
         public DateTime CreateOn { set; get; }
     }

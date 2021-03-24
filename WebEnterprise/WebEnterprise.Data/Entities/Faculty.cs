@@ -6,6 +6,6 @@ namespace WebEnterprise.Data.Entities
     {
         public int ID { set; get; }
         public string Name { set; get; }
-        public List<Position> Positions { get; set; }
+        public List<User> Users { get; set; }
     }
 }

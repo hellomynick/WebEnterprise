@@ -41,9 +41,8 @@ namespace WebEnterprise.Application.Catalog.Facultys
         public async Task<PagedResult<FacultysViewModel>> GetAllPaging(GetManageFacultysPagingRequest request)
         {
             var query = from f in _context.Faculties
-                        join p in _context.Positions on f.ID equals p.FacultyID
-                        join u in _context.Users on p.UserID equals u.Id
-                        select new { f, p, u };
+                        join u in _context.Users on f.ID equals u.FacultyID
+                        select new { f, u };
             if (request.FacultiesID.Count > 0)
             {
                 query = query.Where(f => request.FacultiesID.Contains(f.f.ID));

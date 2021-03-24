@@ -73,6 +73,16 @@ namespace WebEnterprise.ApiIntegration
             return data;
         }
 
+        public async Task<PagedResult<DocumentsVm>> GetTotal(GetDocumentsPagingRequest request)
+        {
+            var data = await GetAsync<PagedResult<DocumentsVm>>(
+                $"/api/documents/getbytotal?pageIndex={request.PageIndex}" +
+                $"&pageSize={request.PageSize}" +
+                $"&keyword={request.Keyword}&userName={request.UserName}");
+
+            return data;
+        }
+
         public async Task<bool> UpdateDocument(DocumentsUpdateRequest request)
         {
             var sessions = _httpContextAccessor

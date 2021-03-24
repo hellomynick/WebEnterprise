@@ -41,7 +41,26 @@
                     <div class="main-logo"><a href="/"><img src="../assets/img/logo.png" alt="" class="logo"></a></div>
                     <div class="navbar stroke">
                         <ul class="nav-list">
-                            <li class="nav-item nav-item--consistent"><a>@Html.ActionLink("Login", "Index", "Account")</a></li>
+                            @if (Context.User.Identity.IsAuthenticated == false)
+                            {
+                                <li class="nav-item nav-item--consistent"><a>@Html.ActionLink("Login", "Index", "Account")</a></li>
+                            }
+                            @if (Context.User.Identity.IsAuthenticated == true)
+                            {
+                                <li class="nav-item nav-item--consistent"><a>@Html.ActionLink("Logout", "Index", "Account")</a></li>
+                            }
+                            @if (Context.User.Identity.IsAuthenticated == true && Context.User.IsInRole("student"))
+                            {
+                                <li class="nav-item nav-item--consistent"><a>@Html.ActionLink("Student", "IndexForStudent", "Document")</a></li>
+                            }
+                            @if (Context.User.Identity.IsAuthenticated == true && Context.User.IsInRole("coordinator"))
+                            {
+                                <li class="nav-item nav-item--consistent"><a>@Html.ActionLink("Coordinator", "IndexForCoordinator", "Document")</a></li>
+                            }
+                            @if (Context.User.Identity.IsAuthenticated == true && Context.User.IsInRole("manager"))
+                            {
+                                <li class="nav-item nav-item--consistent"><a>@Html.ActionLink("Manager", "IndexForManager", "Document")</a></li>
+                            }
                         </ul>
                     </div>
                 </div>

@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\user-document\**" />
+    <Content Remove="wwwroot\user-document\**" />
+    <EmbeddedResource Remove="wwwroot\user-document\**" />
+    <None Remove="wwwroot\user-document\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentValidation.AspNetCore" Version="9.5.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.12" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
@@ -18,10 +25,6 @@
     <ProjectReference Include="..\WebEnterprise.Data\WebEnterprise.Data.csproj" />
     <ProjectReference Include="..\WebEnterprise.Models\WebEnterprise.ViewModels.csproj" />
     <ProjectReference Include="..\WebEnterprise.Untilities\WebEnterprise.Untilities.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\user-document\" />
   </ItemGroup>
 
 </Project>

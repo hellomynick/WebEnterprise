@@ -53,12 +53,10 @@ namespace WebEnterprise.Admin
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(300);
             });
-            services.AddSingleton<IPositionApiClient, PositionApiClient>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IDocumentApiClient, DocumentApiClient>();
             services.AddTransient<IUserApiClient, UserApiClient>();
             services.AddTransient<IRoleApiClient, RoleApiClient>();
-            services.AddTransient<IContactApiClient, ContactApiClient>();
             IMvcBuilder builder = services.AddRazorPages();
             var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 #if DEBUG

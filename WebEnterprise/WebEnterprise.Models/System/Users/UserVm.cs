@@ -29,6 +29,9 @@ namespace WebEnterprise.ViewModels.System.Users
         [Display(Name = "Position")]
         public int Position { get; set; }
 
+        [Display(Name = "Faculty ID")]
+        public string Faculty { get; set; }
+
         public IList<string> Roles { get; set; }
     }
 }
