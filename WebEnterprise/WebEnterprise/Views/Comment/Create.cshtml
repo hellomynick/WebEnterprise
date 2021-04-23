@@ -1,0 +1,61 @@
+﻿@model WebEnterprise.Models.CommentViewModel
+@{
+    ViewData["Title"] = "View Document";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- popup-display-document start -->
+<div class="popup-document show-popup">
+    <div class="popup-overlay"></div>
+    <div class="document-container">
+        
+        <div class="document-content">
+            @Html.ActionLink("Download", "Download","Document", new{ id = Model.Createcomment.DocumentID })
+            @Html.ActionLink("Upload", "Edit", "Document", new { id = Model.Createcomment.DocumentID })
+        </div>
+        <div class="document-comment">
+            <i class="fas fa-heart" id="action-like"></i>
+            <i class="fas fa-comment" id="action-comment"></i>
+            @Html.ActionLink("Back", "IndexForCoordinator","Document")
+            @if (Model.Comments != null)
+            {
+                @for (int i = 0; i < Model.Comments.Items.Count; i++)
+                {
+                    var item = Model.Comments.Items[i];
+        <div class="comment-content">
+            <div class="comment-userName">@Context.User.Identity.Name</div>
+            <div class="user-comment">@item.Content</div>
+        </div>
+                }
+            }
+            <form asp-action="Create" enctype="multipart/form-data" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="@Model.Createcomment.DocumentID" name="DocumentID" />
+                <input type="text" asp-for="@Model.Createcomment.Content" name="Content" id="input-comment" placeholder="Write your comment...">
+                <button type="submit">Comment</button>
+            </form>
+        </div>
+        <div class="document-comment-mobi">
+            <i class="fas fa-heart" id="action-like-mobi"></i>
+            <i class="fas fa-comment" id="action-comment-mobi"></i>
+            @if (Model.Comments != null)
+            {
+
+                @for (int i = 0; i < Model.Comments.Items.Count; i++)
+                {
+                    var item = Model.Comments.Items[i];
+                    <div class="comment-content">
+                        <div class="comment-userName">@Context.User.Identity.Name</div>
+                        <div class="user-comment">@item.Content</div>
+                    </div>
+                }
+            }
+            <form asp-action="Create" enctype="multipart/form-data" method="post">
+                <input type="hidden" asp-for="@Model.Createcomment.DocumentID" name="DocumentID" />
+                <input type="text" asp-for="@Model.Createcomment.Content" name="Content" id="input-comment-mobi" placeholder="Write your comment...">
+                <button type="submit">Comment</button>
+            </form>
+        </div>
+        <i class="fas fa-comment-dots" id="comment-active"></i>
+    </div>
+</div>

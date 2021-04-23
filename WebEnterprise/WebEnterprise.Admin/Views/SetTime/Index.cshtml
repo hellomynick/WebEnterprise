@@ -1,0 +1,36 @@
+﻿@using WebEnterprise.ViewModels.Common;
+@model PagedResult<WebEnterprise.ViewModels.Catalog.SetTimeSystem.SetTimeSystemVm>
+@{
+    ViewData["Title"] = "List User Document";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="grid wide">
+    <div class="row">
+        <div class="col l-4">
+            <a class="btn btn-a" asp-action="Create" asp-controller="SetTime">Create semester</a>
+        </div>
+    </div>
+        <div class="row">
+            <div class="col l-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>StartDay</th>
+                            <th>EndDay</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.StartDay.Date)</td>
+                                <td>@Html.DisplayFor(modelItem => item.EndDay.Date)</td>
+                                <td class="btn-handle">@Html.ActionLink("Update", "Edit", new { id = item.ID })</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            @await Component.InvokeAsync("Pager", Model)
+        </div>
+    </div>

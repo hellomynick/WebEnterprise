@@ -11,6 +11,7 @@ $(window).on('scroll', function () {
 });
 /*Interactivity to determine when an animated element in in view. In view elements trigger our animation*/
 $(document).ready(function () {
+
     //window and animation items
     var animation_elements = $.find('.content-block, .content-block2');
     var web_window = $(window);
@@ -24,6 +25,7 @@ $(document).ready(function () {
 
         //iterate through elements to see if its in view
         $.each(animation_elements, function () {
+
             //get the element sinformation
             var element = $(this);
             var element_height = $(element).outerHeight();
@@ -37,6 +39,7 @@ $(document).ready(function () {
                 element.removeClass('in-view');
             }
         });
+
     }
 
     // auto complete search keywords
@@ -59,6 +62,7 @@ $(document).ready(function () {
     $(".search-btn").on("click", function () {
         $(".search-input").toggleClass("inclicked");
         $(".search-btn").toggleClass("close");
+
     });
     $("#login").on("click", function (e) {
         e.preventDefault();
@@ -69,6 +73,9 @@ $(document).ready(function () {
     });
     $(".documentBox").on("click", function (e) {
         console.log("text");
+        $(".popup-document").addClass("show-popup")
+    });
+    $("#showDocument-box").on("click", function (e) {
         $(".popup-document").addClass("show-popup")
     });
     $('.popup-overlay').on("click", function () {
@@ -83,14 +90,15 @@ $(document).ready(function () {
     // upload event
     var acceptUpload;
 
-    $('input[type="checkbox"]').on("change", function () {
+    $('input[type="checkbox"]').on("change",function () {
         if ($("#uploadCheckbox").prop('checked') === true) {
-            $("#call-to-action").attr("style", "display:block")
-        }
-        if ($("#uploadCheckbox").prop('checked') === false) {
-            $("#call-to-action").attr("style", "display:none")
+            $("#call-to-action").attr("style","display:block")
+        } 
+        if($("#uploadCheckbox").prop('checked') === false) {
+            $("#call-to-action").attr("style","display:none")
         }
     });
+
 
     let state = {};
 
@@ -143,7 +151,8 @@ $(document).ready(function () {
         $("#list-Files-Upload").html(fileMap);
     }
     $("#uploadInput").on("change", function () {
-        $(".uploadBox").attr("style", "height:auto")
+        $(".uploadBox").attr("style","height:auto")
+        
     })
     // navbar fix layout
     if (!$("#nav-user-box").length) {
@@ -152,7 +161,7 @@ $(document).ready(function () {
         );
     }
     // show container content data
-    var categoryList = ["All", "Design", "Information Technology", "Business", "Tourism"];
+    var categoryList = ["All", "Design", "Information Technology", "Business", "Tourism", "Chart"];
     var cateSidebar = document.querySelectorAll(".category-sidebar");
     var contentData = document.querySelectorAll(".content-container-data");
     var mobileSibar = document.querySelectorAll(".mSidebar-item");
@@ -202,13 +211,49 @@ $(document).ready(function () {
             $(".logo").attr("style", "height:40px;width:40px; margin-left:5px")
         }
     });
-    $(".text-danger").bind("DOMSubtreeModified", function () {
-        console.log("saaasa")
+    // alert handel
+    $("#call-to-action").on("click", function () {
+        var textDanger = $(".text-danger").children().children().html();
+        var textDangerLength = textDanger.length;
+        
+        if(textDangerLength>2){
+            alert(textDanger)
+        }
+    })
+    // handle action comment-like
+    $("#action-like").on("click", function () {
+        $("#action-like").toggleClass("active-like");
+    })
+    $("#action-comment").on("click", function () {
+        // $("#action-comment").toggleClass("active-comment");
+        $("#action-comment").attr("style","color:#00a8ff")
+        $("#input-comment").focus();
+    })
+    $("#input-comment").on("blur", function () {
+        // $("#action-comment").toggleClass("active-comment");
+        $("#action-comment").attr("style","color:#ADB5BD")
+    })
+    // mobi
+    $("#action-like-mobi").on("click", function () {
+        $("#action-like-mobi").toggleClass("active-like");
+    })
+    $("#action-comment-mobi").on("click", function () {
+        // $("#action-comment").toggleClass("active-comment");
+        $("#action-comment-mobi").attr("style","color:#00a8ff")
+        $("#input-comment-mobi").focus();
+    })
+    $("#input-comment-mobi").on("blur", function () {
+        // $("#action-comment").toggleClass("active-comment");
+        $("#action-comment-mobi").attr("style","color:#ADB5BD")
+    })
+    $("#comment-active").on("click", function () {
+        $(".document-comment-mobi").toggleClass("document-comment-mobi-active")
     })
 });
 // validator form login
 function validator(options) {
     function validate(inputElement, rule) {
+
         var errorMessage = rule.test(inputElement.value)
         var errorElement = inputElement.parentElement.querySelector(options.errorSelector);
         if (errorMessage) {
@@ -221,6 +266,7 @@ function validator(options) {
             inputElement.parentElement.classList.remove('invalid');
         }
         return !errorMessage;
+
     }
     var formElement = document.querySelector(options.form);
     if (formElement) {
@@ -267,3 +313,8 @@ validator.minLength = function (selector, min) {
         }
     }
 };
+// chart handler
+
+
+
+

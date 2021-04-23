@@ -118,4 +118,29 @@
             }
         }
     }
+    .document-content{
+        width: 100% !important;
+    }
+    .document-comment{
+        display: none;
+    }
+    #comment-active{
+        display: block !important;
+    }
+    #piechart {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width:300px !important;
+        height:150px !important;
+    }
+    .time-item{
+        position: relative;
+        &:first-child{
+            left: 25%;
+        }
+        &:last-child{
+            right: 20%;
+        }
+    }
 }

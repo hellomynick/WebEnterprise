@@ -21,7 +21,6 @@ namespace WebEnterprise.Admin
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseIISIntegration();
                 });
     }
 }

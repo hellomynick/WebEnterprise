@@ -1,8 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System;
+using Aspose.Words;
+using System.IO;
 using System.Threading.Tasks;
 using WebEnterprise.ApiIntegration;
 using WebEnterprise.ViewModels.Catalog.Document;
+using System.Text;
+using Aspose.Words.Saving;
+using System.Collections.Generic;
 
 namespace WebEnterprise.Admin.Controllers
 {
@@ -69,6 +76,7 @@ namespace WebEnterprise.Admin.Controllers
             var editVm = new DocumentsUpdateRequest()
             {
                 Id = document.ID,
+                Content = document.Caption,
             };
             return View(editVm);
         }
@@ -81,6 +89,35 @@ namespace WebEnterprise.Admin.Controllers
                 return View(request);
 
             var result = await _documentApiClient.UpdateDocument(request);
+            if (result)
+            {
+                TempData["result"] = "Update document succsess";
+                return RedirectToAction("Index");
+            }
+
+            ModelState.AddModelError("", "Fail update document");
+            return View(request);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> PostDocument(long id)
+        {
+            var document = await _documentApiClient.GetById(id);
+            var editVm = new DocumentsPostRequest()
+            {
+                ID = document.ID,
+            };
+            return View(editVm);
+        }
+
+        [HttpPost]
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> PostDocument([FromForm] DocumentsPostRequest request)
+        {
+            if (!ModelState.IsValid)
+                return View(request);
+
+            var result = await _documentApiClient.PostDocument(request);
             if (result)
             {
                 TempData["result"] = "Update document succsess";

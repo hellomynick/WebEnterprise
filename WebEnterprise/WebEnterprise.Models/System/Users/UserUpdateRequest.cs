@@ -27,6 +27,6 @@ namespace WebEnterprise.ViewModels.System.Users
         public IFormFile ThumbnailImage { get; set; }
 
         [Display(Name = "Faculty ID")]
-        public string FacultyID { get; set; }
+        public int FacultyID { get; set; }
     }
 }

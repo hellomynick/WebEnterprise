@@ -13,6 +13,67 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\css\site.css" />
+    <None Include="wwwroot\favicon.ico" />
+    <None Include="wwwroot\js\site.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.css" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map" />
+    <None Include="wwwroot\lib\bootstrap\LICENSE" />
+    <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+    <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
+    <None Include="wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt" />
+    <None Include="wwwroot\lib\jquery-validation\dist\additional-methods.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\jquery.validate.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\jquery.validate.min.js" />
+    <None Include="wwwroot\lib\jquery-validation\LICENSE.md" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.js" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.min.js" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.min.map" />
+    <None Include="wwwroot\lib\jquery\LICENSE.txt" />
+    <None Include="wwwroot\user-content\068a1b4d-0f50-4219-bd5d-50ec820283f9.docx" />
+    <None Include="wwwroot\user-content\0eca93ce-8e7e-48a9-8997-b9b30f2e813c.docx" />
+    <None Include="wwwroot\user-content\1746888a-c2ab-4975-bb10-d1cc83155462.docx" />
+    <None Include="wwwroot\user-content\2aea1894-ca6c-4d9c-8e1d-56af2fdbf79a.docx" />
+    <None Include="wwwroot\user-content\4b345ab4-61be-4278-ae96-ac9c59bb501f.docx" />
+    <None Include="wwwroot\user-content\5e5f61c7-3db9-4e99-bc9e-eb61347b1bb6.docx" />
+    <None Include="wwwroot\user-content\667cf76f-0248-4690-a58d-afc62cd4ba3d.docx" />
+    <None Include="wwwroot\user-content\72f25516-97ad-4fac-8447-42354051df61.docx" />
+    <None Include="wwwroot\user-content\7fb9c689-e090-4a34-9212-7bb23556e31d.docx" />
+    <None Include="wwwroot\user-content\85e31dd6-7bae-4948-a2d2-c64b487d9e02.docx" />
+    <None Include="wwwroot\user-content\8b37adcc-0553-4f55-9fc0-ae6de14e0677.docx" />
+    <None Include="wwwroot\user-content\8ead4bdf-eeec-43b4-9e60-307670d835a3.docx" />
+    <None Include="wwwroot\user-content\9765fab4-f495-4c64-86a3-b6ab0550feef.docx" />
+    <None Include="wwwroot\user-content\a987beff-eca6-45fd-bc78-ee6840bf4c22.docx" />
+    <None Include="wwwroot\user-content\acf990d7-2a2f-4ed8-9f69-468664c461a2.docx" />
+    <None Include="wwwroot\user-content\b0886fbc-0d20-4447-949e-61f3a6ea8aed.docx" />
+    <None Include="wwwroot\user-content\ba1fef39-52b7-4946-936f-340130ff4d5a.docx" />
+    <None Include="wwwroot\user-content\cd3842e3-127d-4dbd-a433-232e51f440bf.docx" />
+    <None Include="wwwroot\user-content\d6b01e31-6c2f-4ce6-b78f-dbf357d1d719.docx" />
+    <None Include="wwwroot\user-content\ddd114c8-3efd-4b93-95bf-34d2c4aa2ba5.docx" />
+    <None Include="wwwroot\user-content\ed9df8aa-4363-42ac-b0b1-187e3f260630.docx" />
+    <None Include="wwwroot\user-content\fdaa6b2b-da56-4fce-b8a6-be1af6fc2645.docx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentValidation.AspNetCore" Version="9.5.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.12" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />

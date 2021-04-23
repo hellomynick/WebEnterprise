@@ -84,6 +84,7 @@ namespace WebEnterprise.Admin.Controllers
                 var updateRequest = new UserUpdateRequest()
                 {
                     Dob = user.Dob,
+                    FacultyID = user.Faculty,
                     Email = user.Email,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
@@ -104,7 +105,7 @@ namespace WebEnterprise.Admin.Controllers
             var result = await _userApiClient.UpdateUser(request.Id, request);
             if (result.IsSuccessed)
             {
-                TempData["result"] = "Cập nhật người dùng thành công";
+                TempData["result"] = "Update user suscess";
                 return RedirectToAction("Index");
             }
 

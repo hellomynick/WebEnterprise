@@ -50,12 +50,12 @@ namespace WebEnterprise.Application.System.Users
         public async Task<ApiResult<string>> Authencate(LoginRequest request)
         {
             var user = await _userManager.FindByNameAsync(request.UserName);
-            if (user == null) return new ApiErrorResult<string>("Tài khoản không tồn tại");
+            if (user == null) return new ApiErrorResult<string>("Account does not exist");
 
             var result = await _signInManager.PasswordSignInAsync(user, request.Password, request.RememberMe, true);
             if (!result.Succeeded)
             {
-                return new ApiErrorResult<string>("Đăng nhập không đúng");
+                return new ApiErrorResult<string>("Login incorrect");
             }
             var roles = await _userManager.GetRolesAsync(user);
             var claims = new[]
@@ -82,7 +82,7 @@ namespace WebEnterprise.Application.System.Users
         {
             if (await _userManager.Users.AnyAsync(x => x.Email == request.Email && x.Id != id))
             {
-                return new ApiErrorResult<bool>("Emai đã tồn tại");
+                return new ApiErrorResult<bool>("Email already exists");
             }
             if (request.ThumbnailImage != null)
             {
@@ -100,13 +100,13 @@ namespace WebEnterprise.Application.System.Users
             user.FirstName = request.FirstName;
             user.LastName = request.LastName;
             user.PhoneNumber = request.PhoneNumber;
-
+            user.FacultyID = request.FacultyID;
             var result = await _userManager.UpdateAsync(user);
             if (result.Succeeded)
             {
                 return new ApiSuccessResult<bool>();
             }
-            return new ApiErrorResult<bool>("Cập nhật không thành công");
+            return new ApiErrorResult<bool>("Update failed");
         }
 
         public async Task<ApiResult<bool>> Delete(Guid id)
@@ -173,7 +173,7 @@ namespace WebEnterprise.Application.System.Users
                     UserName = x.u.UserName,
                     FirstName = x.u.FirstName,
                     Id = x.u.Id,
-                    Faculty = x.f.Name,
+                    FacultyName = x.f.Name,
                     LastName = x.u.LastName
                 }).ToListAsync();
 
@@ -199,10 +199,9 @@ namespace WebEnterprise.Application.System.Users
             {
                 return new ApiErrorResult<bool>("Emai đã tồn tại");
             }
-
             user = new User()
             {
-                DateOfBirth = request.DateOfBirth.Date,
+                DateOfBirth = request.DateOfBirth,
                 Email = request.Email,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
@@ -237,7 +236,7 @@ namespace WebEnterprise.Application.System.Users
             var user = await _userManager.FindByIdAsync(id.ToString());
             if (user == null)
             {
-                return new ApiErrorResult<bool>("Tài khoản không tồn tại");
+                return new ApiErrorResult<bool>("Account does not exist");
             }
             var removedRoles = request.Roles.Where(x => x.Selected == false).Select(x => x.Name).ToList();
             foreach (var roleName in removedRoles)

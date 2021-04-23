@@ -5,7 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<section class="admin-body">
     <div class="grid wide">
         <div class="row">
             <div class="col l-12">
@@ -43,9 +42,13 @@
                             <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="FacultyID" class="control-label"></label>
-                            <input asp-for="FacultyID" class="form-control" />
-                            <span asp-validation-for="FacultyID" class="text-danger"></span>
+                            <label asp-for="FacultyID" class="control-label"> Faculty</label>
+                            <select asp-for="FacultyID" class="form-control">
+                                <option value="1">IT</option>
+                                <option value="2">Desgin</option>
+                                <option value="3">Tourism</option>
+                                <option value="4">Business</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label asp-for="PhoneNumber" class="control-label"></label>
@@ -60,4 +63,3 @@
             </div>
         </div>
     </div>
-</section>

@@ -1,0 +1,99 @@
+﻿@using WebEnterprise.ViewModels.Common;
+@model PagedResult<WebEnterprise.ViewModels.Catalog.Document.DocumentsVm>
+
+@{
+    ViewData["Title"] = "List User Document";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    <script>
+        setTimeout(function () {
+            $('#msgAlert').fadeOut('slow');
+        }, 2000);
+    </script>
+}
+<div class="grid wide">
+    <div class="row">
+        <!-- content container start-->
+        <div class="col l-12 m-12 c-12">
+            <div class="content-container-box">
+                <div class="header-box-content">
+                    <div class="nameFaculty">
+                        <span>IT</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col l-12 c-12 m-12">
+                        <form action="." method="POST">
+                            <div class="coor-list-docx">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Author</th>
+                                            <th>Date</th>
+                                            <th>Status</th>
+                                            <th>Handle</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.Items)
+                                        {
+                                            <tr>
+                                                <td id="showDocument-box" style="text-decoration:underline;cursor:pointer">@Html.DisplayFor(modelItem => item.Caption)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.UserName)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.CreateOn)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                                                <td>
+                                                    <div class="handle-coor">
+                                                        @Html.ActionLink("Download", "Download", new { id = item.ID })
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            @await Component.InvokeAsync("Pager", Model)
+        </div>
+        <!-- content container end-->
+    </div>
+</div>
+@*popup-display-document start*@
+<div class="popup-document">
+    <div class="popup-overlay"></div>
+    <div class="document-container">
+        <div class="document-content">
+        </div>
+        <div class="document-comment">
+            <i class="fas fa-heart" id="action-like"></i>
+            <i class="fas fa-comment" id="action-comment"></i>
+            <div class="comment-content">
+                <div class="comment-userName">Coordiantor Business</div>
+                <div class="user-comment">this is comment</div>
+            </div>
+            <form asp-action="CreateComment" enctype="multipart/form-data" method="POST" autocomplete="off">
+                <input type="text" name="comment" id="input-comment" placeholder="Write your comment...">
+                <button type="submit">Comment</button>
+            </form>
+        </div>
+        <div class="document-comment-mobi">
+            <i class="fas fa-heart" id="action-like-mobi"></i>
+            <i class="fas fa-comment" id="action-comment-mobi"></i>
+            <div class="comment-content">
+                <div class="comment-userName">Coordiantor Business</div>
+                <div class="user-comment">this is comment</div>
+            </div>
+            <form action="." method="POST" autocomplete="off">
+                <input type="text" name="comment" id="input-comment-mobi" placeholder="Write your comment...">
+                <button type="submit">Comment</button>
+            </form>
+        </div>
+        <i class="fas fa-comment-dots" id="comment-active"></i>
+    </div>
+</div>
+<!-- popup-display-document end -->

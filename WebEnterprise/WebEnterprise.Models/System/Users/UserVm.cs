@@ -30,7 +30,10 @@ namespace WebEnterprise.ViewModels.System.Users
         public int Position { get; set; }
 
         [Display(Name = "Faculty ID")]
-        public string Faculty { get; set; }
+        public int Faculty { get; set; }
+
+        [Display(Name = "Faculty Name")]
+        public string FacultyName { get; set; }
 
         public IList<string> Roles { get; set; }
     }

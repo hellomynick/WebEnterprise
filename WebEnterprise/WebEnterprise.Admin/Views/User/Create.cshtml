@@ -16,53 +16,58 @@
             <div class="col l-4 l-o-4">
                 <div class="admin-createUser">
                     <form asp-action="Create">
-                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group">
-                            <label asp-for="FirstName" class="control-label"></label>
+                            <label asp-for="FirstName" class="control-label"><i class="fas fa-user-alt"></i> FirstName</label>
                             <input asp-for="FirstName" class="form-control" />
                             <span asp-validation-for="FirstName" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="LastName" class="control-label"></label>
+                            <label asp-for="LastName" class="control-label"><i class="fas fa-user-alt"></i> LastName</label>
                             <input asp-for="LastName" class="form-control" />
                             <span asp-validation-for="LastName" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="DateOfBirth" class="control-label"></label>
-                            <input asp-for="DateOfBirth" class="form-control" />
+                            <label asp-for="DateOfBirth" class="control-label"><i class="far fa-calendar-alt"></i> DateOfBirth</label>
+                            <input asp-for="DateOfBirth" class="form-control" type="date" />
                             <span asp-validation-for="DateOfBirth" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Email" class="control-label"></label>
+                            <label asp-for="Email" class="control-label"><i class="far fa-envelope"></i> Email</label>
                             <input asp-for="Email" class="form-control" />
                             <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="PhoneNumber" class="control-label"></label>
+                            <label asp-for="PhoneNumber" class="control-label"><i class="fas fa-phone-square-alt"></i> PhoneNumber</label>
                             <input asp-for="PhoneNumber" class="form-control" />
                             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="UserName" class="control-label"></label>
+                            <label asp-for="UserName" class="control-label"><i class="fas fa-user-alt"></i> UserName</label>
                             <input asp-for="UserName" class="form-control" />
                             <span asp-validation-for="UserName" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Password" class="control-label"></label>
+                            <label asp-for="Password" class="control-label"><i class="fas fa-lock"></i> Password</label>
                             <input asp-for="Password" class="form-control" />
                             <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="ConfirmPassword" class="control-label"></label>
+                            <label asp-for="ConfirmPassword" class="control-label"><i class="fas fa-lock"></i> ConfirmPassword</label>
                             <input asp-for="ConfirmPassword" class="form-control" />
                             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="FacultyID" class="control-label"></label>
-                            <input asp-for="FacultyID" class="form-control" />
+                            <label asp-for="FacultyID" class="control-label"><i class="fas fa-list"> Faculty</i></label>
+                            <select asp-for="FacultyID" class="form-control">
+                                <option value="1">IT</option>
+                                <option value="2">Desgin</option>
+                                <option value="3">Tourism</option>
+                                <option value="4">Business</option>
+                            </select>
                         </div>
                         <div class="form-group">
-                            <label asp-for="ThumbnailImage" class="control-label"></label>
+                            <label asp-for="ThumbnailImage" class="control-label"><i class="far fa-images"></i> Avatar</label>
                             <input asp-for="ThumbnailImage" type="file" class="form-control" />
                         </div>
                         <div class="form-group">

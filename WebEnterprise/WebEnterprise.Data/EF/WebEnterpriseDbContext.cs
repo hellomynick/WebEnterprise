@@ -20,7 +20,8 @@ namespace WebEnterprise.Data.EF
             modelBuilder.ApplyConfiguration(new DocumentConfigurations());
             modelBuilder.ApplyConfiguration(new SchoolYearConfigurations());
             modelBuilder.ApplyConfiguration(new UserImageConfiguration());
-            modelBuilder.ApplyConfiguration(new LanguageConfiguration());
+            modelBuilder.ApplyConfiguration(new SetTimeSystemConfigurations());
+            modelBuilder.ApplyConfiguration(new CommentConfigurations());
 
             modelBuilder.ApplyConfiguration(new GroupUserConfigurations());
             modelBuilder.ApplyConfiguration(new UserConfigurations());
@@ -41,6 +42,7 @@ namespace WebEnterprise.Data.EF
         public DbSet<Faculty> Faculties { get; set; }
         public DbSet<SchoolYear> SchoolYears { get; set; }
         public DbSet<FacultyOfDocument> FacultyOfDocument { get; set; }
-        public DbSet<Language> Languages { get; set; }
+        public DbSet<SetTimeSystem> SetTimeSystems { get; set; }
+        public DbSet<Comment> Comments { get; set; }
     }
 }

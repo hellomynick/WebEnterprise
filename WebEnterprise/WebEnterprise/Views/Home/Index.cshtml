@@ -61,6 +61,12 @@
                             {
                                 <li class="nav-item nav-item--consistent"><a>@Html.ActionLink("Manager", "IndexForManager", "Document")</a></li>
                             }
+                            @if (Context.User.Identity.IsAuthenticated == true && Context.User.IsInRole("guest"))
+                            {
+                                <li class="nav-item nav-item--consistent">
+                                    <a> @Html.ActionLink("Guest", "IndexForGuest", "Document")</a>
+                                </li>
+                            }
                         </ul>
                     </div>
                 </div>

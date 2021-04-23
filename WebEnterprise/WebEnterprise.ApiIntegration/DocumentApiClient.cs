@@ -11,6 +11,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using WebEnterprise.Untilities.Constants;
+using WebEnterprise.ViewModels.Catalog.Comment;
 using WebEnterprise.ViewModels.Catalog.Document;
 using WebEnterprise.ViewModels.Common;
 
@@ -83,6 +84,26 @@ namespace WebEnterprise.ApiIntegration
             return data;
         }
 
+        public async Task<PagedResult<DocumentsVm>> GetForManager(GetDocumentsPagingRequest request)
+        {
+            var data = await GetAsync<PagedResult<DocumentsVm>>(
+                $"/api/documents/getformanager?pageIndex={request.PageIndex}" +
+                $"&pageSize={request.PageSize}" +
+                $"&keyword={request.Keyword}&userName={request.UserName}");
+
+            return data;
+        }
+
+        public async Task<PagedResult<DocumentsVm>> GetForGuest(GetDocumentsPagingRequest request)
+        {
+            var data = await GetAsync<PagedResult<DocumentsVm>>(
+                $"/api/documents/getforguest?pageIndex={request.PageIndex}" +
+                $"&pageSize={request.PageSize}" +
+                $"&keyword={request.Keyword}&userName={request.UserName}");
+
+            return data;
+        }
+
         public async Task<bool> UpdateDocument(DocumentsUpdateRequest request)
         {
             var sessions = _httpContextAccessor
@@ -105,7 +126,7 @@ namespace WebEnterprise.ApiIntegration
                 ByteArrayContent bytes = new ByteArrayContent(data);
                 requestContent.Add(bytes, "documentFile", request.DocumentFile.FileName);
             }
-
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.Content) ? "" : request.Content), "Content");
             var response = await client.PutAsync($"/api/documents/" + request.Id, requestContent);
             return response.IsSuccessStatusCode;
         }
@@ -149,6 +170,23 @@ namespace WebEnterprise.ApiIntegration
                 $"&keyword={request.Keyword}&userName={request.UserName}");
 
             return data;
+        }
+
+        public async Task<bool> PostDocument(DocumentsPostRequest request)
+        {
+            var sessions = _httpContextAccessor
+                .HttpContext
+                .Session
+                .GetString(SystemConstants.AppSettings.Token);
+            var client = _httpClientFactory.CreateClient("BackendApi");
+            client.BaseAddress = new Uri(_configuration[SystemConstants.AppSettings.BaseAddress]);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
+
+            var requestContent = new MultipartFormDataContent();
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.Status.ToString()) ? "" : request.Status.ToString()), "Status");
+
+            var response = await client.PutAsync($"/api/documents/post/" + request.ID, requestContent);
+            return response.IsSuccessStatusCode;
         }
     }
 }

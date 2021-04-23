@@ -121,6 +121,33 @@ namespace WebEnterprise.Data.Migrations
                     b.ToTable("AppUserToken");
                 });
 
+            modelBuilder.Entity("WebEnterprise.Data.Entities.Comment", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("DocumentID")
+                        .HasColumnType("bigint");
+
+                    b.Property<Guid?>("UserID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("DocumentID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("Comments");
+                });
+
             modelBuilder.Entity("WebEnterprise.Data.Entities.Document", b =>
                 {
                     b.Property<long>("ID")
@@ -227,7 +254,7 @@ namespace WebEnterprise.Data.Migrations
                         new
                         {
                             Id = new Guid("9936b153-37a9-41d8-9781-f0532c25e732"),
-                            ConcurrencyStamp = "bf27b050-76ee-4363-9b06-526c5dcea544",
+                            ConcurrencyStamp = "8040a957-5d42-4144-a3f8-5e5f6ab88b5e",
                             Name = "admin",
                             NormalizedName = "admin"
                         });
@@ -236,21 +263,17 @@ namespace WebEnterprise.Data.Migrations
             modelBuilder.Entity("WebEnterprise.Data.Entities.Language", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("varchar(5)")
-                        .HasMaxLength(5)
-                        .IsUnicode(false);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("IsDefault")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Languages");
+                    b.ToTable("Language");
 
                     b.HasData(
                         new
@@ -299,6 +322,26 @@ namespace WebEnterprise.Data.Migrations
                             StartDayYear = new DateTime(2020, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserID = new Guid("a0626e5f-0945-425c-9135-421ce9ffd4a1")
                         });
+                });
+
+            modelBuilder.Entity("WebEnterprise.Data.Entities.SetTimeSystem", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("EndDay")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("StartDay")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("SetTimeSystem");
                 });
 
             modelBuilder.Entity("WebEnterprise.Data.Entities.User", b =>
@@ -383,7 +426,7 @@ namespace WebEnterprise.Data.Migrations
                         {
                             Id = new Guid("a0626e5f-0945-425c-9135-421ce9ffd4a1"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1b766c89-0a9a-400f-a969-cac72ebf08a4",
+                            ConcurrencyStamp = "847e80e9-b5ce-4b07-ac30-9f660d590e94",
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfBirth = new DateTime(2000, 3, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "minhvu09033@gmail.com",
@@ -394,7 +437,7 @@ namespace WebEnterprise.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "minhvu09033@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAENABOOtJzrjcpYVOeXyaRhTU2atjJMlzsJrXVSWbvEkjx4KfApvl2FBoIm1iZ6ruag==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJn649+eKBeYCokkaRBvnDLy3CyGc8es2scdIMJ0TFOJVEsr++Z1IczPV+wsjuBnBg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             Sex = false,
@@ -435,6 +478,17 @@ namespace WebEnterprise.Data.Migrations
                     b.HasIndex("UserID");
 
                     b.ToTable("UserImages");
+                });
+
+            modelBuilder.Entity("WebEnterprise.Data.Entities.Comment", b =>
+                {
+                    b.HasOne("WebEnterprise.Data.Entities.Document", "Documents")
+                        .WithMany("Comments")
+                        .HasForeignKey("DocumentID");
+
+                    b.HasOne("WebEnterprise.Data.Entities.User", "Users")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserID");
                 });
 
             modelBuilder.Entity("WebEnterprise.Data.Entities.Document", b =>

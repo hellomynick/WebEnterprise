@@ -18,5 +18,6 @@ namespace WebEnterprise.Data.Entities
         public bool Status { get; set; }
         public int FacultyOfDocumentID { get; set; }
         public FacultyOfDocument FacultyOfDocuments { get; set; }
+        public List<Comment> Comments { get; set; }
     }
 }

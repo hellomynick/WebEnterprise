@@ -9,6 +9,5 @@ namespace WebEnterprise.Data.Entities
         public DateTime StartDayYear { set; get; }
         public DateTime EndDayYear { set; get; }
         public User Users { get; set; }
-
     }
 }

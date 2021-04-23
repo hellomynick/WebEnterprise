@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using WebEnterprise.ViewModels.Catalog.Comment;
 using WebEnterprise.ViewModels.Catalog.Document;
 using WebEnterprise.ViewModels.Common;
 
@@ -17,9 +18,15 @@ namespace WebEnterprise.ApiIntegration
 
         Task<PagedResult<DocumentsVm>> GetByUserID(GetDocumentsPagingRequest request);
 
+        Task<PagedResult<DocumentsVm>> GetForGuest(GetDocumentsPagingRequest request);
+
+        Task<PagedResult<DocumentsVm>> GetForManager(GetDocumentsPagingRequest request);
+
         Task<PagedResult<DocumentsVm>> GetByFaculty(GetDocumentsPagingRequest request);
 
         Task<PagedResult<DocumentsVm>> GetTotal(GetDocumentsPagingRequest request);
+
+        Task<bool> PostDocument(DocumentsPostRequest request);
 
         Task<DocumentsVm> GetById(long id);
 

@@ -14,6 +14,8 @@ namespace WebEnterprise.Application.Catalog.Documents
 
         Task<long> Delete(long documentId);
 
+        Task<long> PostDocument(DocumentsPostRequest request);
+
         Task<PagedResult<DocumentsVm>> GetAllPaging(GetDocumentsPagingRequest request);
 
         Task<DocumentsVm> GetById(long documentId);
@@ -25,5 +27,11 @@ namespace WebEnterprise.Application.Catalog.Documents
         Task<PagedResult<DocumentsVm>> GetAllByUserId(GetDocumentsPagingRequest request);
 
         Task<PagedResult<DocumentsVm>> GetAllByFaculty(GetDocumentsPagingRequest request);
+
+        Task<PagedResult<DocumentsVm>> GetForManager(GetDocumentsPagingRequest request);
+
+        Task<PagedResult<DocumentsVm>> GetForGuest(GetDocumentsPagingRequest request);
+
+        Task<long> ViewDocument(DocumentDownloadRequest request);
     }
 }

@@ -1,0 +1,60 @@
+﻿@using WebEnterprise.ViewModels.Common;
+@model PagedResult<WebEnterprise.ViewModels.Catalog.Document.DocumentsVm>
+
+@{
+    ViewData["Title"] = "List User Document";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    <script>
+        setTimeout(function () {
+            $('#msgAlert').fadeOut('slow');
+        }, 2000);
+    </script>
+}
+<div class="grid wide">
+    <div class="row">
+        <!-- content container start-->
+        <div class="col l-12 m-12 c-12">
+            <div class="content-container-box">
+                <div class="header-box-content">
+                    <div class="nameFaculty">
+                        <span>All contributions</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col l-12 c-12 m-12">
+                        <form action="." method="POST">
+                            <div class="coor-list-docx">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Author</th>
+                                            <th>Date</th>
+                                            <th>Status</th>
+                                            <th>Handle</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.Items)
+                                        {
+                                            <tr>
+                                                <td>@Html.DisplayFor(modelItem => item.Caption)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.UserName)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.CreateOn)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            @await Component.InvokeAsync("Pager", Model)
+        </div>
+        <!-- content container end-->
+    </div>
+</div>

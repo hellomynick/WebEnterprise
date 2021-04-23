@@ -11,7 +11,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Collections.Generic;
+using WebEnterprise.Application.Catalog.Comments;
 using WebEnterprise.Application.Catalog.Documents;
+using WebEnterprise.Application.Catalog.SetTimeSystems;
 using WebEnterprise.Application.Common;
 using WebEnterprise.Application.System.Roles;
 using WebEnterprise.Application.System.Users;
@@ -44,6 +46,9 @@ namespace WebEnterprise.BackendApi
             // Declace DI
             services.AddTransient<IStorageService, FileStorageService>();
             services.AddTransient<IDocumentsService, DocumentsService>();
+            services.AddTransient<ICommentsService, CommentsService>();
+
+            services.AddTransient<ISetTimeSystemService, SetTimeSystemService>();
 
             services.AddTransient<UserManager<User>, UserManager<User>>();
             services.AddTransient<SignInManager<User>, SignInManager<User>>();

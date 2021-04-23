@@ -36,6 +36,13 @@ namespace WebEnterprise.BackendApi.Controllers
             return Ok(documents);
         }
 
+        [HttpGet("getformanager")]
+        public async Task<IActionResult> GetForManager([FromQuery] GetDocumentsPagingRequest request)
+        {
+            var documents = await _documentsService.GetForManager(request);
+            return Ok(documents);
+        }
+
         [HttpGet("getbyfaculty")]
         public async Task<IActionResult> GetByFaculty([FromQuery] GetDocumentsPagingRequest request)
         {
@@ -47,6 +54,13 @@ namespace WebEnterprise.BackendApi.Controllers
         public async Task<IActionResult> GetByTotal([FromQuery] GetDocumentsPagingRequest request)
         {
             var documents = await _documentsService.GetTotal(request);
+            return Ok(documents);
+        }
+
+        [HttpGet("getforguest")]
+        public async Task<IActionResult> GetByGuest([FromQuery] GetDocumentsPagingRequest request)
+        {
+            var documents = await _documentsService.GetForGuest(request);
             return Ok(documents);
         }
 
@@ -96,6 +110,22 @@ namespace WebEnterprise.BackendApi.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var affectedResult = await _documentsService.Delete(id);
+            if (affectedResult == 0)
+                return BadRequest();
+            return Ok();
+        }
+
+        [HttpPut("post/{documentid}")]
+        [Consumes("multipart/form-data")]
+        [Authorize]
+        public async Task<IActionResult> PostDocument([FromRoute] long documentid, [FromForm] DocumentsPostRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            request.ID = documentid;
+            var affectedResult = await _documentsService.PostDocument(request);
             if (affectedResult == 0)
                 return BadRequest();
             return Ok();

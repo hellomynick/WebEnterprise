@@ -1,0 +1,11 @@
+﻿@model WebEnterprise.ViewModels.Catalog.Document.DownloadFileRequest
+<div class="row">
+    <fieldset style="margin-left:12px" class="col l-5 c-12">
+        <legend>Download documents (.zip)</legend>
+        <form action="." method="POST">
+            <input type="text" asp-for="Time" data-toggle="datepicker" data-date-format="yyyy.mm"
+                   placeholder="Pick month">
+            <button type="submit">Download</button>
+        </form>
+    </fieldset>
+</div>

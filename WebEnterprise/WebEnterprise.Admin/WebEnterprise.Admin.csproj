@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Aspose.Words" Version="21.3.0" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="9.5.1" />
     <PackageReference Include="GroupDocs.Viewer" Version="21.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.12" />
@@ -21,6 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\WebEnterprise.ApiIntegration\WebEnterprise.ApiIntegration.csproj" />
     <ProjectReference Include="..\WebEnterprise.Application\WebEnterprise.Application.csproj" />
+    <ProjectReference Include="..\WebEnterprise.BackendApi\WebEnterprise.BackendApi.csproj" />
     <ProjectReference Include="..\WebEnterprise.Models\WebEnterprise.ViewModels.csproj" />
   </ItemGroup>
 </Project>

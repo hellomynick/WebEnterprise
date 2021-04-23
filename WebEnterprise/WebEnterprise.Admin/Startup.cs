@@ -34,9 +34,9 @@ namespace WebEnterprise.Admin
                 var handler = new HttpClientHandler();
                 var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
-                //if (environment == Environments.Development)
+                //if (environment == environments.development)
                 //{
-                //    handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
+                //    handler.servercertificatecustomvalidationcallback = (message, cert, chain, errors) => { return true; };
                 //}
                 handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
                 return handler;
@@ -51,11 +51,13 @@ namespace WebEnterprise.Admin
                      .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromMinutes(300);
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
             });
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IDocumentApiClient, DocumentApiClient>();
             services.AddTransient<IUserApiClient, UserApiClient>();
+            services.AddTransient<ISetTimeSystemApiClient, SetTimeSystemApiClient>();
+
             services.AddTransient<IRoleApiClient, RoleApiClient>();
             IMvcBuilder builder = services.AddRazorPages();
             var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");

@@ -51,6 +51,7 @@ namespace WebEnterprise
             });
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IDocumentApiClient, DocumentApiClient>();
+            services.AddSingleton<ICommentApiClient, CommentApiClient>();
             services.AddTransient<IUserApiClient, UserApiClient>();
             IMvcBuilder builder = services.AddRazorPages();
             var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");

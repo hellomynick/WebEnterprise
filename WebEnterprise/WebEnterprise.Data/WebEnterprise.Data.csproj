@@ -103,6 +103,10 @@
     <Compile Remove="Migrations\20210323032951_ASpCoreDb.Designer.cs" />
     <Compile Remove="Migrations\20210323034133_ASpCoreDb.cs" />
     <Compile Remove="Migrations\20210323034133_ASpCoreDb.Designer.cs" />
+    <Compile Remove="Migrations\20210330022413_addcomment.cs" />
+    <Compile Remove="Migrations\20210330022413_addcomment.Designer.cs" />
+    <Compile Remove="Migrations\20210410105604_change.cs" />
+    <Compile Remove="Migrations\20210410105604_change.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

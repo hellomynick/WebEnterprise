@@ -16,5 +16,6 @@ namespace WebEnterprise.Data.Entities
         public List<UserImage> UserImages { get; set; }
         public List<Document> Documents { get; set; }
         public List<SchoolYear> SchoolYears { get; set; }
+        public List<Comment> Comments { get; set; }
     }
 }

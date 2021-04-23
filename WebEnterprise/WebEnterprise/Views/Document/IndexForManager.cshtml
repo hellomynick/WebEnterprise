@@ -23,6 +23,7 @@
                     <li id="3" class="category-sidebar" data-id="data-it">Information Technology</li>
                     <li id="4" class="category-sidebar" data-id="data-business">Business</li>
                     <li id="5" class="category-sidebar" data-id="data-tourism">Tourism</li>
+                    <li id="6" class="category-sidebar" data-id="data-chart">Chart</li>
                 </ul>
             </div>
         </div>
@@ -42,94 +43,70 @@
                         <li id="3" class="mSidebar-item" data-id="data-it">Information Technology</li>
                         <li id="4" class="mSidebar-item" data-id="data-business">Business</li>
                         <li id="5" class="mSidebar-item" data-id="data-tourism">Tourism</li>
+                        <li id="6" class="mSidebar-item" data-id="data-chart">Chart</li>
                     </ul>
                 </div>
                 <!-- data container start-->
-                <div class="content-container-data" id="data-all">
-                    <div class="row">
+                @foreach (var item in Model.Items)
+                {
+                    <div class="content-container-data" id="data-all">
 
-                        <div class="col l-4 c-12 m-4">
-
-                            <div class="dataBox">
-                                <h4>Number of articles</h4>
-                                @foreach (var item in Model.Items)
-                                {
-                                    <span>@Html.DisplayFor(modelItem => item.ViewCount)</span>
-                                }
+                        <div class="row">
+                            <div class="col l-4 c-12 m-4">
+                                <div class="dataBox">
+                                    <h4>Number of articles</h4>
+                                    <span>@Html.DisplayFor(modelitem => item.ViewCount)</span>
+                                </div>
+                            </div>
+                            <div class="col l-4 c-12 m-4">
+                                <div class="dataBox">
+                                    <h4>Articles approved</h4>
+                                    <span>@Html.DisplayFor(modelitem => item.TotalTrue)</span>
+                                </div>
+                            </div>
+                            <div class="col l-4 c-12 m-4">
+                                <div class="dataBox">
+                                    <h4>Articles waiting</h4>
+                                    <span>@Html.DisplayFor(modelitem => item.TotalFalse)</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="col l-4 c-12 m-4">
-                            <div class="dataBox">
-                                <h4>Articles approved</h4>
-                                @foreach (var item in Model.Items)
-                                {
-                                    <span>@Html.DisplayFor(modelItem => item.TotalTrue)</span>
-                                }
-                            </div>
-                        </div>
-                        <div class="col l-4 c-12 m-4">
-                            <div class="dataBox">
-                                <h4>Articles waiting</h4>
-                                @foreach (var item in Model.Items)
-                                {
-                                    <span>@Html.DisplayFor(modelItem => item.TotalFalse)</span>
-                                }
-                            </div>
+                        <div class="row">
+                            <fieldset style="margin-left:12px" class="col l-5 c-12">
+                                <legend>Download documents (.zip)</legend>
+                                <form action="." method="POST">
+                                    <input type="text" data-toggle="datepicker" data-date-format="yyyy.mm"
+                                           placeholder="Pick month">
+                                    <button type="submit">@Html.ActionLink("Download", "DownloadFileZip")</button>
+                                </form>
+                            </fieldset>
                         </div>
                     </div>
-                    <div class="row">
-                        <fieldset style="margin-left:12px" class="col l-5 c-12">
-                            <legend>Download documents (.zip)</legend>
-                            <form action="." method="POST">
-                                <input type="text" data-toggle="datepicker" data-date-format="yyyy.mm"
-                                       placeholder="Pick month">
-                                <button type="submit">Download</button>
-                            </form>
-                        </fieldset>
-                    </div>
-                    <!-- table list students -->
-                    <div class="row">
-                        <div class="col l-12">
-                            <h1 style="text-align: center;">List students</h1>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Number of document</th>
-                                    </tr>
-                                </thead>
-                                @foreach (var item in Model.Items)
-                                {
-                                    <tbody>
-                                        <tr>
-                                            <td>@Html.DisplayFor(modelItem => item.ViewCount)</td>
-                                        </tr>
-                                    </tbody>
-                                }
-                            </table>
-                        </div>
-                    </div>
-                </div>
+                }
                 <div class="content-container-data" id="data-design">
-                    <div class="row">
-                        <div class="col l-4 c-12 m-4">
-                            <div class="dataBox" style="background-color: aquamarine;">
-                                <h4>Number of articles</h4>
-                                <span>11</span>
+                    @foreach (var item in Model.Items)
+                    {
+                        <div class="row">
+                            <div class="col l-4 c-12 m-4">
+                                <div class="dataBox">
+                                    <h4>Number of articles</h4>
+                                    <span>@Html.DisplayFor(modelitem => item.TotalDesign)</span>
+                                </div>
+                            </div>
+                            <div class="col l-4 c-12 m-4">
+                                <div class="dataBox">
+                                    <h4>Articles approved</h4>
+                                    <span>@Html.DisplayFor(modelitem => item.TotalDesignTrue)</span>
+                                </div>
+                            </div>
+                            <div class="col l-4 c-12 m-4">
+                                <div class="dataBox">
+                                    <h4>Articles waiting</h4>
+                                    <span>@Html.DisplayFor(modelitem => item.TotalDesignFalse)</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="col l-4 c-12 m-4">
-                            <div class="dataBox">
-                                <h4>Articles approved</h4>
-                                <span>12</span>
-                            </div>
-                        </div>
-                        <div class="col l-4 c-12 m-4">
-                            <div class="dataBox">
-                                <h4>Articles waiting</h4>
-                                <span>15</span>
-                            </div>
-                        </div>
-                    </div>
+                    }
                     <div class="row">
                         <fieldset style="margin-left:12px" class="col l-5 c-12">
                             <legend>Download documents (.zip)</legend>
@@ -140,12 +117,165 @@
                             </form>
                         </fieldset>
                     </div>
-
-                    <!-- data container end -->
                 </div>
+                <div class="content-container-data" id="data-it">
+                    @foreach (var item in Model.Items)
+                    {
+                        <div class="row">
+                            <div class="col l-4 c-12 m-4">
+                                <div class="dataBox">
+                                    <h4>Number of articles</h4>
+                                    <span>@Html.DisplayFor(modelitem => item.TotalIT)</span>
+                                </div>
+                            </div>
+                            <div class="col l-4 c-12 m-4">
+                                <div class="dataBox">
+                                    <h4>Articles approved</h4>
+                                    <span>@Html.DisplayFor(modelitem => item.TotalITTrue)</span>
+                                </div>
+                            </div>
+                            <div class="col l-4 c-12 m-4">
+                                <div class="dataBox">
+                                    <h4>Articles waiting</h4>
+                                    <span>@Html.DisplayFor(modelitem => item.TotalITFalse)</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="row">
+                        <fieldset style="margin-left:12px" class="col l-5 c-12">
+                            <legend>Download documents (.zip)</legend>
+                            <form action="." method="POST">
+                                <input type="text" data-toggle="datepicker" data-date-format="yyyy.mm"
+                                       placeholder="Pick month">
+                                <button type="submit">Download</button>
+                            </form>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="content-container-data" id="data-business">
+                    @foreach (var item in Model.Items)
+                    {
+                        <div class="row">
+                            <div class="col l-4 c-12 m-4">
+                                <div class="dataBox">
+                                    <h4>Number of articles</h4>
+                                    <span>@Html.DisplayFor(modelitem => item.TotalBusiness)</span>
+                                </div>
+                            </div>
+                            <div class="col l-4 c-12 m-4">
+                                <div class="dataBox">
+                                    <h4>Articles approved</h4>
+                                    <span>@Html.DisplayFor(modelitem => item.TotalBusinessTrue)</span>
+                                </div>
+                            </div>
+                            <div class="col l-4 c-12 m-4">
+                                <div class="dataBox">
+                                    <h4>Articles waiting</h4>
+                                    <span>@Html.DisplayFor(modelitem => item.TotalBusinessFalse)</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="row">
+                        <fieldset style="margin-left:12px" class="col l-5 c-12">
+                            <legend>Download documents (.zip)</legend>
+                            <form action="." method="POST">
+                                <input type="text" data-toggle="datepicker" data-date-format="yyyy.mm"
+                                       placeholder="Pick month">
+                                <button type="submit">Download</button>
+                            </form>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="content-container-data" id="data-tourism">
+                    @foreach (var item in Model.Items)
+                    {
+                        <div class="row">
+                            <div class="col l-4 c-12 m-4">
+                                <div class="dataBox">
+                                    <h4>Number of articles</h4>
+                                    <span>@Html.DisplayFor(modelitem => item.TotalToursim)</span>
+                                </div>
+                            </div>
+                            <div class="col l-4 c-12 m-4">
+                                <div class="dataBox">
+                                    <h4>Articles approved</h4>
+                                    <span>@Html.DisplayFor(modelitem => item.TotalToursimTrue)</span>
+                                </div>
+                            </div>
+                            <div class="col l-4 c-12 m-4">
+                                <div class="dataBox">
+                                    <h4>Articles waiting</h4>
+                                    <span>@Html.DisplayFor(modelitem => item.TotalToursimFalse)</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="row">
+                        <fieldset style="margin-left:12px" class="col l-5 c-12">
+                            <legend>Download documents (.zip)</legend>
+                            <form action="." method="POST">
+                                <input type="text" data-toggle="datepicker" data-date-format="yyyy.mm"
+                                       placeholder="Pick month">
+                                <button type="submit">Download</button>
+                            </form>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="content-container-data" id="data-chart">
+
+                    <div class="row">
+                        <div class="chart-wrap">
+                            <div id="piechart"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- data container end -->
             </div>
-            <!-- content container end-->
         </div>
-        @await Component.InvokeAsync("Pager", Model)
+        <!-- content container end-->
     </div>
 </div>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+@foreach (var items in Model.Items)
+{
+    <script>
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+    // google.load("visualization", "1", {packages:["corechart"]});
+    // google.setOnLoadCallback(drawChart);
+    $('[data-toggle="datepicker"]').datepicker({
+        // options
+        format: 'mm/yyyy'
+    });
+
+    validator({
+        form: '#form-login',
+        errorSelector: '.form-message',
+        rules: [
+            validator.isRequired('#username'),
+            validator.minLength('#password', 6),
+        ]
+    });
+
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+
+            ['Task', 'documents'],
+            ['IT', @items.TotalIT],
+            ['Business', @items.TotalBusiness],
+            ['Tourism', @items.TotalToursim],
+            ['Design', @items.TotalDesign]
+        ]);
+        var options = {
+            title: 'Percentage of contributions by each Faculty for academic year',
+            width: '100%',
+            height: '100%'
+        };
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+    };
+    </script>
+}

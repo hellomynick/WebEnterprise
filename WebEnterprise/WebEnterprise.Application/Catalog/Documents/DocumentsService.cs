@@ -69,12 +69,22 @@ namespace WebEnterprise.Application.Catalog.Documents
             var userdocument = await _context.Documents.FindAsync(request.Id);
             if (userdocument == null)
                 throw new WebEnterpriseException($"Cannot find an image with id {request.Id}");
-
+            userdocument.Caption = request.Content;
             if (request.DocumentFile != null)
             {
                 userdocument.DocumentPath = await this.SaveFile(request.DocumentFile);
                 userdocument.FileSize = request.DocumentFile.Length;
             }
+            _context.Documents.Update(userdocument);
+            return await _context.SaveChangesAsync();
+        }
+
+        public async Task<long> PostDocument(DocumentsPostRequest request)
+        {
+            var userdocument = await _context.Documents.FindAsync(request.ID);
+            if (userdocument == null)
+                throw new WebEnterpriseException($"Cannot find an image with id {request.ID}");
+            userdocument.Status = request.Status;
             _context.Documents.Update(userdocument);
             return await _context.SaveChangesAsync();
         }
@@ -105,11 +115,24 @@ namespace WebEnterprise.Application.Catalog.Documents
             return viewModel;
         }
 
+        public async Task<long> ViewDocument(DocumentDownloadRequest request)
+        {
+            var userdocument = await _context.Documents.FindAsync(request.ID);
+            if (userdocument == null)
+                throw new WebEnterpriseException($"Cannot find an image with id {request.ID}");
+            userdocument.DocumentPath = request.DocumentPath;
+            userdocument.Caption = request.Caption;
+            _context.Documents.Update(userdocument);
+            return await _context.SaveChangesAsync();
+        }
+
         public async Task<PagedResult<DocumentsVm>> GetAllPaging(GetDocumentsPagingRequest request)
         {
             var query = from c in _context.Documents
                         join u in _context.Users on c.UserID equals u.Id
-                        select new { c, u };
+                        from st in _context.SetTimeSystems
+                        where (st.ID == 1)
+                        select new { c, u, st };
             if (request.UserIds != null && request.UserIds.Count > 0)
             {
                 query = query.Where(c => request.UserName.Contains(c.c.User.UserName));
@@ -129,7 +152,9 @@ namespace WebEnterprise.Application.Catalog.Documents
                     Status = x.c.Status,
                     Caption = x.c.Caption,
                     FacultyID = x.c.FacultyOfDocumentID,
-                    CreateOn = x.c.CreateOn.Date
+                    CreateOn = x.c.CreateOn.Date,
+                    StartDay = x.st.StartDay,
+                    EndDay = x.st.EndDay.Date,
                 }).ToListAsync();
             var pagedResult = new PagedResult<DocumentsVm>()
             {
@@ -143,11 +168,12 @@ namespace WebEnterprise.Application.Catalog.Documents
         {
             var claimsIdentity = _httpContextAccessor.HttpContext.User.Identity as ClaimsIdentity;
             var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier)?.Value.ToString();
-            var query = from c in _context.Documents
-                        join fod in _context.FacultyOfDocument on c.FacultyOfDocumentID equals fod.ID
-                        join u in _context.Users on c.UserID equals u.Id
-                        where c.UserID.ToString() == userId
-                        select new { c, u, fod };
+            var query = from d in _context.Documents
+                        join u in _context.Users on d.UserID equals u.Id
+                        join fod in _context.FacultyOfDocument on d.FacultyOfDocumentID equals fod.ID
+                        from st in _context.SetTimeSystems
+                        where d.UserID.ToString() == userId
+                        select new { d, u, fod, st };
             if (request.DocumentId.HasValue && request.DocumentId.Value > 0)
             {
                 query = query.Where(c => c.u.UserName == request.UserName);
@@ -157,13 +183,16 @@ namespace WebEnterprise.Application.Catalog.Documents
                 .Take(request.PageSize)
                 .Select(x => new DocumentsVm()
                 {
-                    ID = x.c.ID,
+                    ID = x.d.ID,
                     UserID = x.u.Id,
                     UserName = x.u.UserName,
-                    Caption = x.c.Caption,
+                    Caption = x.d.Caption,
                     FacultyName = x.fod.Name,
-                    Status = x.c.Status,
-                    CreateOn = x.c.CreateOn.Date
+                    Status = x.d.Status,
+                    CreateOn = x.d.CreateOn,
+                    StartDay = x.st.StartDay,
+                    EndDay = x.st.EndDay,
+                    Daynow = DateTime.Now
                 }).ToListAsync();
             var pagedResult = new PagedResult<DocumentsVm>()
             {
@@ -241,13 +270,112 @@ namespace WebEnterprise.Application.Catalog.Documents
             int TotalTrue = await query.Where(x => x.d.Status == true).CountAsync();
             int TotalFalse = await query.Where(x => x.d.Status == false).CountAsync();
             int TotalIT = await query.Where(x => x.d.FacultyOfDocumentID == 1).CountAsync();
+            int TotalITTrue = await query.Where(x => x.d.FacultyOfDocumentID == 1 && x.d.Status == true).CountAsync();
+            int TotalITFalse = await query.Where(x => x.d.FacultyOfDocumentID == 1 && x.d.Status == false).CountAsync();
+            int TotalTousrim = await query.Where(x => x.d.FacultyOfDocumentID == 2).CountAsync();
+            int TotalTousrimTrue = await query.Where(x => x.d.FacultyOfDocumentID == 2 && x.d.Status == true).CountAsync();
+            int TotalTousrimFalse = await query.Where(x => x.d.FacultyOfDocumentID == 2 && x.d.Status == false).CountAsync();
+            int TotalDesign = await query.Where(x => x.d.FacultyOfDocumentID == 3).CountAsync();
+            int TotalDesignTrue = await query.Where(x => x.d.FacultyOfDocumentID == 3 && x.d.Status == true).CountAsync();
+            int TotalDesignFalse = await query.Where(x => x.d.FacultyOfDocumentID == 3 && x.d.Status == false).CountAsync();
+            int TotalMarketing = await query.Where(x => x.d.FacultyOfDocumentID == 4).CountAsync();
+            int TotalMarketingTrue = await query.Where(x => x.d.FacultyOfDocumentID == 4 && x.d.Status == true).CountAsync();
+            int TotalMarketingFalse = await query.Where(x => x.d.FacultyOfDocumentID == 4 && x.d.Status == false).CountAsync();
+            int TotalBusiness = await query.Where(x => x.d.FacultyOfDocumentID == 5).CountAsync();
+            int TotalBusinessTrue = await query.Where(x => x.d.FacultyOfDocumentID == 5 && x.d.Status == true).CountAsync();
+            int TotalBusinessFalse = await query.Where(x => x.d.FacultyOfDocumentID == 5 && x.d.Status == false).CountAsync();
             var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
                 .Take(request.PageSize)
                 .Select(x => new DocumentsVm()
                 {
                     ViewCount = Total,
                     TotalTrue = TotalTrue,
-                    TotalFalse = TotalFalse
+                    TotalFalse = TotalFalse,
+                    TotalIT = TotalIT,
+                    TotalITTrue = TotalITTrue,
+                    TotalITFalse = TotalITFalse,
+                    TotalToursim = TotalTousrim,
+                    TotalToursimTrue = TotalTousrimTrue,
+                    TotalToursimFalse = TotalTousrimFalse,
+                    TotalBusiness = TotalBusiness,
+                    TotalBusinessTrue = TotalBusinessTrue,
+                    TotalBusinessFalse = TotalBusinessFalse,
+                    TotalDesign = TotalDesign,
+                    TotalDesignFalse = TotalDesignFalse,
+                    TotalDesignTrue = TotalDesignTrue,
+                    TotalMarketing = TotalMarketing,
+                    TotalMarketingFalse = TotalMarketingFalse,
+                    TotalMarketingTrue = TotalMarketingTrue,
+                }).Take(1).ToListAsync();
+            var pagedResult = new PagedResult<DocumentsVm>()
+            {
+                TotalRecord = TotalRow,
+                Items = data
+            };
+            return pagedResult;
+        }
+
+        public async Task<PagedResult<DocumentsVm>> GetForManager(GetDocumentsPagingRequest request)
+        {
+            var query = from c in _context.Documents
+                        join u in _context.Users on c.UserID equals u.Id
+                        where (c.Status == true)
+                        select new { c, u };
+            if (request.UserIds != null && request.UserIds.Count > 0)
+            {
+                query = query.Where(c => request.UserName.Contains(c.c.User.UserName));
+            }
+            if (!string.IsNullOrEmpty(request.Keyword))
+            {
+                query = query.Where(x => x.c.User.UserName.Contains(request.Keyword));
+            }
+            int TotalRow = await query.CountAsync();
+            var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
+                .Take(request.PageSize)
+                .Select(x => new DocumentsVm()
+                {
+                    ID = x.c.ID,
+                    UserID = x.c.UserID,
+                    UserName = x.u.UserName,
+                    Status = x.c.Status,
+                    Caption = x.c.Caption,
+                    FacultyID = x.c.FacultyOfDocumentID,
+                    CreateOn = x.c.CreateOn.Date
+                }).ToListAsync();
+            var pagedResult = new PagedResult<DocumentsVm>()
+            {
+                TotalRecord = TotalRow,
+                Items = data
+            };
+            return pagedResult;
+        }
+
+        public async Task<PagedResult<DocumentsVm>> GetForGuest(GetDocumentsPagingRequest request)
+        {
+            var query = from c in _context.Documents
+                        join u in _context.Users on c.UserID equals u.Id
+                        where (c.Status == true && c.FacultyOfDocumentID == u.FacultyID)
+                        select new { c, u };
+            if (request.UserIds != null && request.UserIds.Count > 0)
+            {
+                query = query.Where(c => request.UserName.Contains(c.c.User.UserName));
+            }
+            if (!string.IsNullOrEmpty(request.Keyword))
+            {
+                query = query.Where(x => x.c.User.UserName.Contains(request.Keyword));
+            }
+            int TotalRow = await query.CountAsync();
+            var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
+                .Take(request.PageSize)
+                .Select(x => new DocumentsVm()
+                {
+                    ID = x.c.ID,
+                    UserID = x.c.UserID,
+                    UserName = x.u.UserName,
+                    Status = x.c.Status,
+                    Caption = x.c.Caption,
+                    FacultyID = x.c.FacultyOfDocumentID,
+                    CreateOn = x.c.CreateOn.Date
                 }).ToListAsync();
             var pagedResult = new PagedResult<DocumentsVm>()
             {

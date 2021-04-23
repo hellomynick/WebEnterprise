@@ -1,0 +1,38 @@
+﻿@model WebEnterprise.ViewModels.Catalog.Document.DocumentsUpdateRequest
+
+@{
+    ViewData["Title"] = "Tạo mới người dùng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="grid wide">
+    <div style="height: 100vh;">
+        <div class="row">
+            <div class="col l-8 l-o-2 c-8 c-o-2 m-8 m-o-2">
+                <div class="uploadBox">
+                    <i class="fas fa-file-upload"></i>
+
+                    <form id="upload" asp-action="Edit" enctype="multipart/form-data" method="post" style="width:100%">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+                        <div>
+                            <input type="text" asp-for="Content" name="Content" id="" placeholder="Title..." class="input-title">
+                            <label for="uploadInput"><input asp-for="DocumentFile" type="file" class="upload-hidden" multiple id="uploadInput">Upload Files</label>
+                        </div>
+                        <div class="selectedFiles">
+                            <h2>Files Selected</h2>
+                            <ul id="list-Files-Upload"></ul>
+                        </div>
+                        <input type="submit" value="Update" id="call-to-action" class="submit-upload">
+                    </form>
+                    <!-- <a class="upload-btn" id="call-to-action">
+                        <span>Select file</span>
+                    </a> -->
+                    <div class="uploadCheckbox">
+                        <input type="checkbox" name="" id="uploadCheckbox">
+                        <span>I agree to Terms and Conditions </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

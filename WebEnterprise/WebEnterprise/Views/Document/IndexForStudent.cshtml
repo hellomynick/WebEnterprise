@@ -22,31 +22,46 @@
         <div class="col l-3 m-4 c-12" style="margin: 0;">
             <div class="user-info">
                 <div class="user-info-header">
-                    <img src="../assets/img/user-avatar.jpg" alt="" class="user-avatar">
+                    <img src="~/assets/img/user-avatar.jpg" alt="" class="user-avatar">
                     <h4>User Information</h4>
                 </div>
                 <ul class="list-user-info">
                     <li>User Name:@Context.User.Identity.Name</li>
-                    @foreach (var item in Model.Items)
-                     {
+                    @foreach (var item in Model.Items.Take(1))
+                    {
                         <li>
                             Faculty:@Html.DisplayFor(modelItem => item.FacultyName)
                         </li>
-                     }
+                    }
                     <li>Email: @claimsIdentity.FindFirst(ClaimTypes.Email)?.Value.ToString()</li>
                     <li>Number of document: 10</li>
+                    <li id="upload-disable">@Html.ActionLink("Create", "Create")</li>
                 </ul>
             </div>
         </div>
         <!-- user documents -->
         <div class="col l-9 m-8 c-12">
             <div class="row">
-                <form asp-action="IndexForStudent" method="get">
-                    <input type="text" value="@ViewBag.Keyword" name="keyword" class="form-control" />
+                <div class="col l-8 l-o-2 c-8 c-o-2 m-8 m-o-2" style="margin-bottom: 10px;">
+                    <ul class="timeline">
+                        @foreach (var item in Model.Items.Take(1))
+                        {
+                            <li class="time-item">
+                                <div class="timeStamp">
+                                    <span class="time-date">@Html.FormatValue("yyy-MM-dd", item.StartDay.ToString("yyy-MM-dd"))</span>
+                                </div>
+                                <div class="time-status"><h4>Semester start</h4></div>
+                            </li>
+                            <li class="time-item">
+                                <div class="timeStamp">
+                                    <span class="time-date">@Html.FormatValue("yyy-MM-dd", item.EndDay.ToString("yyy-MM-dd"))</span>
+                                </div>
+                                <div class="time-status"><h4>Semester end</h4></div>
+                            </li>
 
-                    <button type="submit" class="btn btn-primary">Tìm</button>
-                    <button type="button" onclick="window.location.href='/Document/IndexForStudent'" class="btn btn-dark">Reset</button>
-                </form>
+                        }
+                    </ul>
+                </div>
             </div>
             <div class="row">
                 @foreach (var item in Model.Items)
@@ -59,6 +74,7 @@
                                     <h3>Author: @Html.DisplayFor(modelItem => item.UserName)</h3>
                                     <h3>Date-time: @Html.DisplayFor(modelItem => item.CreateOn.Date)</h3>
                                     <h3>Faculty: @Html.DisplayFor(modelItem => item.FacultyName)</h3>
+                                    <h3>Comment: @Html.ActionLink("Comment", "Create", "Comment", new { id = item.ID })</h3>
                                 </div>
                             </div>
                             <h2><a href="#">@Html.DisplayFor(modelItem => item.Caption)</a></h2>
@@ -70,3 +86,14 @@
         </div>
     </div>
 </div>
+@foreach (var item in Model.Items.Take(1))
+{
+    <script>
+        if (@item.Daynow.Day > @item.EndDay.Day)
+        {
+            console.log(1)
+        var tagA = $("#upload-disable").children();
+        tagA.attr("href", "#")
+    }
+    </script>
+}
